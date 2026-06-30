@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, ShieldCheck } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 
 export function CTA() {
   return (
@@ -50,6 +51,7 @@ export function CTA() {
 
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
 
+            <Link href ="/dashboard">
             <Button
               size="lg"
               className="group h-12 rounded-xl bg-indigo-600 px-8 text-base font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-indigo-500 hover:shadow-[0_15px_50px_rgba(99,102,241,.35)]"
@@ -59,6 +61,7 @@ export function CTA() {
               <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
 
             </Button>
+            </Link>
 
             <Button
               variant="outline"
