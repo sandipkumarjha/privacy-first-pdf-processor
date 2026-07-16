@@ -1,32 +1,26 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  UploadCloud,
-  ShieldCheck,
-  FileText,
-  ArrowRight,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ShieldCheck } from "lucide-react";
+import { PdfUpload } from "@/components/upload/pdf-upload";
 
 export function UploadCard() {
   return (
     <motion.section
       initial={{ opacity: 0, y: 25 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#0F172A]/70 backdrop-blur-xl"
     >
       {/* Background Glow */}
       <div className="absolute inset-0">
-        <div className="absolute left-0 top-0 h-56 w-56 rounded-full bg-indigo-500/10 blur-[120px]" />
-        <div className="absolute bottom-0 right-0 h-56 w-56 rounded-full bg-cyan-500/10 blur-[120px]" />
-    </div>
+        <div className="absolute left-0 top-0 h-64 w-64 rounded-full bg-indigo-500/10 blur-[120px]" />
+        <div className="absolute bottom-0 right-0 h-64 w-64 rounded-full bg-cyan-500/10 blur-[120px]" />
+      </div>
 
       <div className="relative z-10 p-8">
         {/* Header */}
-        <div className="mb-8 flex items-center justify-between flex-wrap gap-4">
+        <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <h2 className="text-2xl font-bold text-white">
               Upload your PDF
@@ -37,106 +31,90 @@ export function UploadCard() {
             </p>
           </div>
 
-          <div className="flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-2">
+          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-2">
             <ShieldCheck className="h-4 w-4 text-emerald-400" />
 
-            <span className="text-sm text-emerald-300">
+            <span className="text-sm font-medium text-emerald-300">
               100% Local Processing
             </span>
           </div>
         </div>
 
-        {/* Upload Area */}
-        <motion.div
-          whileHover={{
-            scale: 1.01,
-          }}
-          transition={{
-            duration: 0.25,
-          }}
-          className="group cursor-pointer rounded-3xl border-2 border-dashed border-slate-700 bg-gradient-to-br from-slate-900 to-slate-950 p-12 transition-all duration-300 hover:border-indigo-500/60 hover:bg-slate-900"
-        >
-          <div className="flex flex-col items-center text-center">
-            <motion.div
-              animate={{
-                y: [0, -8, 0],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-              }}
-              className="mb-6 rounded-2xl bg-gradient-to-br from-indigo-600 to-cyan-500 p-6 shadow-lg shadow-indigo-500/20"
-            >
-              <UploadCloud className="h-10 w-10 text-white" />
-            </motion.div>
+        {/* Upload Component */}
+        <PdfUpload />
 
-            <h3 className="text-2xl font-semibold text-white">
-              Drag & Drop PDF
-            </h3>
-
-            <p className="mt-3 max-w-lg text-slate-400">
-              Drop your PDF anywhere inside this area or browse from
-              your computer.
-            </p>
-
-            <Button
-              size="lg"
-              className="mt-8 rounded-xl bg-indigo-600 px-6 hover:bg-indigo-500"
-            >
-              Choose PDF
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-
-            <p className="mt-4 text-sm text-slate-500">
-              Maximum file size depends on your device memory.
-            </p>
-          </div>
-        </motion.div>
-
-        {/* Bottom Cards */}
+        {/* Bottom Info Cards */}
         <div className="mt-8 grid gap-5 md:grid-cols-3">
           <motion.div
-            whileHover={{ y: -4 }}
-            className="rounded-2xl border border-white/10 bg-white/5 p-5"
+            whileHover={{ y: -6 }}
+            transition={{ duration: 0.25 }}
+            className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm"
           >
-            <FileText className="mb-4 h-8 w-8 text-indigo-400" />
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-500/10">
+              <svg
+                className="h-6 w-6 text-indigo-400"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M7 2h8l5 5v15H7z" />
+              </svg>
+            </div>
 
             <h4 className="font-semibold text-white">
               Supported Formats
             </h4>
 
-            <p className="mt-2 text-sm text-slate-400">
-              PDF documents of any size your browser can handle.
+            <p className="mt-2 text-sm leading-6 text-slate-400">
+              PDF documents of any size your browser can comfortably
+              process.
             </p>
           </motion.div>
 
           <motion.div
-            whileHover={{ y: -4 }}
-            className="rounded-2xl border border-white/10 bg-white/5 p-5"
+            whileHover={{ y: -6 }}
+            transition={{ duration: 0.25 }}
+            className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm"
           >
-            <ShieldCheck className="mb-4 h-8 w-8 text-emerald-400" />
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/10">
+              <ShieldCheck className="h-6 w-6 text-emerald-400" />
+            </div>
 
             <h4 className="font-semibold text-white">
               Privacy Guaranteed
             </h4>
 
-            <p className="mt-2 text-sm text-slate-400">
-              Your document never leaves your browser.
+            <p className="mt-2 text-sm leading-6 text-slate-400">
+              Your files never leave your device. Everything happens
+              completely inside your browser.
             </p>
           </motion.div>
 
           <motion.div
-            whileHover={{ y: -4 }}
-            className="rounded-2xl border border-white/10 bg-white/5 p-5"
+            whileHover={{ y: -6 }}
+            transition={{ duration: 0.25 }}
+            className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm"
           >
-            <UploadCloud className="mb-4 h-8 w-8 text-cyan-400" />
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-500/10">
+              <svg
+                className="h-6 w-6 text-cyan-400"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 3v18M3 12h18" />
+              </svg>
+            </div>
 
             <h4 className="font-semibold text-white">
-              Fast Processing
+              Lightning Fast
             </h4>
 
-            <p className="mt-2 text-sm text-slate-400">
-              WebAssembly powered PDF engine for instant operations.
+            <p className="mt-2 text-sm leading-6 text-slate-400">
+              Powered by WebAssembly and Web Workers for instant PDF
+              processing.
             </p>
           </motion.div>
         </div>
