@@ -319,16 +319,11 @@ export function useUpload(options: UseUploadOptions = {}): UseUploadReturn {
    * still fires onChange.
    */
   const handleBrowseSelect = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const selectedFiles = event.target.files;
-      if (selectedFiles && selectedFiles.length > 0) {
-        void addFiles(selectedFiles);
-      }
-      event.target.value = "";
+    (file: File) => {
+      void addFiles([file]);
     },
     [addFiles]
   );
-
   return {
     files,
     activeFile,

@@ -109,12 +109,21 @@ export interface PdfUploadProps {
 export interface UseUploadReturn {
   files: UploadedFile[];
   activeFile: UploadedFile | null;
+
   isDragging: boolean;
+
   addFiles: (fileList: FileList | File[]) => Promise<void>;
+
   removeFile: (fileId: string) => void;
+
   replaceFile: (fileId: string, newFile: File) => Promise<void>;
+
   retryFile: (fileId: string) => Promise<void>;
+
   setIsDragging: (isDragging: boolean) => void;
+
   handleDrop: (event: React.DragEvent<HTMLElement>) => void;
-  handleBrowseSelect: (event: React.ChangeEvent<HTMLInputElement>) => void;
+
+  // changed
+  handleBrowseSelect: (file: File) => void;
 }
