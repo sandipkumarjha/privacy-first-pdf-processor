@@ -319,6 +319,18 @@ export function useUpload(options: UseUploadOptions = {}): UseUploadReturn {
    * still fires onChange.
    */
   const handleBrowseSelect = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const selectedFiles = event.target.files;
+  
+      if (selectedFiles) {
+        void addFiles(selectedFiles);
+      }
+  
+      event.target.value = "";
+    },
+    [addFiles]
+  );
+  const handleFileSelect = useCallback(
     (file: File) => {
       void addFiles([file]);
     },
@@ -335,5 +347,6 @@ export function useUpload(options: UseUploadOptions = {}): UseUploadReturn {
     setIsDragging,
     handleDrop,
     handleBrowseSelect,
+    handleFileSelect,
   };
 }

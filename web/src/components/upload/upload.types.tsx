@@ -125,5 +125,9 @@ export interface UseUploadReturn {
   handleDrop: (event: React.DragEvent<HTMLElement>) => void;
 
   // changed
-  handleBrowseSelect: (file: File) => void;
+  handleBrowseSelect: (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => void;
+  
+  handleFileSelect: (file: File) => void;
 }

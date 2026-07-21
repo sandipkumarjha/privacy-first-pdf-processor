@@ -8,7 +8,7 @@ import { UploadButton } from "./upload-button";
 import { formatFileSize } from "./upload.utils";
 
 interface EmptyStateProps {
-  onFileSelect: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onFileSelect: (file: File) => void;
   maxFileSizeBytes: number;
   isDragging?: boolean;
   className?: string;

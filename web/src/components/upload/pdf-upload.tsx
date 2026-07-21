@@ -37,6 +37,7 @@ export function PdfUpload({
     setIsDragging,
     handleDrop,
     handleBrowseSelect,
+    handleFileSelect,
   } = useUpload({ multiple, validationConfig, onFileReady, onFileRemove });
 
   const resolvedMaxSize =
@@ -55,20 +56,19 @@ export function PdfUpload({
           own "Replace" action instead). */}
       {showDropzone && (
         <UploadZone
+        isDragging={isDragging}
+        onDrop={handleDrop}
+        onDragEnter={handleDragEnter}
+        onDragLeave={handleDragLeave}
+        onBrowseSelect={handleBrowseSelect}
+      >
+        <EmptyState
+          onFileSelect={handleFileSelect}
+          maxFileSizeBytes={resolvedMaxSize}
           isDragging={isDragging}
-          onDrop={handleDrop}
-          onDragEnter={handleDragEnter}
-          onDragLeave={handleDragLeave}
-          onBrowseSelect={handleBrowseSelect}
-        >
-          <EmptyState
-            onFileSelect={handleBrowseSelect}
-            maxFileSizeBytes={resolvedMaxSize}
-            isDragging={isDragging}
-          />
-        </UploadZone>
+        />
+      </UploadZone>
       )}
-
       {/* File list */}
       {hasFiles && (
         <div className="flex flex-col gap-3" role="list" aria-label="Uploaded files">
