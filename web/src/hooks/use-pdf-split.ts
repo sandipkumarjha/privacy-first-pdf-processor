@@ -1,62 +1,120 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
+import type { PDFDocumentProxy } from "pdfjs-dist";
 import { useSplitStore } from "@/store/split-store";
-import { splitPdf } from "@/lib/pdf/split/split-engine";
-import type { SplitRange, UsePdfSplitReturn } from "@/types/split";
+import { loadPdfDocument, PdfLoadError } from "@/lib/pdf/split/pdf-loader";
+import type { SplitError } from "@/types/split";
+
+interface UsePdfSplitState {
+  file: File | null;
+  pdfDocument: PDFDocumentProxy | null;
+  pageCount: number;
+  isLoading: boolean;
+  error: SplitError | null;
+}
+
+interface UsePdfSplitReturn {
+  state: UsePdfSplitState;
+  loadPdf: (file: File) => Promise<void>;
+  reset: () => void;
+}
+
+const INITIAL_LOCAL_STATE: Omit<UsePdfSplitState, "isLoading" | "error"> = {
+  file: null,
+  pdfDocument: null,
+  pageCount: 0,
+};
+
+function toSplitError(err: unknown): SplitError {
+  if (err instanceof PdfLoadError) {
+    return { code: "LOAD_FAILED", message: err.message };
+  }
+  if (err instanceof Error) {
+    return { code: "UNKNOWN_ERROR", message: err.message };
+  }
+  return { code: "UNKNOWN_ERROR", message: "Failed to load PDF." };
+}
 
 export function usePdfSplit(): UsePdfSplitReturn {
-  const status = useSplitStore((s) => s.status);
-  const document = useSplitStore((s) => s.document);
-  const options = useSplitStore((s) => s.options);
-  const results = useSplitStore((s) => s.results);
-  const error = useSplitStore((s) => s.error);
-  const progress = useSplitStore((s) => s.progress);
-
   const setDocument = useSplitStore((s) => s.setDocument);
   const setStatus = useSplitStore((s) => s.setStatus);
   const setError = useSplitStore((s) => s.setError);
-  const setMode = useSplitStore((s) => s.setMode);
-  const togglePageSelection = useSplitStore((s) => s.togglePageSelection);
-  const addRangeToStore = useSplitStore((s) => s.addRange);
-  const removeRange = useSplitStore((s) => s.removeRange);
-  const updateRange = useSplitStore((s) => s.updateRange);
-  const setResults = useSplitStore((s) => s.setResults);
-  const reset = useSplitStore((s) => s.reset);
+  const storeReset = useSplitStore((s) => s.reset);
 
-  const loadDocument = useCallback(
-    async (file: File) => {
+  const [file, setFile] = useState<File | null>(INITIAL_LOCAL_STATE.file);
+  const [pdfDocument, setPdfDocument] = useState<PDFDocumentProxy | null>(
+    INITIAL_LOCAL_STATE.pdfDocument
+  );
+  const [pageCount, setPageCount] = useState<number>(INITIAL_LOCAL_STATE.pageCount);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setLocalError] = useState<SplitError | null>(null);
+
+  const loadPdf = useCallback(
+    async (nextFile: File) => {
+      setIsLoading(true);
+      setLocalError(null);
+      setError(null);
       setStatus("loading-pdf");
-      // TODO: implement PDF loading + page metadata extraction
-      void file;
-      void setDocument;
+
+      if (pdfDocument) {
+        await pdfDocument.destroy().catch(() => undefined);
+      }
+
+      try {
+        const { document, pageCount: loadedPageCount } = await loadPdfDocument(nextFile);
+
+        setFile(nextFile);
+        setPdfDocument(document);
+        setPageCount(loadedPageCount);
+
+        setDocument({
+          fileName: nextFile.name,
+          file: nextFile,
+          totalPages: loadedPageCount,
+          pages: [],
+        });
+
+        setStatus("ready");
+      } catch (err) {
+        const splitError = toSplitError(err);
+
+        setFile(null);
+        setPdfDocument(null);
+        setPageCount(0);
+        setLocalError(splitError);
+
+        setDocument(null);
+        setError(splitError);
+        setStatus("error");
+      } finally {
+        setIsLoading(false);
+      }
     },
-    [setStatus, setDocument]
+    [pdfDocument, setDocument, setError, setStatus]
   );
 
-  const addRange = useCallback(
-    (range: Omit<SplitRange, "id">) => {
-      addRangeToStore({ ...range, id: crypto.randomUUID() });
-    },
-    [addRangeToStore]
-  );
+  const reset = useCallback(() => {
+    if (pdfDocument) {
+      void pdfDocument.destroy().catch(() => undefined);
+    }
 
-  const executeSplit = useCallback(async () => {
-    if (!document) return;
-    setStatus("splitting");
-    // TODO: call splitPdf and handle result/error
-    void splitPdf;
-    void setResults;
-    void setError;
-  }, [document, setStatus, setResults, setError]);
+    setFile(null);
+    setPdfDocument(null);
+    setPageCount(0);
+    setIsLoading(false);
+    setLocalError(null);
+
+    storeReset();
+  }, [pdfDocument, storeReset]);
 
   return {
-    state: { status, document, options, results, error, progress },
-    loadDocument,
-    setMode,
-    togglePageSelection,
-    addRange,
-    removeRange,
-    updateRange,
-    executeSplit,
+    state: {
+      file,
+      pdfDocument,
+      pageCount,
+      isLoading,
+      error,
+    },
+    loadPdf,
     reset,
   };
 }
