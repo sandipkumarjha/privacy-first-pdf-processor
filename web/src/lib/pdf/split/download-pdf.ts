@@ -1,5 +1,7 @@
 export function downloadPdf(pdfBytes: Uint8Array, filename: string): void {
-    const blob = new Blob([pdfBytes], { type: "application/pdf" });
+    const blob = new Blob([pdfBytes.buffer as ArrayBuffer], {
+        type: "application/pdf",
+      });
     const objectUrl = URL.createObjectURL(blob);
   
     const anchor = document.createElement("a");

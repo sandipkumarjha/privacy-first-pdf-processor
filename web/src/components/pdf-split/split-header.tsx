@@ -1,145 +1,100 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Scissors, ShieldCheck, Sparkles } from "lucide-react";
+import { Scissors, Shield, MousePointerClick, Eye, Download } from "lucide-react";
 
-const features = [
+const FEATURE_CARDS = [
   {
+    icon: MousePointerClick,
     title: "Select Pages",
-    description: "Choose individual pages or custom page ranges.",
+    description: "Choose individual pages or ranges",
   },
   {
-    title: "Live Preview",
-    description: "Instant thumbnails generated directly in your browser.",
+    icon: Eye,
+    title: "Preview Pages",
+    description: "Live thumbnails before exporting",
   },
   {
-    title: "Fast Download",
-    description: "Create and download the new PDF within seconds.",
+    icon: Download,
+    title: "Download Instantly",
+    description: "Generate new PDF in seconds",
   },
-];
+] as const;
 
-export function SplitHeader() {
+export default function SplitHeader() {
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 25 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#0F172A]/60 backdrop-blur-xl"
-    >
-      {/* Background Glow */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -left-20 top-0 h-72 w-72 rounded-full bg-indigo-500/10 blur-[120px]" />
-        <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-cyan-500/10 blur-[120px]" />
-    </div>
-
-      <div className="relative z-10 p-8 lg:p-10">
-        <div className="flex flex-col-reverse gap-10 lg:flex-row lg:items-center lg:justify-between">
-          {/* Left */}
-          <div className="max-w-3xl">
-            {/* Badge */}
-
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 }}
-              className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-2"
-            >
-              <ShieldCheck className="h-4 w-4 text-emerald-400" />
-
-              <span className="text-sm font-medium text-emerald-300">
-                100% Local Processing
-              </span>
-            </motion.div>
-
-            {/* Heading */}
-
-            <motion.h1
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="bg-gradient-to-r from-indigo-400 via-cyan-300 to-blue-400 bg-clip-text text-4xl font-bold text-transparent md:text-5xl"
-            >
-              Split Your PDF
-            </motion.h1>
-
-            {/* Description */}
-
-            <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="mt-5 max-w-2xl text-lg leading-8 text-slate-400"
-            >
-              Choose exactly the pages you need and create a brand new PDF —
-              completely inside your browser with zero uploads, zero tracking,
-              and maximum privacy.
-            </motion.p>
-          </div>
-
-          {/* Right Icon */}
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            whileHover={{
-              scale: 1.05,
-              rotate: 3,
-            }}
-            transition={{ duration: 0.4 }}
-            className="group mx-auto lg:mx-0"
+    <div className="w-full">
+      <div className="flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center">
+        {/* Left: title, subtitle, badge */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="flex flex-col gap-4"
+        >
+          <motion.span
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, delay: 0.05, ease: "easeOut" }}
+            className="inline-flex w-fit items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400"
           >
-            <div className="relative flex h-28 w-28 items-center justify-center rounded-3xl bg-gradient-to-br from-indigo-600 via-blue-600 to-cyan-500 shadow-2xl shadow-indigo-500/20">
-              <motion.div
-                animate={{
-                  rotate: [0, -6, 6, 0],
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                }}
-              >
-                <Scissors className="h-12 w-12 text-white" />
-              </motion.div>
+            <Shield className="h-3.5 w-3.5" aria-hidden="true" />
+            100% Local Processing
+          </motion.span>
 
-              <Sparkles className="absolute right-3 top-3 h-4 w-4 text-white/70" />
+          <div className="flex flex-col gap-2">
+            <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl">
+              Split PDF
+            </h1>
+            <p className="max-w-xl text-sm text-zinc-500 dark:text-zinc-400 sm:text-base">
+              Extract specific pages into a new PDF completely inside your browser.
+            </p>
+          </div>
+        </motion.div>
 
-              <div className="absolute inset-0 rounded-3xl border border-white/10" />
-            </div>
-          </motion.div>
-        </div>
+        {/* Right: gradient icon card */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9, rotate: -4 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          transition={{ duration: 0.45, ease: "easeOut" }}
+          className="flex h-24 w-24 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-400 to-orange-600 shadow-lg shadow-orange-500/20 sm:h-28 sm:w-28"
+          aria-hidden="true"
+        >
+          <Scissors className="h-11 w-11 text-white sm:h-12 sm:w-12" strokeWidth={1.75} />
+        </motion.div>
+      </div>
 
-        {/* Feature Cards */}
-
-        <div className="mt-10 grid gap-5 md:grid-cols-3">
-          {features.map((feature, index) => (
+      {/* Feature cards */}
+      <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
+        {FEATURE_CARDS.map((feature, index) => {
+          const Icon = feature.icon;
+          return (
             <motion.div
               key={feature.title}
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
-                delay: 0.5 + index * 0.1,
+                duration: 0.35,
+                delay: 0.15 + index * 0.08,
+                ease: "easeOut",
               }}
-              whileHover={{
-                y: -6,
-                scale: 1.02,
-              }}
-              className="rounded-2xl border border-white/10 bg-white/5 p-5 transition-all duration-300 hover:border-indigo-500/30"
+              className="flex items-start gap-3 rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900"
             >
-              <h3 className="font-semibold text-white">
-                {feature.title}
-              </h3>
-
-              <p className="mt-2 text-sm leading-6 text-slate-400">
-                {feature.description}
-              </p>
+              <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-orange-50 dark:bg-orange-500/10">
+                <Icon className="h-4.5 w-4.5 text-orange-600 dark:text-orange-400" aria-hidden="true" />
+              </span>
+              <div className="flex flex-col gap-0.5">
+                <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">
+                  {feature.title}
+                </p>
+                <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                  {feature.description}
+                </p>
+              </div>
             </motion.div>
-          ))}
-        </div>
-
-        {/* Bottom Divider */}
-
-        <div className="mt-10 border-t border-white/10 pt-2" />
+          );
+        })}
       </div>
-    </motion.section>
+    </div>
   );
 }
