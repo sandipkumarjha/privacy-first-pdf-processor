@@ -6,6 +6,7 @@ import { memo, useCallback, useRef } from "react";
 import { motion } from "framer-motion";
 import { UploadCloud } from "lucide-react";
 
+
 interface UploadZoneProps {
   isDragging: boolean;
   disabled?: boolean;
@@ -130,6 +131,9 @@ function UploadZoneComponent({
         transition={{ duration: 0.18, ease: "easeOut" }}
         className="flex flex-col items-center gap-3"
       >
+        
+  
+
         <span
           className="flex h-14 w-14 items-center justify-center rounded-full bg-orange-100 dark:bg-orange-500/10"
           aria-hidden="true"

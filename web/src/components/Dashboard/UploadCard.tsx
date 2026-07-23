@@ -6,12 +6,14 @@ import { PdfUpload } from "@/components/upload/pdf-upload";
 
 export function UploadCard() {
   return (
-    <motion.section
+    
+    <motion.section 
       initial={{ opacity: 0, y: 25 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#0F172A]/70 backdrop-blur-xl"
     >
+      
       {/* Background Glow */}
       <div className="absolute inset-0">
         <div className="absolute left-0 top-0 h-64 w-64 rounded-full bg-indigo-500/10 blur-[120px]" />
@@ -41,7 +43,8 @@ export function UploadCard() {
         </div>
 
         {/* Upload Component */}
-        <PdfUpload />
+  <PdfUpload />
+
 
         {/* Bottom Info Cards */}
         <div className="mt-8 grid gap-5 md:grid-cols-3">
@@ -119,6 +122,7 @@ export function UploadCard() {
           </motion.div>
         </div>
       </div>
+      
     </motion.section>
   );
 }

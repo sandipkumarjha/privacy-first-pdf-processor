@@ -46,11 +46,8 @@ function FileCardComponent({
   );
 
   const handleReplaceSelect = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      event.stopPropagation();
-      const newFile = event.target.files?.[0];
-      if (newFile) onReplace(file.id, newFile);
-      event.target.value = "";
+    (newFile: File) => {
+      onReplace(file.id, newFile);
     },
     [file.id, onReplace]
   );

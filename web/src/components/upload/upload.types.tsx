@@ -130,4 +130,5 @@ export interface UseUploadReturn {
   ) => void;
   
   handleFileSelect: (file: File) => void;
+  
 }

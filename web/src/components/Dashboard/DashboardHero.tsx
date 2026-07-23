@@ -4,7 +4,19 @@ import { motion } from "framer-motion";
 import { ShieldCheck, Sparkles, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+
+/*const scrollToUpload = () => {
+  const section = document.getElementById("upload-zone");
+
+  if (!section) return;
+
+  section.scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+  });
+};*/
 export function DashboardHero() {
+  
   return (
     <motion.section
       initial={{ opacity: 0, y: 25 }}
@@ -63,14 +75,15 @@ export function DashboardHero() {
             transition={{ delay: 0.6 }}
             className="mt-8 flex flex-wrap gap-4"
           >
+            
             <Button
-              size="lg"
-              className="rounded-xl bg-indigo-600 px-6 hover:bg-indigo-500"
-            >
-              Upload PDF
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-
+  size="lg"
+  
+  className="rounded-xl bg-indigo-600 px-6 hover:bg-indigo-500"
+>
+  Upload PDF
+  <ArrowRight className="ml-2 h-4 w-4" />
+</Button>
             <Button
               size="lg"
               variant="outline"
