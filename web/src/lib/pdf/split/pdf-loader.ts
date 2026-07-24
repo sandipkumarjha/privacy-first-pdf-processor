@@ -13,8 +13,8 @@ export class PdfLoadError extends Error {
 }
 
 async function getPdfjs() {
-  return import("pdfjs-dist");
-}
+    return import("@/lib/worker/pdf-worker").then((module) => module.default);
+  }
 
 export async function loadPdfDocument(file: File): Promise<LoadedPdf> {
   if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
@@ -39,6 +39,7 @@ export async function loadPdfDocument(file: File): Promise<LoadedPdf> {
     const document = await loadingTask.promise;
     return { document, pageCount: document.numPages };
   } catch (err) {
+    console.error("REAL PDF ERROR:", err);
     throw new PdfLoadError("Failed to parse PDF. The file may be corrupted or encrypted.", err);
   }
 }

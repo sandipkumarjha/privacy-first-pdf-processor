@@ -2,9 +2,10 @@ import { useCallback, useState } from "react";
 import type { PDFDocumentProxy } from "pdfjs-dist";
 import { useSplitStore } from "@/store/split-store";
 import { loadPdfDocument, PdfLoadError } from "@/lib/pdf/split/pdf-loader";
+import { generateThumbnailsForPages } from "@/lib/pdf/split/Thumbnail-genrator";
 import { splitPdf as splitPdfBytes, SplitEngineError } from "@/lib/pdf/split/split-engine";
 import { downloadPdf } from "@/lib/pdf/split/download-pdf";
-import type { SplitError } from "@/types/split";
+import type { SplitError, SplitPageInfo } from "@/types/split";
 
 interface UsePdfSplitState {
   file: File | null;
@@ -25,12 +26,14 @@ interface UsePdfSplitReturn {
   download: (filename?: string) => void;
   reset: () => void;
 }
-const INITIAL_LOCAL_STATE: Omit<UsePdfSplitState, "isLoading" | "error" | "isSplitting" | "splitSuccess" | "splitError" | "resultBytes"> = {
-    file: null,
-    pdfDocument: null,
-    pageCount: 0,
-  };
 
+const INITIAL_LOCAL_STATE: Omit<UsePdfSplitState, "isLoading" | "error" | "isSplitting" | "splitSuccess" | "splitError" | "resultBytes"> = {
+  file: null,
+  pdfDocument: null,
+  pageCount: 0,
+};
+
+const THUMBNAIL_SCALE = 0.4;
 
 function toSplitError(err: unknown): SplitError {
   if (err instanceof PdfLoadError) {
@@ -41,21 +44,22 @@ function toSplitError(err: unknown): SplitError {
   }
   return { code: "UNKNOWN_ERROR", message: "Failed to load PDF." };
 }
+
 function toSplitEngineError(err: unknown): SplitError {
-    if (err instanceof SplitEngineError) {
-      if (err.message.includes("No pages selected")) {
-        return { code: "NO_PAGES_SELECTED", message: err.message };
-      }
-      if (err.message.includes("Invalid page number")) {
-        return { code: "INVALID_RANGE", message: err.message };
-      }
-      return { code: "SPLIT_FAILED", message: err.message };
+  if (err instanceof SplitEngineError) {
+    if (err.message.includes("No pages selected")) {
+      return { code: "NO_PAGES_SELECTED", message: err.message };
     }
-    if (err instanceof Error) {
-      return { code: "UNKNOWN_ERROR", message: err.message };
+    if (err.message.includes("Invalid page number")) {
+      return { code: "INVALID_RANGE", message: err.message };
     }
-    return { code: "UNKNOWN_ERROR", message: "Failed to split PDF." };
+    return { code: "SPLIT_FAILED", message: err.message };
   }
+  if (err instanceof Error) {
+    return { code: "UNKNOWN_ERROR", message: err.message };
+  }
+  return { code: "UNKNOWN_ERROR", message: "Failed to split PDF." };
+}
 
 export function usePdfSplit(): UsePdfSplitReturn {
   const setDocument = useSplitStore((s) => s.setDocument);
@@ -72,47 +76,83 @@ export function usePdfSplit(): UsePdfSplitReturn {
   const [pageCount, setPageCount] = useState<number>(INITIAL_LOCAL_STATE.pageCount);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setLocalError] = useState<SplitError | null>(null);
+
   const [isSplitting, setIsSplitting] = useState<boolean>(false);
   const [splitSuccess, setSplitSuccess] = useState<boolean>(false);
   const [splitError, setSplitError] = useState<SplitError | null>(null);
   const [resultBytes, setResultBytes] = useState<Uint8Array | null>(null);
-  
+
   const loadPdf = useCallback(
+    
     async (nextFile: File) => {
+        console.log("✅ loadPdf called");
       setIsLoading(true);
       setLocalError(null);
       setError(null);
       setStatus("loading-pdf");
+      
 
       if (pdfDocument) {
         await pdfDocument.destroy().catch(() => undefined);
       }
 
       try {
+        console.log("1. Loading PDF document...");
         const { document, pageCount: loadedPageCount } = await loadPdfDocument(nextFile);
-
+        console.log("2. PDF loaded", loadedPageCount);
         setFile(nextFile);
         setPdfDocument(document);
         setPageCount(loadedPageCount);
-
+        console.log("3. Store updated");
+        const pageNumbers = Array.from({ length: loadedPageCount }, (_, i) => i + 1);
+        console.log("4. Creating document");
         setDocument({
           fileName: nextFile.name,
           file: nextFile,
           totalPages: loadedPageCount,
-          pages: [],
+          pages: pageNumbers.map((pageNumber) => ({
+            pageNumber,
+            thumbnailUrl: null,
+            selected: false,
+            width: 0,
+            height: 0,
+          })),
         });
-
+        console.log("5. Document stored");
         setStatus("ready");
+        console.log("6. Generating thumbnails");
+        const thumbnails = await generateThumbnailsForPages(document, pageNumbers, {
+          scale: THUMBNAIL_SCALE,
+        });
+        console.log("8. Building pages");
+        const pagesWithThumbnails: SplitPageInfo[] = pageNumbers.map((pageNumber) => {
+          const thumbnail = thumbnails.get(pageNumber);
+          return {
+            pageNumber,
+            thumbnailUrl: thumbnail?.objectUrl ?? null,
+            selected: false,
+            width: thumbnail?.width ?? 0,
+            height: thumbnail?.height ?? 0,
+          };
+        });
+        console.log("9. Pages built");
+        setDocument({
+          fileName: nextFile.name,
+          file: nextFile,
+          totalPages: loadedPageCount,
+          pages: pagesWithThumbnails,
+        });
+        console.log("Store document:", useSplitStore.getState().document);
       } catch (err) {
-        const splitError = toSplitError(err);
+        const loadError = toSplitError(err);
 
         setFile(null);
         setPdfDocument(null);
         setPageCount(0);
-        setLocalError(splitError);
+        setLocalError(loadError);
 
         setDocument(null);
-        setError(splitError);
+        setError(loadError);
         setStatus("error");
       } finally {
         setIsLoading(false);
@@ -120,6 +160,8 @@ export function usePdfSplit(): UsePdfSplitReturn {
     },
     [pdfDocument, setDocument, setError, setStatus]
   );
+  
+  
   const split = useCallback(async () => {
     if (!file) {
       setSplitError({ code: "INVALID_FILE", message: "No file loaded to split." });
@@ -158,6 +200,7 @@ export function usePdfSplit(): UsePdfSplitReturn {
     },
     [resultBytes, file]
   );
+
   const reset = useCallback(() => {
     if (pdfDocument) {
       void pdfDocument.destroy().catch(() => undefined);

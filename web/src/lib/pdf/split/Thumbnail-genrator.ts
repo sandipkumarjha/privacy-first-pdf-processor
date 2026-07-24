@@ -13,7 +13,8 @@ export interface ThumbnailOptions {
 }
 
 const DEFAULT_SCALE = 0.5;
-const DEFAULT_MIME_TYPE: NonNullable<ThumbnailOptions["mimeType"]> = "image/png";
+const DEFAULT_MIME_TYPE: NonNullable<ThumbnailOptions["mimeType"]> =
+  "image/png";
 
 export class ThumbnailGenerationError extends Error {
   constructor(message: string, public readonly cause?: unknown) {
@@ -23,82 +24,118 @@ export class ThumbnailGenerationError extends Error {
 }
 
 export async function generatePageThumbnail(
-  document: PDFDocumentProxy,
+  pdf: PDFDocumentProxy,
   pageNumber: number,
   options: ThumbnailOptions = {}
 ): Promise<ThumbnailResult> {
-  const { scale = DEFAULT_SCALE, mimeType = DEFAULT_MIME_TYPE, quality } = options;
+  const {
+    scale = DEFAULT_SCALE,
+    mimeType = DEFAULT_MIME_TYPE,
+    quality,
+  } = options;
 
-  if (pageNumber < 1 || pageNumber > document.numPages) {
+  if (pageNumber < 1 || pageNumber > pdf.numPages) {
     throw new ThumbnailGenerationError(
-      `Page number ${pageNumber} is out of range (1-${document.numPages}).`
+      `Invalid page number ${pageNumber}.`
     );
   }
 
-  let page;
   try {
-    page = await document.getPage(pageNumber);
-  } catch (err) {
-    throw new ThumbnailGenerationError(`Failed to load page ${pageNumber}.`, err);
-  }
+    console.log(`📄 Loading page ${pageNumber}`);
 
-  try {
+    const page = await pdf.getPage(pageNumber);
+
     const viewport = page.getViewport({ scale });
 
-    const canvas = document instanceof Object && "createElement" in globalThis
-      ? window.document.createElement("canvas")
-      : null;
+    console.log("Viewport:", viewport.width, viewport.height);
 
-    if (!canvas) {
-      throw new ThumbnailGenerationError("Canvas is not available in this environment.");
-    }
+    const canvas = window.document.createElement("canvas");
 
-    canvas.width = viewport.width;
-    canvas.height = viewport.height;
+    canvas.width = Math.ceil(viewport.width);
+    canvas.height = Math.ceil(viewport.height);
 
     const context = canvas.getContext("2d");
+
     if (!context) {
-      throw new ThumbnailGenerationError("Failed to acquire 2D canvas context.");
+      throw new ThumbnailGenerationError(
+        "Failed to create 2D canvas context."
+      );
     }
 
-    await page.render({ canvas, canvasContext: context, viewport }).promise;
+    console.log(`🎨 Rendering page ${pageNumber}`);
 
-    const blob = await new Promise<Blob | null>((resolve) =>
-      canvas.toBlob(resolve, mimeType, quality)
-    );
+    const renderTask = page.render({
+      canvas,
+      canvasContext: context,
+      viewport,
+    });
+    
+    await renderTask.promise;
 
-    if (!blob) {
-      throw new ThumbnailGenerationError(`Failed to generate blob for page ${pageNumber}.`);
-    }
+    console.log(`✅ Render complete ${pageNumber}`);
+
+    const blob = await new Promise<Blob>((resolve, reject) => {
+      canvas.toBlob(
+        (result) => {
+          if (!result) {
+            reject(
+              new ThumbnailGenerationError(
+                `Failed to create thumbnail for page ${pageNumber}.`
+              )
+            );
+            return;
+          }
+
+          resolve(result);
+        },
+        mimeType,
+        quality
+      );
+    });
+
+    page.cleanup();
 
     return {
       objectUrl: URL.createObjectURL(blob),
       width: viewport.width,
       height: viewport.height,
     };
-  } finally {
-    page.cleanup();
+  } catch (err) {
+    console.error(
+      `❌ Thumbnail generation failed for page ${pageNumber}`,
+      err
+    );
+
+    throw new ThumbnailGenerationError(
+      `Failed to generate thumbnail for page ${pageNumber}.`,
+      err
+    );
   }
 }
 
 export async function generateThumbnailsForPages(
-  document: PDFDocumentProxy,
+  pdf: PDFDocumentProxy,
   pageNumbers: number[],
   options: ThumbnailOptions = {}
 ): Promise<Map<number, ThumbnailResult>> {
-  const results = new Map<number, ThumbnailResult>();
+  const result = new Map<number, ThumbnailResult>();
 
-  await Promise.all(
-    pageNumbers.map(async (pageNumber) => {
-      const thumbnail = await generatePageThumbnail(document, pageNumber, options);
-      results.set(pageNumber, thumbnail);
-    })
-  );
+  for (const pageNumber of pageNumbers) {
+    const thumbnail = await generatePageThumbnail(
+      pdf,
+      pageNumber,
+      options
+    );
 
-  return results;
+    result.set(pageNumber, thumbnail);
+  }
+
+  return result;
 }
 
-export function revokeThumbnail(objectUrl: string | null | undefined): void {
+export function revokeThumbnail(
+  objectUrl?: string | null
+): void {
   if (objectUrl) {
     URL.revokeObjectURL(objectUrl);
   }

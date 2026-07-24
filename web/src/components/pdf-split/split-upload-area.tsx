@@ -18,6 +18,7 @@ export default function SplitUploadArea({
   onFileSelect,
 }: SplitUploadAreaProps) {
   const handleFileSelect = (file: File) => {
+    console.log("✅ SplitUploadArea:", file.name);
     onFileSelect(file);
   };
 
