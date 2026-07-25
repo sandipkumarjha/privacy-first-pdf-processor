@@ -7,7 +7,8 @@ import { Upload, RefreshCw } from "lucide-react";
 type UploadButtonVariant = "primary" | "secondary" | "ghost";
 
 interface UploadButtonProps {
-  onFileSelect: (file: File) => void;
+  onFileSelect?: (file: File) => void;
+  onFilesSelect?: (files: File[]) => void;
   variant?: UploadButtonVariant;
   mode?: "upload" | "replace";
   disabled?: boolean;
@@ -31,6 +32,7 @@ const VARIANT_CLASSES: Record<UploadButtonVariant, string> = {
 
 function UploadButtonComponent({
   onFileSelect,
+  onFilesSelect,
   variant = "primary",
   mode = "upload",
   disabled = false,
@@ -49,17 +51,20 @@ function UploadButtonComponent({
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const files = e.target.files;
-
+  
       if (!files || files.length === 0) return;
-
-      onFileSelect(files[0]);
-
+  
+      if (multiple) {
+        onFilesSelect?.(Array.from(files));
+      } else {
+        onFileSelect?.(files[0]);
+      }
+  
       // Allow selecting the same file again
       e.target.value = "";
     },
-    [onFileSelect]
+    [multiple, onFileSelect, onFilesSelect]
   );
-
   const defaultLabel =
     mode === "replace" ? "Replace File" : "Browse PDF";
 
