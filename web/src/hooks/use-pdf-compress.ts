@@ -2,25 +2,34 @@
 
 import { useState, useCallback } from "react";
 import type { PDFDocumentProxy } from "pdfjs-dist";
-import { useCompressStore } from "@/store/compress-store";
-import { validatePdf } from "@/lib/pdf/compress/validation";
+import {
+  useCompressStore,
+  type CompressionLevel,
+} from "@/store/compress-store";
+import { validatePdfFile } from "@/lib/pdf/compress/validation";
 import { loadPdfDocument, getPageCount } from "@/lib/pdf/split/pdf-loader";
-import { compressPdf, CompressEngineError } from "@/lib/pdf/compress/compress-engine";
-import { downloadFile } from "@/lib/pdf/split/download-pdf";
+import {
+  compressPdf,
+  CompressionEngineError,
+} from "@/lib/pdf/compress/compress-engine";
+import { downloadPdf } from "@/lib/pdf/split/download-pdf";
 
 interface UsePdfCompressResult {
   file: File | null;
   pdfDocument: PDFDocumentProxy | null;
   pageCount: number;
+  status: ReturnType<typeof useCompressStore.getState>["status"];
+  compressionLevel: CompressionLevel;
   originalSize: number;
   compressedSize: number | null;
   compressionRatio: number | null;
   savedBytes: number | null;
+  compressedBytes: Uint8Array | null;
   isLoading: boolean;
   isCompressing: boolean;
   compressSuccess: boolean;
   error: string | null;
-  resultBytes: Uint8Array | null;
+  setCompressionLevel: (level: CompressionLevel) => void;
   loadPdf: (file: File) => Promise<void>;
   compress: () => Promise<void>;
   download: (filename?: string) => void;
@@ -41,7 +50,12 @@ export function usePdfCompress(): UsePdfCompressResult {
 
   const setDocument = useCompressStore((state) => state.setDocument);
   const setStatus = useCompressStore((state) => state.setStatus);
-  const setCompressedResult = useCompressStore((state) => state.setCompressedResult);
+  const setCompressionLevelAction = useCompressStore(
+    (state) => state.setCompressionLevel
+  );
+  const setCompressedResult = useCompressStore(
+    (state) => state.setCompressedResult
+  );
   const setError = useCompressStore((state) => state.setError);
   const storeReset = useCompressStore((state) => state.reset);
 
@@ -50,19 +64,18 @@ export function usePdfCompress(): UsePdfCompressResult {
       setStatus("loading");
       setError(null);
 
-      const validation = validatePdf(file);
+      const validation = validatePdfFile(file);
 
       if (!validation.valid) {
-        setError(validation.errors.map((e) => e.message).join(" "));
+        setError(validation.message ?? "This file could not be validated.");
         setStatus("error");
         return;
       }
 
       try {
-        const loadedDocument = await loadPdfDocument(file);
-        const pageCount = await getPageCount(loadedDocument);
+        const { document: pdfDocument, pageCount } = await loadPdfDocument(file);
 
-        setPdfDocument(loadedDocument);
+setPdfDocument(pdfDocument);
         setDocument({
           fileName: file.name,
           file,
@@ -80,6 +93,13 @@ export function usePdfCompress(): UsePdfCompressResult {
     [setStatus, setError, setDocument]
   );
 
+  const setCompressionLevel = useCallback(
+    (level: CompressionLevel) => {
+      setCompressionLevelAction(level);
+    },
+    [setCompressionLevelAction]
+  );
+
   const compress = useCallback(async () => {
     if (!document) {
       setError("No PDF file loaded.");
@@ -91,28 +111,18 @@ export function usePdfCompress(): UsePdfCompressResult {
     setError(null);
 
     try {
-      const bytes = await compressPdf(document.file, compressionLevel);
-
-      const newCompressedSize = bytes.byteLength;
-      const newSavedBytes = Math.max(
-        document.originalSize - newCompressedSize,
-        0
-      );
-      const newCompressionRatio =
-        document.originalSize > 0
-          ? newCompressedSize / document.originalSize
-          : 0;
+      const result = await compressPdf(document.file, compressionLevel);
 
       setCompressedResult({
-        compressedBytes: bytes,
-        compressedSize: newCompressedSize,
-        compressionRatio: newCompressionRatio,
-        savedBytes: newSavedBytes,
+        compressedBytes: result.bytes,
+        compressedSize: result.compressedSize,
+        compressionRatio: result.compressionRatio,
+        savedBytes: result.savedBytes,
       });
       setStatus("completed");
     } catch (err) {
       const message =
-        err instanceof CompressEngineError
+        err instanceof CompressionEngineError
           ? err.message
           : "Failed to compress PDF file.";
       setError(message);
@@ -125,7 +135,7 @@ export function usePdfCompress(): UsePdfCompressResult {
       if (!compressedBytes || !document) return;
 
       const outputName = filename ?? `compressed-${document.fileName}`;
-      downloadFile(compressedBytes, outputName, "application/pdf");
+      downloadPdf(compressedBytes, outputName);
     },
     [compressedBytes, document]
   );
@@ -142,15 +152,18 @@ export function usePdfCompress(): UsePdfCompressResult {
     file: document?.file ?? null,
     pdfDocument,
     pageCount: document?.pageCount ?? 0,
+    status,
+    compressionLevel,
     originalSize: document?.originalSize ?? 0,
     compressedSize,
     compressionRatio,
     savedBytes,
+    compressedBytes,
     isLoading: status === "loading",
     isCompressing: status === "compressing",
     compressSuccess: status === "completed",
     error,
-    resultBytes: compressedBytes,
+    setCompressionLevel,
     loadPdf,
     compress,
     download,

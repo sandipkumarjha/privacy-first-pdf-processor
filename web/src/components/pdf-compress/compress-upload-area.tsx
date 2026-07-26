@@ -100,14 +100,15 @@ export function CompressUploadArea({
               )}
             </div>
           </div>
-
           <UploadButton
-            accept="application/pdf"
-            disabled={isLoading}
-            mode="replace"
-            label="Replace"
-            onFilesSelected={handleButtonSelect}
-          />
+  multiple
+  disabled={isLoading}
+  onFilesSelect={handleButtonSelect}
+  variant="primary"
+  mode="upload"
+  label="Browse PDFs"
+/>
+          
         </div>
       ) : (
         <>
@@ -121,13 +122,15 @@ export function CompressUploadArea({
               Drag & Drop or browse a PDF file
             </p>
           </div>
-
           <UploadButton
-            accept="application/pdf"
-            disabled={isLoading}
-            label="Browse PDF"
-            onFilesSelected={handleButtonSelect}
-          />
+  multiple
+  disabled={isLoading}
+  onFilesSelect={handleButtonSelect}
+  variant="primary"
+  mode="upload"
+  label="Browse PDFs"
+/>
+          
         </>
       )}
     </motion.div>
