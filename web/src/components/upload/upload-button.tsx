@@ -3,7 +3,7 @@
 import { memo, useCallback, useRef } from "react";
 import { motion } from "framer-motion";
 import { Upload, RefreshCw } from "lucide-react";
-
+import { cn } from "@/lib/cn";
 type UploadButtonVariant = "primary" | "secondary" | "ghost";
 
 interface UploadButtonProps {
@@ -20,14 +20,23 @@ interface UploadButtonProps {
 const ACCEPTED_INPUT_TYPES = "application/pdf,.pdf";
 
 const VARIANT_CLASSES: Record<UploadButtonVariant, string> = {
-  primary:
-    "bg-orange-600 text-white hover:bg-orange-700 focus-visible:ring-orange-500 shadow-sm",
+  primary:cn(
+    "bg-[var(--accent)] text-[var(--accent-foreground)]",
+    "shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_20px_-8px_rgba(0,0,0,0.15)]",
+    "hover:shadow-[0_2px_4px_rgba(0,0,0,0.06),0_14px_28px_-10px_rgba(0,0,0,0.22)]"
+  ),
+    
 
   secondary:
-    "bg-white text-orange-700 border border-orange-200 hover:bg-orange-50 focus-visible:ring-orange-500 dark:bg-zinc-900 dark:text-orange-400 dark:border-orange-500/30",
-
+  cn(
+    "bg-[var(--surface)] text-[var(--foreground)] border border-[var(--border)]",
+    "hover:bg-[var(--surface-2)]"
+  ),
   ghost:
-    "bg-transparent text-zinc-600 hover:bg-zinc-100 focus-visible:ring-zinc-400 dark:text-zinc-300 dark:hover:bg-zinc-800",
+  cn(
+    "bg-transparent text-[var(--foreground)]",
+    "hover:bg-[var(--accent-soft)]/40"
+  ),
 };
 
 function UploadButtonComponent({

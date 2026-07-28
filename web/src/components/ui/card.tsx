@@ -1,79 +1,44 @@
-import * as React from "react"
+"use client";
 
-import { cn } from "@/lib/cn"
+import { motion } from "framer-motion";
+import { cn } from "@/lib/cn";
 
-const Card = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      "rounded-lg border border-slate-200 bg-[#FDFBD4] text-slate-950 shadow-sm",
-      className
-    )}
-    {...props}
-  />
-))
-Card.displayName = "Card"
+type AppCardPadding = "default" | "compact" | "none";
 
-const CardHeader = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn("flex flex-col space-y-1.5 p-6", className)}
-    {...props}
-  />
-))
-CardHeader.displayName = "CardHeader"
+interface AppCardProps {
+  children: React.ReactNode;
+  className?: string;
+  hover?: boolean;
+  padding?: AppCardPadding;
+}
 
-const CardTitle = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLHeadingElement>
->(({ className, ...props }, ref) => (
-  <h2
-    ref={ref}
-    className={cn(
-      "text-2xl font-semibold leading-none tracking-tight",
-      className
-    )}
-    {...props}
-  />
-))
-CardTitle.displayName = "CardTitle"
+const PADDING_CLASSES: Record<AppCardPadding, string> = {
+  default: "p-6",
+  compact: "p-4",
+  none: "p-0",
+};
 
-const CardDescription = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
->(({ className, ...props }, ref) => (
-  <p
-    ref={ref}
-    className={cn("text-sm text-black", className)}
-    {...props}
-  />
-))
-CardDescription.displayName = "CardDescription"
+export function AppCard({
+  children,
+  className,
+  hover = true,
+  padding = "default",
+}: AppCardProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={hover ? { scale: 1.01 } : undefined}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+      className={cn(
+        "rounded-3xl border bg-[var(--surface)] border-[var(--border)] shadow-sm transition-all",
+        PADDING_CLASSES[padding],
+        className
+      )}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
-const CardContent = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
-))
-CardContent.displayName = "CardContent"
-
-const CardFooter = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn("flex items-center p-6 pt-0", className)}
-    {...props}
-  />
-))
-CardFooter.displayName = "CardFooter"
-
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
+export default AppCard;
