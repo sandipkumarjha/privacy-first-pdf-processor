@@ -11,10 +11,10 @@ import {
 import { cn } from "@/lib/cn";
 
 interface CompressionStatsProps {
-  originalSize: number;
-  compressedSize?: number;
-  savedBytes?: number;
-  compressionRatio?: number;
+  originalSize: number ;
+  compressedSize?: number | null;
+  savedBytes?: number | null;
+  compressionRatio?: number | null;
   isCompressed: boolean;
 }
 

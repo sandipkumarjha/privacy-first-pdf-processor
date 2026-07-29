@@ -78,7 +78,7 @@ export function Sidebar() {
     <TooltipProvider delayDuration={100}>
       <aside
         className={cn(
-          "relative flex h-screen flex-col border-r border-white/10 bg-[#09090B] transition-all duration-300",
+          "relative flex h-screen flex-col border-r border-white/10 bg-[#FFBE91] transition-all duration-300",
           collapsed ? "w-[78px]" : "w-[280px]"
         )}
       >
@@ -86,18 +86,18 @@ export function Sidebar() {
         <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-indigo-500/10 via-indigo-500/5 to-transparent" />
 
         {/* Logo */}
-        <div className="relative flex h-20 items-center border-b border-white/5 px-5">
+        <div className="relative flex h-20 items-center border-b border-white px-5">
           <Link href="/dashboard" className="flex items-center gap-3">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 shadow-lg shadow-indigo-500/20">
-              <Shield className="h-5 w-5 text-white" />
+              <Shield className="h-5 w-5 text-black" />
             </div>
 
             {!collapsed && (
               <div>
-                <h2 className="font-semibold text-white tracking-tight">
+                <h2 className="font-semibold text-black tracking-tight">
                   PDFVault
                 </h2>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-zinc-800">
                   Privacy First
                 </p>
               </div>
@@ -122,8 +122,8 @@ export function Sidebar() {
                   "group relative flex h-12 items-center rounded-xl transition-all duration-300",
 
                   active
-                    ? "bg-gradient-to-r from-indigo-500/20 to-indigo-500/5 text-white shadow-lg shadow-indigo-500/10"
-                    : "text-slate-400 hover:bg-white/5 hover:text-white hover:translate-x-1"
+                    ? "bg-gradient-to-r from-indigo-500/20 to-indigo-500/5 text-black shadow-lg shadow-indigo-500/10"
+                    : "text-zinc-800 hover:bg-white/5 hover:text-black hover:translate-x-1"
                 )}
               >
                 {active && (
@@ -141,7 +141,7 @@ export function Sidebar() {
                       "h-5 w-5 transition-colors",
                       active
                         ? "text-indigo-400"
-                        : "text-slate-400 group-hover:text-indigo-300"
+                        : "text-zimc-800 group-hover:text-indigo-300"
                     )}
                   />
 
@@ -175,8 +175,8 @@ export function Sidebar() {
               "group flex h-12 items-center rounded-xl transition-all duration-300",
 
               pathname === "/settings"
-                ? "bg-gradient-to-r from-indigo-500/20 to-indigo-500/5 text-white"
-                : "text-slate-400 hover:bg-white/5 hover:text-white"
+                ? "bg-gradient-to-r from-indigo-500/20 to-indigo-500/5 "
+                : "text-zinc-800 hover:bg-white/5 hover:text-black"
             )}
           >
             <div
@@ -198,7 +198,7 @@ export function Sidebar() {
           <Button
             variant="ghost"
             onClick={() => setCollapsed(!collapsed)}
-            className="mt-3 h-11 w-full rounded-xl border border-white/5 bg-white/[0.02] text-slate-400 transition-all hover:bg-white/5 hover:text-white"
+            className="mt-3 h-11 w-full rounded-xl border-2 border-indigo-400  text-zinc-800 transition-all hover:bg-white/5 hover:text-black"
           >
             {collapsed ? (
               <ChevronRight className="h-5 w-5" />

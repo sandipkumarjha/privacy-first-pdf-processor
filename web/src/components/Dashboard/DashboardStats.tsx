@@ -62,10 +62,10 @@ export function DashboardStats() {
             whileHover={{
               y: -8,
             }}
-            className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#111827] to-[#0F172A] p-6 transition-all duration-300 hover:border-indigo-500/40"
+            className="relative overflow-hidden rounded-3xl border-4 border-[#3874FF] bg-gradient-to-br from-[#1591DC] via-[#99C2FF] to-[#1591DC] p-8 lg:p-12"
           >
             {/* Glow */}
-            <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-indigo-500/10 blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+            <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-[#1591DC] blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
             <div className="relative z-10">
               {/* Icon */}
@@ -73,19 +73,19 @@ export function DashboardStats() {
               <div
                 className={`inline-flex rounded-2xl bg-gradient-to-br ${stat.gradient} p-3 shadow-lg`}
               >
-                <Icon className="h-6 w-6 text-white" />
+                <Icon className="h-6 w-6 text-black" />
               </div>
 
               {/* Title */}
 
-              <p className="mt-5 text-sm text-slate-400">
+              <p className="mt-5 text-sm text-zinc-800">
                 {stat.title}
               </p>
 
               {/* Value */}
 
               <div className="mt-2 flex items-end gap-3">
-                <h2 className="text-4xl font-bold text-white">
+                <h2 className="text-4xl font-bold text-black">
                   {stat.value}
                 </h2>
 
@@ -94,7 +94,7 @@ export function DashboardStats() {
                 </span>
               </div>
 
-              <p className="mt-3 text-sm text-slate-500">
+              <p className="mt-3 text-sm text-zinc-800">
                 {stat.subtitle}
               </p>
 

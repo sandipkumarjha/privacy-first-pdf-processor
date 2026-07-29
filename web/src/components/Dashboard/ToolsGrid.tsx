@@ -113,11 +113,11 @@ export function ToolsGrid() {
       <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
 
         <div>
-          <h2 className="text-3xl font-bold text-white">
+          <h2 className="text-3xl font-bold text-black">
             PDF Tools
           </h2>
 
-          <p className="mt-2 text-slate-400">
+          <p className="mt-2 text-zinc-800">
             Everything runs locally inside your browser.
           </p>
         </div>
@@ -125,7 +125,7 @@ export function ToolsGrid() {
         {/* Search */}
 
         <div className="relative w-full lg:w-96">
-          <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-500" />
+          <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-700" />
 
           <input
             type="text"
@@ -138,10 +138,10 @@ export function ToolsGrid() {
             rounded-xl
             border
             border-white/10
-            bg-[#111827]
+            bg-[#5e82cf]
             pl-12
             pr-4
-            text-white
+            text-black
             outline-none
             transition
             focus:border-indigo-500
@@ -164,8 +164,8 @@ export function ToolsGrid() {
 
             ${
               selectedCategory === category
-                ? "bg-indigo-600 text-white shadow-lg"
-                : "border border-white/10 bg-[#111827] text-slate-400 hover:border-indigo-500 hover:text-white"
+                ? "bg-blue-500 text-black shadow-lg"
+                : "border border-white/10 bg-[#6db3ed] text-zinc-800 hover:border-indigo-500 hover:text-black"
             }
             `}
           >
@@ -224,11 +224,11 @@ export function ToolsGrid() {
           text-center
           "
         >
-          <h3 className="text-xl font-semibold text-white">
+          <h3 className="text-xl font-semibold text-black">
             No tools found
           </h3>
 
-          <p className="mt-2 text-slate-500">
+          <p className="mt-2 text-zinc-800">
             Try another keyword or category.
           </p>
         </motion.div>

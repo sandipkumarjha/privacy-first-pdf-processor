@@ -17,9 +17,9 @@ interface CompressDownloadProps {
   isCompleted: boolean;
   disabled: boolean;
   originalSize: number;
-  compressedSize?: number;
-  savedBytes?: number;
-  compressionRatio?: number;
+  compressedSize?: number | null;
+  savedBytes?: number | null;
+  compressionRatio?: number | null;
   onCompress: () => void;
   onDownload: () => void;
 }

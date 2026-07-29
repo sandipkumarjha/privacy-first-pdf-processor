@@ -50,10 +50,13 @@ export default function MergePage() {
       <MergeHeader />
 
       {files.length === 0 ? (
+        <div className="relative overflow-hidden rounded-3xl border-4 border-[#3874FF] bg-gradient-to-br from-[#1591DC] via-[#99C2FF] to-[#1591DC] p-8 lg:p-12">
         <MergeUploadArea
         onFilesSelect={addFiles}
-        isLoading={isLoading}
+        isLoading={isLoading} 
+        className="text-black"
       />
+      </div>
       ) : (
         <>
           <MergeToolbar

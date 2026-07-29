@@ -44,24 +44,24 @@ export function Header() {
   const title = pageTitle[pathname] ?? "Dashboard";
 
   return (
-    <header className="sticky top-0 z-40 flex h-20 items-center justify-between border-b border-white/5 bg-background/70 px-8 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 flex h-20 items-center justify-between border-b border-[#FFBE91] bg-[#FFDDB0] px-8 backdrop-blur-xl ">
       {/* Left */}
       <div>
         <div className="flex items-center gap-3">
-          <h1 className="text-3xl font-semibold tracking-tight text-white">
+          <h1 className="text-3xl font-semibold tracking-tight text-black">
             {title}
           </h1>
 
-          <div className="hidden items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-500/10 px-3 py-1 md:flex">
+          <div className="hidden items-center gap-2 rounded-full border-2 border-blue-600 bg-indigo-500/10 px-3 py-1 md:flex">
             <Shield className="h-3.5 w-3.5 text-indigo-400" />
 
-            <span className="text-xs font-medium text-indigo-300">
+            <span className="text-xs font-medium text-zinc-700">
               Privacy First
             </span>
           </div>
         </div>
 
-        <p className="mt-1 text-sm text-slate-400">
+        <p className="mt-1 text-sm text-zinc-800">
           All processing happens locally on your device.
         </p>
       </div>
@@ -72,9 +72,9 @@ export function Header() {
         <Button
           variant="ghost"
           size="icon"
-          className="relative rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/5"
+          className="relative rounded-xl border-2 border-blue-600 bg-white/[0.02] hover:bg-white/5"
         >
-          <Bell className="h-5 w-5 text-slate-300" />
+          <Bell className="h-5 w-5 text-zinc-800" />
 
           <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-indigo-500" />
         </Button>
@@ -84,7 +84,7 @@ export function Header() {
           <DropdownMenuTrigger asChild>
             <Button
               variant="ghost"
-              className="h-12 rounded-xl border border-white/5 bg-white/[0.02] px-2 hover:bg-white/5"
+              className="h-12 rounded-xl border border-blue-600  px-2 hover:bg-[#FFBE91]"
             >
               <Avatar className="h-9 w-9">
                 <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-cyan-500 font-semibold text-white">
@@ -93,22 +93,22 @@ export function Header() {
               </Avatar>
 
               <div className="ml-3 hidden text-left lg:block">
-                <p className="text-sm font-medium text-white">
+                <p className="text-sm font-medium text-black">
                   John Doe
                 </p>
 
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-zinc-800">
                   Free Plan
                 </p>
               </div>
 
-              <ChevronDown className="ml-3 h-4 w-4 text-slate-500" />
+              <ChevronDown className="ml-3 h-4 w-4 text-slate-800" />
             </Button>
           </DropdownMenuTrigger>
 
           <DropdownMenuContent
             align="end"
-            className="w-64 border border-white/10 bg-[#111827] text-white"
+            className="w-64 border-2 border-blue-400 bg-[#FFBE91] text-black position-relative z-50 rounded-xl shadow-lg shadow-indigo-500/20"
           >
             <DropdownMenuLabel>
               <div className="flex items-center gap-3">
@@ -123,7 +123,7 @@ export function Header() {
                     John Doe
                   </p>
 
-                  <p className="text-xs text-slate-400">
+                  <p className="text-xs text-zinc-700">
                     john@example.com
                   </p>
                 </div>
@@ -149,7 +149,7 @@ export function Header() {
 
             <DropdownMenuSeparator />
 
-            <DropdownMenuItem className="text-red-400 focus:text-red-400">
+            <DropdownMenuItem className="text-red-400 focus:text-red-400 ">
               <LogOut className="mr-3 h-4 w-4" />
               Logout
             </DropdownMenuItem>

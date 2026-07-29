@@ -22,12 +22,12 @@ export function DashboardHero() {
       initial={{ opacity: 0, y: 25 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7 }}
-      className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#111827] via-[#0F172A] to-[#09090B] p-8 lg:p-12"
+      className="relative overflow-hidden rounded-3xl border-4 border-[#3874FF] bg-gradient-to-br from-[#1591DC] via-[#99C2FF] to-[#1591DC] p-8 lg:p-12"
     >
       {/* Background Glow */}
       <div className="absolute inset-0">
-        <div className="absolute -top-28 -right-24 h-72 w-72 rounded-full bg-indigo-500/20 blur-[120px]" />
-        <div className="absolute bottom-0 left-0 h-56 w-56 rounded-full bg-cyan-500/10 blur-[100px]" />
+      <div className="absolute -top-28 -right-24 h-72 w-72 rounded-full  blur-[120px]" />
+        <div className="absolute bottom-0 left-0 h-56 w-56 rounded-full  blur-[100px]" />
       </div>
 
       <div className="relative z-10 flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
@@ -38,10 +38,10 @@ export function DashboardHero() {
             initial={{ opacity: 0, x: -15 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2 }}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-indigo-500/20 bg-indigo-500/10 px-4 py-2"
+            className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#3874FF] border-2 px-4 py-2"
           >
-            <ShieldCheck className="h-4 w-4 text-indigo-400" />
-            <span className="text-sm font-medium text-indigo-300">
+            <ShieldCheck className="h-4 w-4 text-zinc-900" />
+            <span className="text-sm font-medium text-zinc-800">
               100% Privacy First
             </span>
           </motion.div>
@@ -50,7 +50,7 @@ export function DashboardHero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="text-4xl font-bold tracking-tight text-white lg:text-5xl"
+            className="text-4xl font-bold tracking-tight text-black lg:text-5xl"
           >
             Welcome back 👋
           </motion.h1>
@@ -59,11 +59,11 @@ export function DashboardHero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.45 }}
-            className="mt-5 max-w-xl text-lg leading-8 text-slate-400"
+            className="mt-5 max-w-xl text-lg leading-8 text-black"
           >
             Securely merge, split, compress, rotate and edit PDFs directly
             inside your browser.
-            <span className="text-white font-medium">
+            <span className="text-zinc-700 font-medium">
               {" "}
               Your files never leave your device.
             </span>
@@ -79,7 +79,7 @@ export function DashboardHero() {
             <Button
   size="lg"
   
-  className="rounded-xl bg-indigo-600 px-6 hover:bg-indigo-500"
+  className="rounded-xl bg-[#FFDDB0] px-6 hover:bg-[#FFBE91]"
 >
   Upload PDF
   <ArrowRight className="ml-2 h-4 w-4" />
@@ -87,7 +87,7 @@ export function DashboardHero() {
             <Button
               size="lg"
               variant="outline"
-              className="rounded-xl border-white/10 bg-white/5 text-white hover:bg-white/10"
+              className="rounded-xl border-[#3874FF] bg-white/5 text-zinc-900 hover:bg-blue-500"
             >
               Learn More
             </Button>
@@ -101,18 +101,18 @@ export function DashboardHero() {
           transition={{ delay: 0.4 }}
           className="w-full max-w-sm"
         >
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
+          <div className="rounded-2xl border border-[#3874FF] border-2 bg-[#99C2FF] p-6 backdrop-blur-xl ">
             <div className="mb-5 flex items-center gap-3">
-              <div className="rounded-xl bg-indigo-500/20 p-3">
-                <Sparkles className="h-6 w-6 text-indigo-400" />
+              <div className="rounded-xl bg-[#99C2FF] p-3">
+                <Sparkles className="h-6 w-6 text-zinc-800 " />
               </div>
 
               <div>
-                <h3 className="font-semibold text-white">
+                <h3 className="font-semibold text-zinc-800">
                   Local Processing
                 </h3>
 
-                <p className="text-sm text-slate-400">
+                <p className="text-sm text-zinc-700">
                   Browser Powered
                 </p>
               </div>
@@ -127,19 +127,19 @@ export function DashboardHero() {
               ].map((item) => (
                 <div
                   key={item}
-                  className="flex items-center gap-3 rounded-xl border border-white/5 bg-white/[0.03] p-3"
+                  className="flex items-center gap-3 rounded-xl border border-[#3874FF] border-2 bg-blue-300 p-3"
                 >
                   <div className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
 
-                  <span className="text-sm text-slate-300">
+                  <span className="text-sm text-zinc-800">
                     {item}
                   </span>
                 </div>
               ))}
             </div>
 
-            <div className="mt-6 rounded-xl border border-indigo-500/20 bg-indigo-500/10 p-4">
-              <p className="text-xs leading-6 text-indigo-200">
+            <div className="mt-6 rounded-xl border border-black bg-[#FFBE91] p-4">
+              <p className="text-xs leading-6 text-zinc-800">
                 🔒 Privacy is not just a promise. Every PDF operation happens
                 locally inside your browser using WebAssembly.
               </p>

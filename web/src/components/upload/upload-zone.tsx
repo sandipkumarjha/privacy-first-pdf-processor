@@ -105,6 +105,7 @@ function UploadZoneComponent({
       className={`
         relative flex w-full flex-col items-center justify-center
         rounded-2xl border-2 border-dashed
+        
         bg-white/50 dark:bg-zinc-900/40
         px-6 py-12 sm:py-16
         text-center cursor-pointer

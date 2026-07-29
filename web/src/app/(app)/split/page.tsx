@@ -80,14 +80,14 @@ export default function SplitPage() {
     <div className="flex flex-col gap-8">
       
       <SplitHeader />
-
+     <div className="relative overflow-hidden rounded-3xl border-4 border-[#3874FF] bg-gradient-to-br from-[#1591DC] via-[#99C2FF] to-[#1591DC] p-8 lg:p-12">
       <SplitUploadArea
         fileName={file?.name}
         fileSize={file ? formatFileSize(file.size) : undefined}
         isLoading={isLoading}
         onFileSelect={handleFileSelect}
       />
-
+</div>
       {hasFile && (
         <>
           <div className="flex flex-col gap-1.5">
@@ -115,13 +115,15 @@ export default function SplitPage() {
             selectedPages={selectedPages}
             onToggle={togglePageSelection}
           />
-
+          <div className="relative overflow-hidden rounded-3xl border-4 border-[#3874FF] bg-gradient-to-br from-[#1591DC] via-[#99C2FF] to-[#1591DC] p-8 lg:p-12">
           <SplitDownloadSection
             disabled={selectedPages.length === 0}
             loading={isSplitting}
             selectedCount={selectedPages.length}
             onSplit={handleSplit}
+            
           />
+          </div>
         </>
       )}
     </div>

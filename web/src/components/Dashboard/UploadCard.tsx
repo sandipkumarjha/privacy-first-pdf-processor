@@ -20,15 +20,15 @@ export function UploadCard() {
         <div className="absolute bottom-0 right-0 h-64 w-64 rounded-full bg-cyan-500/10 blur-[120px]" />
       </div>
 
-      <div className="relative z-10 p-8">
+      <div className="relative z-10 p-8 bg-blue-400">
         {/* Header */}
-        <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div className="mb-8 flex flex-col  gap-4 md:flex-row md:items-center md:justify-between">
           <div>
-            <h2 className="text-2xl font-bold text-white">
+            <h2 className="text-2xl font-bold text-black">
               Upload your PDF
             </h2>
 
-            <p className="mt-2 text-slate-400">
+            <p className="mt-2 text-zinc-800">
               Files stay on your device. Nothing is uploaded.
             </p>
           </div>
@@ -51,11 +51,11 @@ export function UploadCard() {
           <motion.div
             whileHover={{ y: -6 }}
             transition={{ duration: 0.25 }}
-            className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm"
+            className="rounded-2xl border-2 border-blue-600  bg-white/5 p-5 backdrop-blur-sm"
           >
-            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-500/10">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[#FFDDB0]">
               <svg
-                className="h-6 w-6 text-indigo-400"
+                className="h-6 w-6 text-zinc-800"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
@@ -65,11 +65,11 @@ export function UploadCard() {
               </svg>
             </div>
 
-            <h4 className="font-semibold text-white">
+            <h4 className="font-semibold text-black">
               Supported Formats
             </h4>
 
-            <p className="mt-2 text-sm leading-6 text-slate-400">
+            <p className="mt-2 text-sm leading-6 text-zinc-800">
               PDF documents of any size your browser can comfortably
               process.
             </p>
@@ -78,17 +78,17 @@ export function UploadCard() {
           <motion.div
             whileHover={{ y: -6 }}
             transition={{ duration: 0.25 }}
-            className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm"
+            className="rounded-2xl border-2 border-blue-600 bg-white/5 p-5 backdrop-blur-sm"
           >
-            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/10">
-              <ShieldCheck className="h-6 w-6 text-emerald-400" />
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-green-300">
+              <ShieldCheck className="h-6 w-6 text-emerald-800" />
             </div>
 
-            <h4 className="font-semibold text-white">
+            <h4 className="font-semibold text-black">
               Privacy Guaranteed
             </h4>
 
-            <p className="mt-2 text-sm leading-6 text-slate-400">
+            <p className="mt-2 text-sm leading-6 text-zinc-800">
               Your files never leave your device. Everything happens
               completely inside your browser.
             </p>
@@ -97,11 +97,11 @@ export function UploadCard() {
           <motion.div
             whileHover={{ y: -6 }}
             transition={{ duration: 0.25 }}
-            className="rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm"
+            className="rounded-2xl border-2 border-blue-600 bg-white/5 p-5 backdrop-blur-sm"
           >
-            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-500/10">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[#FFDDB0]">
               <svg
-                className="h-6 w-6 text-cyan-400"
+                className="h-6 w-6 text-zinc-800"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
@@ -111,11 +111,11 @@ export function UploadCard() {
               </svg>
             </div>
 
-            <h4 className="font-semibold text-white">
+            <h4 className="font-semibold text-black;">
               Lightning Fast
             </h4>
 
-            <p className="mt-2 text-sm leading-6 text-slate-400">
+            <p className="mt-2 text-sm leading-6 text-zinc-800">
               Powered by WebAssembly and Web Workers for instant PDF
               processing.
             </p>

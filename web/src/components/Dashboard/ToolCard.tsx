@@ -39,21 +39,15 @@ export function ToolCard({
           h-full
           overflow-hidden
           rounded-3xl
-          border
-          border-white/10
-          bg-gradient-to-br
-          from-[#111827]
-          via-[#0F172A]
-          to-[#09090B]
-          p-6
+          border-4 border-[#3874FF] bg-gradient-to-br from-[#1591DC] via-[#99C2FF] to-[#1591DC] p-8
           transition-all
           duration-300
-          hover:border-indigo-500/40
+          hover:#FFBE91
           hover:shadow-[0_0_40px_rgba(99,102,241,0.18)]
         "
         >
           {/* Glow */}
-          <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-indigo-500/10 blur-[90px] opacity-0 transition duration-500 group-hover:opacity-100" />
+          <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-blue-400 blur-[90px] opacity-0 transition duration-500 group-hover:opacity-100" />
 
           {/* Top Row */}
           <div className="relative z-10 flex items-start justify-between">
@@ -72,11 +66,11 @@ export function ToolCard({
 
           {/* Content */}
           <div className="relative z-10 mt-7">
-            <h3 className="text-xl font-semibold text-white transition-colors group-hover:text-indigo-300">
+            <h3 className="text-xl font-semibold text-black transition-colors group-hover:text-indigo-300">
               {title}
             </h3>
 
-            <p className="mt-3 leading-7 text-slate-400">
+            <p className="mt-3 leading-7 text-zinc-800">
               {description}
             </p>
           </div>
@@ -85,7 +79,7 @@ export function ToolCard({
           <div className="relative z-10 mt-8 flex items-center justify-between">
             <Button
               variant="ghost"
-              className="p-0 text-indigo-400 hover:bg-transparent hover:text-indigo-300"
+              className="p-0 text-zinc-800 hover:bg-transparent hover:text-zinc-800"
             >
               Open Tool
             </Button>
@@ -94,7 +88,7 @@ export function ToolCard({
               whileHover={{ x: 4 }}
               transition={{ duration: 0.2 }}
             >
-              <ArrowRight className="h-5 w-5 text-slate-500 transition-colors group-hover:text-indigo-400" />
+              <ArrowRight className="h-5 w-5 text-zinc-800 transition-colors group-hover:text-indigo-400" />
             </motion.div>
           </div>
 
@@ -103,12 +97,12 @@ export function ToolCard({
 
           {/* Footer */}
           <div className="relative z-10 flex items-center justify-between text-sm text-slate-500">
-            <div className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-indigo-400" />
+            <div className="flex items-center gap-2 text-zinc-800">
+              <Sparkles className="h-4 w-4 text-zinc-800" />
               <span>Instant Processing</span>
             </div>
 
-            <span className="rounded-full bg-white/5 px-3 py-1 text-xs">
+            <span className="rounded-full bg-black px-3 py-1 text-xs">
               Local
             </span>
           </div>
