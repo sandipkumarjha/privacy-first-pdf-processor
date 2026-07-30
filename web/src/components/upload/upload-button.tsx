@@ -61,15 +61,18 @@ function UploadButtonComponent({
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const files = e.target.files;
   
-      if (!files || files.length === 0) return;
+      if (!files?.length) return;
   
-      if (multiple) {
-        onFilesSelect?.(Array.from(files));
-      } else {
-        onFileSelect?.(files[0]);
+      const fileArray = Array.from(files);
+  
+      // Always fire the multi-file callback
+      onFilesSelect?.(fileArray);
+  
+      // Also fire the single-file callback
+      if (!multiple) {
+        onFileSelect?.(fileArray[0]);
       }
   
-      // Allow selecting the same file again
       e.target.value = "";
     },
     [multiple, onFileSelect, onFilesSelect]

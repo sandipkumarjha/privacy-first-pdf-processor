@@ -18,12 +18,20 @@ export default function RotatePage() {
     pages,
     selectedPages,
     error,
+  
     loadPdf,
+  
     rotateLeft,
     rotateRight,
+    togglePage,
+  
+    applyRotation,
+  
     download,
+  
     reset,
   } = usePdfRotate();
+  
 
   const isLoading = status === "loading";
 
@@ -41,22 +49,28 @@ export default function RotatePage() {
       ) : (
         <>
           <RotateToolbar
-            selectedPages={selectedPages}
-            status={status}
-            onRotateLeft={rotateLeft}
-            onRotateRight={rotateRight}
-            onReset={reset}
-          />
+  selectedCount={selectedPages.length}
+  isProcessing={status === "processing"}
+  onRotateLeft={rotateLeft}
+  onRotateRight={rotateRight}
+  onReset={reset}
+/>
 
-          <RotatePageGrid
-            pages={pages}
-            selectedPages={selectedPages}
-          />
+<RotatePageGrid
+    pages={pages}
+    selectedPages={selectedPages}
+    onToggleSelect={togglePage}
+/>
 
-          <RotateDownload
-            status={status}
-            onDownload={download}
-          />
+<RotateDownload
+  disabled={pages.filter((p) => p.rotation !== 0).length === 0}
+  isProcessing={status === "processing"}
+  isCompleted={status === "completed"}
+  totalPages={pages.length}
+  rotatedPages={pages.filter((page) => page.rotation !== 0).length}
+  onApply={applyRotation}
+  onDownload={download}
+/>
         </>
       )}
 
