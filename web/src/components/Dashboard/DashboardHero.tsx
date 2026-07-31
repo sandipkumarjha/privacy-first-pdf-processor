@@ -138,7 +138,7 @@ export function DashboardHero() {
               ))}
             </div>
 
-            <div className="mt-6 rounded-xl border border-black bg-[#FFBE91] p-4">
+            <div className="mt-6 rounded-xl border border-black bg-[#FFDDB0] p-4">
               <p className="text-xs leading-6 text-zinc-800">
                 🔒 Privacy is not just a promise. Every PDF operation happens
                 locally inside your browser using WebAssembly.

@@ -53,7 +53,7 @@ export function Features() {
 </div>
       <div className="container-wrapper">
   <div className="max-w-3xl text-center mx-auto">
-    <p className="font-mono text-xs uppercase tracking-[0.25em] text-accent">
+    <p className="font-mono text-xl uppercase tracking-[0.25em] text-accent font-bold ">
       WHY IT'S DIFFERENT
     </p>
 
@@ -87,7 +87,7 @@ export function Features() {
             }}
             className="group rounded-3xl border border-border bg-surface/70 p-8 backdrop-blur-xl transition-all duration-300 hover:border-accent/40 hover:shadow-[0_30px_80px_rgba(99,102,241,0.18)]"
           >
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/10 border border-accent/20 transition-colors group-hover:bg-accent group-hover:text-white">
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/10 border-4 border-accent/20 transition-colors group-hover:bg-accent group-hover:text-white">
               <f.icon className="h-7 w-7 text-accent group-hover:text-white" />
             </div>
           

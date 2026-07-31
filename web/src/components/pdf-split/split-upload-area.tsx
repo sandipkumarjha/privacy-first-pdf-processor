@@ -42,7 +42,7 @@ export default function SplitUploadArea({
         transition={{ duration: 0.35, ease: "easeOut" }}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
-        className="flex flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-zinc-200 bg-white px-6 py-14 text-center transition-colors hover:border-orange-300 dark:border-zinc-800 dark:bg-zinc-900 sm:py-20"
+        className="flex flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed border-zinc-200 bg-blue-200 px-6 py-14 text-center transition-colors hover:border-orange-300 dark:border-zinc-800 dark:bg-zinc-900 sm:py-20"
       >
         <span className="flex h-14 w-14 items-center justify-center rounded-full bg-orange-100 dark:bg-orange-500/10">
           <Upload className="h-6 w-6 text-orange-600 dark:text-orange-400" aria-hidden="true" />

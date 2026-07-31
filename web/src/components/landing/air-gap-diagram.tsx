@@ -95,7 +95,7 @@ export function AirGapDiagram({ className }: { className?: string }) {
         <circle r="11" fill="#EF4444" stroke="hsl(var(--danger))" strokeWidth="1.5" />
         <path d="M-6,-6 L6,6" stroke="hsl(var(--danger))" strokeWidth="1.5" strokeLinecap="round" />
       </g>
-      <text x="459" y="178" textAnchor="middle" fontFamily="var(--font-mono)" fontSize="9.5" fill="#EF4444" opacity="0.8">
+      <text x="459" y="178" textAnchor="middle" fontFamily="var(--font-mono)" fontSize="10" fill="#EF4444"  opacity="0.8">
         never sent
       </text>
 
@@ -111,7 +111,7 @@ export function AirGapDiagram({ className }: { className?: string }) {
     fill="#FFFCE1"
 />
       </g>
-      <text x="548" y="212" textAnchor="middle" fontWeight={400} fontFamily="var(--font-mono)" fontSize="15" fill="#D1D5DB" opacity="0.6">
+      <text x="548" y="212" textAnchor="middle" fontWeight={600} fontFamily="var(--font-mono)" fontSize="15" fill="#D1D5DB" opacity="0.6">
         server
       </text>
     </svg>

@@ -81,8 +81,8 @@ export function CompressUploadArea({
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       className={cn(
-        "flex flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-border bg-muted/30 px-6 py-12 text-center transition-colors",
-        isDragging && "border-primary bg-muted/60",
+        "flex flex-col items-center justify-center gap-4 rounded-xl border-2 border-dashed border-border bg-blue-200 px-6 py-12 text-center transition-colors",
+        isDragging && "border-primary bg-primary/10",
         isLoading && "pointer-events-none opacity-70",
         hasFile && "py-6"
       )}
@@ -112,15 +112,17 @@ export function CompressUploadArea({
         </div>
       ) : (
         <>
-          <UploadCloud className="h-8 w-8 text-muted-foreground" />
+          <UploadCloud className="h-8 w-8 text-zinc-700" />
 
           <div className="space-y-1">
             <p className="text-sm font-medium text-foreground">
               Compress your PDF
             </p>
-            <p className="text-xs text-muted-foreground">
+          
+            <p className="text-xs  text-zinc-700">
               Drag & Drop or browse a PDF file
             </p>
+            
           </div>
           <UploadButton
   multiple

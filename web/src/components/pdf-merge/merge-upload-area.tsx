@@ -71,8 +71,8 @@ export function MergeUploadArea({
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       className={cn(
-        "flex flex-col items-center justify-center gap-4 rounded-lg border-2 border-dashed border-border bg-muted/30 px-6 py-12 text-center transition-colors",
-        isDragging && "border-primary bg-muted/60",
+        "flex flex-col items-center justify-center gap-4 rounded-lg border-2 border-dashed border-border bg-blue-200 px-6 py-12 text-center transition-colors",
+        isDragging && "border-primary bg-primary/10",
         isLoading && "pointer-events-none opacity-70",
         className
       )}
@@ -80,7 +80,7 @@ export function MergeUploadArea({
       {isLoading ? (
         <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
       ) : (
-        <FileUp className="h-8 w-8 text-muted-foreground" />
+        <FileUp className="h-8 w-8 text-zinc-700" />
       )}
 
       <div className="space-y-1">
@@ -89,7 +89,7 @@ export function MergeUploadArea({
             ? "Loading files..."
             : "Drag and drop PDF files here"}
         </p>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-xs text-zinc-700">
           or select multiple PDF files from your device
         </p>
       </div>

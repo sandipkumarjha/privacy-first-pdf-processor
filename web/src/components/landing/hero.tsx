@@ -27,24 +27,24 @@ export function Hero() {
             }}
             className="max-w-2xl"
           >
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 font-mono text-xs text-muted">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 font-mono text-xs text-muted ml-5">
               <span className="h-1.5 w-1.5 rounded-full bg-success" />
               0 uploads · 0 servers · 100% local
             </div>
 
-            <h1 className="text-balance font-display text-4xl font-medium leading-tight tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl">
+            <h1 className="text-balance ml-5 font-display text-4xl font-medium leading-tight tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl">
               Your PDFs never
               <br />
               leave your device.
             </h1>
 
-            <p className="mt-6 max-w-xl text-lg leading-8 text-muted">
+            <p className="mt-6  ml-5 max-w-xl text-lg leading-8 text-muted">
               Merge, split, compress, and edit PDFs entirely inside your browser.
               No upload, no cloud processing, and no third party ever sees your
               files because everything happens locally.
             </p>
 
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+            <div className="mt-10 ml-5 flex flex-col gap-4 sm:flex-row">
               <Button size="lg">
                 Start Processing PDFs
               </Button>
@@ -57,7 +57,7 @@ export function Hero() {
               </a>
             </div>
 
-            <p className="mt-8 max-w-xl text-sm text-muted">
+            <p className="mt-8 ml-6 max-w-xl text-sm text-muted">
               {trustLine}
             </p>
           </motion.div>
@@ -73,7 +73,7 @@ export function Hero() {
             }}
             className="mx-auto w-full max-w-xl"
           >
-            <div className="rounded-2xl border border-border bg-surface/70 p-5 shadow-2xl backdrop-blur-xl">
+            <div className="rounded-2xl border-4 border-border bg-surface/70 p-5 shadow-2xl backdrop-blur-xl">
               <AirGapDiagram />
             </div>
           </motion.div>

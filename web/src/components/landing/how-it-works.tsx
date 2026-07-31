@@ -47,7 +47,7 @@ export function HowItWorks() {
           transition={{ duration: .6 }}
           className="mx-auto max-w-3xl text-center"
         >
-          <span className="inline-flex rounded-full border border-accent/20 bg-accent/10 px-4 py-1 text-xs font-medium uppercase tracking-[0.2em] text-accent">
+          <span className="inline-flex rounded-full border border-accent/20 bg-accent/10 px-4 py-1 text-xl font-bold uppercase tracking-[0.2em] text-accent">
             HOW IT WORKS
           </span>
 
@@ -56,7 +56,7 @@ export function HowItWorks() {
             <span className="gradient-text"> Zero servers.</span>
           </h2>
 
-          <p className="mt-6 text-lg text-muted">
+          <p className="mt-6 text-lg text-muted text-zinc-700">
             Every operation happens locally inside your browser. Your files never
             leave your device—not even for a second.
           </p>
@@ -98,7 +98,7 @@ export function HowItWorks() {
                   )}
 
                   {/* Card */}
-                  <div className="rounded-3xl border border-border bg-surface/70 p-8 backdrop-blur-xl transition-all duration-300 hover:border-accent/40 hover:shadow-[0_25px_80px_rgba(99,102,241,.18)]">
+                  <div className="rounded-3xl border-4 border-border bg-surface/70 p-8 backdrop-blur-xl transition-all duration-300 hover:border-accent/40 hover:shadow-[0_25px_80px_rgba(99,102,241,.18)]">
 
                     <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-accent/20 bg-accent/10 transition-all duration-300 group-hover:bg-accent">
 
@@ -109,7 +109,7 @@ export function HowItWorks() {
                     </div>
 
                     <div className="mt-6 flex items-center gap-3">
-                      <span className="font-mono text-sm text-accent">
+                      <span className="font-mono text-xl text-accent">
                         {step.number}
                       </span>
 

@@ -105,7 +105,7 @@ export function RotateUploadArea({
       onDrop={handleDrop}
       className={cn(
         "flex flex-col items-center justify-center gap-5 rounded-3xl border-2 border-dashed p-10 shadow-sm transition-all",
-        "border-[#FFBE91] bg-[#FFFCE1]",
+        "border-[#FFBE91] bg-blue-200",
         isDragging && "border-[#CFEBFF] bg-[#CFEBFF]/30",
         isLoading && "pointer-events-none opacity-60"
       )}
