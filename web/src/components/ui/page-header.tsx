@@ -39,7 +39,7 @@ export function PageHeader({
 
       {Icon && (
         <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--accent-soft)]">
-          <Icon className="h-7 w-7 text-[var(--accent)]" aria-hidden="true" />
+          <Icon className="h-7 w-7 text-zinc-900" aria-hidden="true" />
         </span>
       )}
 

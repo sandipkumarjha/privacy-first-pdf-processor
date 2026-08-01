@@ -161,14 +161,11 @@ export function usePdfWatermark(): UsePdfWatermarkResult {
     }
   }, [document, settings, setStatus, setError, setResult]);
 
-  const download = useCallback(
-    (filename?: string) => {
-      if (!resultBytes || !document) return;
-
-      downloadWatermarkedPdf(resultBytes, filename ?? document.fileName);
-    },
-    [resultBytes, document]
-  );
+  const download = useCallback(() => {
+    if (!resultBytes || !document) return;
+  
+    downloadWatermarkedPdf(resultBytes, document.fileName);
+  }, [resultBytes, document]);
 
   const reset = useCallback(() => {
     if (pdfDocument) {

@@ -84,7 +84,8 @@ function ExtractPageCard({ page, selected, onClick }: ExtractPageCardProps) {
             : "border-2 border-[var(--secondary)] bg-white"
         )}
         aria-hidden="true"
-      >
+      >32
+      
         {selected && <Check className="h-3.5 w-3.5" />}
       </span>
 

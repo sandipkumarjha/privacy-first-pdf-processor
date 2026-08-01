@@ -84,7 +84,7 @@ export function ExtractUploadArea({
       aria-label="Upload PDF to extract pages from"
       className={cn(
         "flex flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed",
-        "border-[var(--secondary)] bg-white p-8 text-center shadow-sm sm:p-12",
+        "border-[var(--secondary)] bg-blue-300 p-8 text-center shadow-sm sm:p-12",
         isDragging && "scale-[1.02] border-[var(--primary)] bg-[var(--accent)]/15",
         isLoading && "pointer-events-none opacity-70",
         hasFile && "py-6"
@@ -94,7 +94,7 @@ export function ExtractUploadArea({
         <div className="flex w-full max-w-md flex-col items-center gap-4 sm:flex-row sm:items-center sm:justify-between sm:text-left">
           <div className="flex min-w-0 items-center gap-3">
             <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[var(--accent)]/40">
-              <FileText className="h-6 w-6 text-[var(--foreground)]" aria-hidden="true" />
+              <FileText className="h-6 w-6 text-zinc-800" aria-hidden="true" />
             </span>
             <div className="min-w-0">
               <p className="truncate text-sm font-medium text-[var(--foreground)]">

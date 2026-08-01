@@ -61,7 +61,7 @@ export function WatermarkUploadArea({
     [isLoading, onFileSelect]
   );
 
-  const handleButtonSelect = useCallback(
+  /*const handleButtonSelect = useCallback(
     (fileList: FileList | File[]) => {
       const file = getFirstPdfFile(fileList);
       if (file) {
@@ -69,7 +69,18 @@ export function WatermarkUploadArea({
       }
     },
     [onFileSelect]
-  );
+  );*/
+  const handleButtonSelect = useCallback((files: File[]) => {
+    const file = files.find(
+        f =>
+            f.type === "application/pdf" ||
+            f.name.toLowerCase().endsWith(".pdf")
+    );
+
+    if (file) {
+        onFileSelect(file);
+    }
+}, [onFileSelect]);
 
   return (
     <motion.div
@@ -112,7 +123,7 @@ export function WatermarkUploadArea({
   disabled={isLoading}
   mode="replace"
   label="Replace PDF"
-  onFileSelect={handleButtonSelect}
+  onFilesSelect={handleButtonSelect}
 />
         </div>
       ) : (
@@ -141,7 +152,7 @@ export function WatermarkUploadArea({
   disabled={isLoading}
   mode="replace"
   label="Replace PDF"
-  onFileSelect={handleButtonSelect}
+  onFilesSelect={handleButtonSelect}
 />
         </>
       )}
