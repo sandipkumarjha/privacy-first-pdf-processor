@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google'
 import { themeInitScript } from '@/lib/theme-script'
 import './globals.css'
+import { PageLoaderProvider } from "@/components/providers/page-loader-provider";
 
 const display = Space_Grotesk({
   subsets: ['latin'],
@@ -50,7 +51,7 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
-      <body>{children}</body>
+      <body>  <PageLoaderProvider>{children}</PageLoaderProvider></body>
     </html>
   )
 }

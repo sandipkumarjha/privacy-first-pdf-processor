@@ -39,7 +39,7 @@ function ComparisonColumn({
       className={cn(
         'relative rounded-3xl border p-8 backdrop-blur-xl transition-all duration-300',
         accent
-          ? 'border-indigo-500/30 bg-indigo-500/5 hover:shadow-[0_25px_80px_rgba(99,102,241,.18)]'
+          ? 'border-indigo-500/30 bg-white '
           : 'border-border bg-surface/70 hover:border-red-500/20'
       )}
     >
@@ -47,7 +47,7 @@ function ComparisonColumn({
         className={cn(
           'mb-8 inline-flex rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em]',
           accent
-            ? 'bg-indigo-500/10 text-indigo-400'
+            ?'bg-indigo-300 text-indigo-800'
             : 'bg-red-500/10 text-red-400'
         )}
       >
@@ -75,7 +75,7 @@ function ComparisonColumn({
             <span
               className={cn(
                 'leading-7',
-                accent ? 'text-foreground' : 'text-muted'
+                accent ? 'text-foreground' : 'text-zinc-800'
               )}
             >
               {item}
@@ -93,10 +93,8 @@ export function Privacy() {
       id="privacy"
       className="relative overflow-hidden border-b border-border py-24 lg:py-32"
     >
-      {/* Background Glow */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/2 top-0 h-[700px] w-[700px] -translate-x-1/2 rounded-full bg-indigo-500/10 blur-[140px]" />
-      </div>
+    
+      
 
       <div className="container-wrapper relative">
         {/* Heading */}

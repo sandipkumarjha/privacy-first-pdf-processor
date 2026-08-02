@@ -38,10 +38,8 @@ export function FAQ() {
       id="faq"
       className="relative overflow-hidden border-b border-border py-24 lg:py-32"
     >
-      {/* Background Glow */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/2 top-0 h-[650px] w-[650px] -translate-x-1/2 rounded-full bg-indigo-500/10 blur-[140px]" />
-      </div>
+    
+      
 
       <div className="container-wrapper relative">
 
@@ -52,7 +50,7 @@ export function FAQ() {
           transition={{ duration: .5 }}
           className="mx-auto max-w-3xl text-center"
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+          <div className="inline-flex items-center gap-2 rounded-full border-2 border-[#ffddb0] bg-white px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-accent">
             <ShieldCheck className="h-4 w-4" />
             Frequently Asked Questions
           </div>
@@ -62,7 +60,7 @@ export function FAQ() {
             <span className="gradient-text"> We've answered them.</span>
           </h2>
 
-          <p className="mt-6 text-lg text-muted">
+          <p className="mt-6 text-lg text-zinc-800">
             Everything you need to know about privacy,
             offline processing, and how the application works.
           </p>
@@ -73,7 +71,7 @@ export function FAQ() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: .6 }}
-          className="mx-auto mt-20 max-w-4xl rounded-3xl border border-border bg-surface/70 p-3 backdrop-blur-xl"
+          className="mx-auto mt-20 max-w-4xl rounded-3xl border-4 border-[#ffddb0] bg-surface/70 p-3 backdrop-blur-xl"
         >
           <Accordion items={faqs} />
         </motion.div>

@@ -45,8 +45,10 @@ export function Hero() {
             </p>
 
             <div className="mt-10 ml-5 flex flex-col gap-4 sm:flex-row">
-              <Button size="lg">
+              <Button className='lg'>
+                <a href="#faq" className="w-full">
                 Start Processing PDFs
+                </a>
               </Button>
 
               <a

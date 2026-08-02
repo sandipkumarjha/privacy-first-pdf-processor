@@ -33,10 +33,7 @@ export function HowItWorks() {
       id="how-it-works"
       className="relative overflow-hidden border-b border-border py-24 lg:py-32"
     >
-      {/* Background Glow */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/2 top-0 h-[700px] w-[700px] -translate-x-1/2 rounded-full bg-indigo-500/10 blur-[140px]" />
-      </div>
+      
 
       <div className="container-wrapper relative">
         {/* Heading */}
@@ -47,11 +44,11 @@ export function HowItWorks() {
           transition={{ duration: .6 }}
           className="mx-auto max-w-3xl text-center"
         >
-          <span className="inline-flex rounded-full border border-accent/20 bg-accent/10 px-4 py-1 text-xl font-bold uppercase tracking-[0.2em] text-accent">
+          <span className="inline-flex rounded-full border-2 border-[#ffddb0] bg-white px-4 py-1 text-xl font-bold uppercase tracking-[0.2em] text-accent">
             HOW IT WORKS
           </span>
 
-          <h2 className="mt-6 text-4xl font-semibold tracking-tight md:text-5xl">
+          <h2 className="mt-6 text-xl font-bold tracking-tight md:text-5xl">
             Three simple steps.
             <span className="gradient-text"> Zero servers.</span>
           </h2>
@@ -98,7 +95,7 @@ export function HowItWorks() {
                   )}
 
                   {/* Card */}
-                  <div className="rounded-3xl border-4 border-border bg-surface/70 p-8 backdrop-blur-xl transition-all duration-300 hover:border-accent/40 hover:shadow-[0_25px_80px_rgba(99,102,241,.18)]">
+                  <div className="rounded-3xl border-4 border-border bg-surface/70 p-8 backdrop-blur-xl transition-all duration-300 hover:border-accent/40 ">
 
                     <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-accent/20 bg-accent/10 transition-all duration-300 group-hover:bg-accent">
 

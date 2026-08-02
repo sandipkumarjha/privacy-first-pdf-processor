@@ -95,7 +95,7 @@ export function WatermarkUploadArea({
       aria-label="Upload PDF to watermark"
       className={cn(
         "flex flex-col items-center justify-center gap-4 rounded-2xl border-2 border-dashed",
-        "border-[var(--secondary)] bg-white p-8 text-center shadow-sm sm:p-12",
+        "border-[var(--secondary)] bg-blue-200 p-8 text-center shadow-sm sm:p-12",
         isDragging && "scale-[1.02] border-[var(--primary)] bg-[var(--accent)]/15",
         isLoading && "pointer-events-none opacity-70",
         hasFile && "py-6"
@@ -105,10 +105,10 @@ export function WatermarkUploadArea({
         <div className="flex w-full max-w-md flex-col items-center gap-4 sm:flex-row sm:items-center sm:justify-between sm:text-left">
           <div className="flex min-w-0 items-center gap-3">
             <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[var(--accent)]/40">
-              <FileText className="h-6 w-6 text-[var(--foreground)]" aria-hidden="true" />
+              <FileText className="h-6 w-6 text-zinc-800" aria-hidden="true" />
             </span>
             <div className="min-w-0">
-              <p className="truncate text-sm font-medium text-[var(--foreground)]">
+              <p className="truncate text-sm font-medium text-zinc-800">
                 {fileName}
               </p>
               {fileSize && (
@@ -129,13 +129,13 @@ export function WatermarkUploadArea({
       ) : (
         <>
           <span
-            className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--accent)]/40"
+            className="flex h-16 w-16 items-center justify-center rounded-full bg-[#FFDDB0]"
             aria-hidden="true"
           >
             {isLoading ? (
               <Loader2 className="h-7 w-7 animate-spin text-[var(--foreground)]" />
             ) : (
-              <UploadCloud className="h-7 w-7 text-[var(--foreground)]" />
+              <UploadCloud className="h-7 w-7 text-zinc-800" />
             )}
           </span>
 
@@ -143,7 +143,7 @@ export function WatermarkUploadArea({
             <p className="text-lg font-semibold text-[var(--foreground)]">
               Upload PDF
             </p>
-            <p className="text-sm text-[var(--muted-foreground)]">
+            <p className="text-sm text-zinc-800">
               Drag &amp; Drop or Browse
             </p>
           </div>

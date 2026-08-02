@@ -10,9 +10,7 @@ export function CTA() {
     <section className="relative overflow-hidden border-b border-border py-24 lg:py-32">
 
       {/* Background Glow */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/2 top-1/2 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-indigo-500/10 blur-[150px]" />
-      </div>
+      
 
       <div className="container-wrapper relative">
 
@@ -21,13 +19,13 @@ export function CTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: .6 }}
-          className="mx-auto max-w-4xl rounded-[32px] border border-border bg-surface/60 p-12 text-center backdrop-blur-xl md:p-16"
+          className="mx-auto max-w-4xl rounded-[32px] border-4 border-[#ffddb0] bg-surface/60 p-12 text-center backdrop-blur-xl md:p-16"
         >
 
           {/* Badge */}
 
-          <div className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-            <ShieldCheck className="h-4 w-4" />
+          <div className="inline-flex items-center gap-2 rounded-full border-2 border-[#ffddb0]  px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+            <ShieldCheck className="h-4 w-4 text-2xl " />
             100% Local Processing
           </div>
 
@@ -40,7 +38,7 @@ export function CTA() {
 
           {/* Description */}
 
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-muted">
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-zinc-800">
             Merge, split, compress, rotate, watermark and edit PDFs directly
             inside your browser.
             <br />
@@ -63,19 +61,13 @@ export function CTA() {
             </Button>
             </Link>
 
-            <Button
-              variant="outline"
-              size="lg"
-              className="h-12 rounded-xl"
-            >
-              View Demo
-            </Button>
+             
 
           </div>
 
           {/* Bottom Trust Text */}
 
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-sm text-muted">
+          <div className="mt-10 flex flex-wrap text-zinc-800 items-center justify-center gap-6 text-sm ">
 
             <span>✓ No Sign Up</span>
 

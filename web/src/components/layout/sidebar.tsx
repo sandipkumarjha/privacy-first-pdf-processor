@@ -14,7 +14,7 @@ import {
   Scissors,
   Wand2,
   Shield,
-  Settings,
+  
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
@@ -83,7 +83,7 @@ export function Sidebar() {
         )}
       >
         {/* Top Glow */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-indigo-500/10 via-indigo-500/5 to-transparent" />
+        
 
         {/* Logo */}
         <div className="relative flex h-20 items-center border-b border-white px-5">
@@ -169,31 +169,7 @@ export function Sidebar() {
 
         {/* Bottom */}
         <div className="border-t border-white/5 p-3">
-          <Link
-            href="/settings"
-            className={cn(
-              "group flex h-12 items-center rounded-xl transition-all duration-300",
-
-              pathname === "/settings"
-                ? "bg-gradient-to-r from-indigo-500/20 to-indigo-500/5 "
-                : "text-zinc-800 hover:bg-white/5 hover:text-black"
-            )}
-          >
-            <div
-              className={cn(
-                "flex w-full items-center",
-                collapsed ? "justify-center" : "px-4"
-              )}
-            >
-              <Settings className="h-5 w-5" />
-
-              {!collapsed && (
-                <span className="ml-3 text-sm font-medium">
-                  Settings
-                </span>
-              )}
-            </div>
-          </Link>
+          
 
           <Button
             variant="ghost"

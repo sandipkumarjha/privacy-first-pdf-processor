@@ -49,7 +49,7 @@ export function Features() {
   className="relative overflow-hidden border-b border-border py-24 lg:py-32"
 >
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-  <div className="absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-indigo-600/10 blur-[120px]" />
+  <div className="absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 rounded-full blur-[120px]" />
 </div>
       <div className="container-wrapper">
   <div className="max-w-3xl text-center mx-auto">

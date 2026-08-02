@@ -44,7 +44,7 @@ export function Header() {
   const title = pageTitle[pathname] ?? "Dashboard";
 
   return (
-    <header className="sticky top-0 z-40 flex h-20 items-center justify-between border-b border-[#FFBE91] bg-[#FFDDB0] px-8 backdrop-blur-xl ">
+    <header className="sticky top-0 z-40 flex h-20 items-center justify-between border-b  bg-[#FFDDB0] px-8 backdrop-blur-xl ">
       {/* Left */}
       <div>
         <div className="flex items-center gap-3">
@@ -84,7 +84,7 @@ export function Header() {
           <DropdownMenuTrigger asChild>
             <Button
               variant="ghost"
-              className="h-12 rounded-xl border border-blue-600  px-2 hover:bg-[#FFBE91]"
+              className="h-12 rounded-xl border border-blue-600  px-2 hover:bg-[#FFDDB0]"
             >
               <Avatar className="h-9 w-9">
                 <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-cyan-500 font-semibold text-white">
@@ -108,7 +108,7 @@ export function Header() {
 
           <DropdownMenuContent
             align="end"
-            className="w-64 border-2 border-blue-400 bg-[#FFBE91] text-black position-relative z-50 rounded-xl shadow-lg shadow-indigo-500/20"
+            className="w-64 border-2 border-blue-400 bg-[#FFDDB0] text-black position-relative z-50 rounded-xl shadow-lg shadow-indigo-500/20"
           >
             <DropdownMenuLabel>
               <div className="flex items-center gap-3">
