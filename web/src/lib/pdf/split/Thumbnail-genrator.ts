@@ -65,7 +65,6 @@ export async function generatePageThumbnail(
     console.log(`🎨 Rendering page ${pageNumber}`);
 
     const renderTask = page.render({
-      canvas,
       canvasContext: context,
       viewport,
     });

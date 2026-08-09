@@ -212,7 +212,6 @@ export async function generatePdfThumbnail(
     }
 
     await page.render({
-      canvas,
       canvasContext: context,
       viewport,
     }).promise;

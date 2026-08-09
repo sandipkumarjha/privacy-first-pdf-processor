@@ -32,7 +32,7 @@ const columns = [
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-border">
+    <footer className="relative overflow-hidden border-t border-border ml-10">
 
       {/* Background Glow */}
       <div className="pointer-events-none absolute inset-0">
