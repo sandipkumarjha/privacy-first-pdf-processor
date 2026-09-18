@@ -62,8 +62,8 @@ export function CompressToolbar({
             onClick={onCompress}
             disabled={disabled || isCompressing}
             className={cn(
-              "inline-flex items-center gap-2 rounded-md bg-orange-500 px-4 py-2 text-sm font-medium text-white transition-colors",
-              "hover:bg-orange-600 dark:bg-orange-500 dark:hover:bg-orange-400",
+              "inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors",
+              "hover:bg-primary/90",
               "disabled:pointer-events-none disabled:opacity-50"
             )}
           >
@@ -97,7 +97,7 @@ export function CompressToolbar({
                   initial={{ width: 0 }}
                   animate={{ width: `${clampedProgress}%` }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
-                  className="h-full rounded-full bg-orange-500 dark:bg-orange-400"
+                  className="h-full rounded-full bg-primary"
                 />
               </div>
               <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">

@@ -33,7 +33,6 @@ export default function SplitPage() {
   const hasFile = Boolean(file);
 
   const handleFileSelect = (selectedFile: File) => {
-    console.log("✅ SplitPage:", selectedFile.name);
     void loadPdf(selectedFile);
   };
 
@@ -72,22 +71,17 @@ export default function SplitPage() {
       download();
     }
   }, [splitSuccess]);
-  console.log("FILE:", file);
-  console.log("PAGE COUNT:", pageCount);
-  console.log("DOCUMENT:", document);
   return (
   
-    <div className="flex flex-col gap-8">
+    <div className="mx-auto flex w-full max-w-5xl flex-col gap-8">
       
       <SplitHeader />
-     <div className="relative overflow-hidden rounded-3xl border-4 border-[#3874FF] bg-gradient-to-br from-[#1591DC] via-[#99C2FF] to-[#1591DC] p-8 lg:p-12">
-      <SplitUploadArea
+     <SplitUploadArea
         fileName={file?.name}
         fileSize={file ? formatFileSize(file.size) : undefined}
         isLoading={isLoading}
         onFileSelect={handleFileSelect}
       />
-</div>
       {hasFile && (
         <>
           <div className="flex flex-col gap-1.5">
@@ -97,7 +91,7 @@ export default function SplitPage() {
               totalPages={pageCount}
             />
             {rangeError && (
-              <p role="alert" className="text-xs text-red-500">
+              <p role="alert" className="text-xs text-danger">
                 {rangeError}
               </p>
             )}
@@ -115,7 +109,6 @@ export default function SplitPage() {
             selectedPages={selectedPages}
             onToggle={togglePageSelection}
           />
-          <div className="relative overflow-hidden rounded-3xl border-4 border-[#3874FF] bg-gradient-to-br from-[#1591DC] via-[#99C2FF] to-[#1591DC] p-8 lg:p-12">
           <SplitDownloadSection
             disabled={selectedPages.length === 0}
             loading={isSplitting}
@@ -123,7 +116,6 @@ export default function SplitPage() {
             onSplit={handleSplit}
             
           />
-          </div>
         </>
       )}
     </div>

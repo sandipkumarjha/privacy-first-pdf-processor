@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion'
 import {Check,X } from 'lucide-react'
 import { cn } from '@/lib/cn'
+import { SectionIntro } from './section-intro'
+import { cardHover } from '@/components/ui/motion'
 
 const typical = [
   'Uploads your file to a server before it can do anything',
@@ -31,24 +33,21 @@ function ComparisonColumn({
 
   return (
     <motion.div
-      whileHover={{
-        y: -8,
-        scale: 1.02,
-      }}
-      transition={{ duration: 0.25 }}
+      whileHover={cardHover}
       className={cn(
-        'relative rounded-3xl border p-8 backdrop-blur-xl transition-all duration-300',
+        'relative rounded-2xl border p-8 backdrop-blur-xl',
+        'transition-[border-color,box-shadow] duration-200 hover:elevate-md',
         accent
-          ? 'border-indigo-500/30 bg-white '
-          : 'border-border bg-surface/70 hover:border-red-500/20'
+          ? 'border-foreground bg-foreground text-background elevate-lg'
+          : 'border-border bg-surface/60 elevate-sm hover:border-border-strong'
       )}
     >
       <div
         className={cn(
-          'mb-8 inline-flex rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em]',
+          'mb-8 inline-flex rounded-full border px-3.5 py-1.5 font-mono text-xs tracking-widest uppercase',
           accent
-            ?'bg-indigo-300 text-indigo-800'
-            : 'bg-red-500/10 text-red-400'
+            ? 'border-background/25 bg-background/10 text-background'
+            : 'border-[color-mix(in_oklch,var(--danger),transparent_78%)] bg-danger-soft text-danger'
         )}
       >
         {heading}
@@ -59,23 +58,21 @@ function ComparisonColumn({
           <li key={item} className="flex items-start gap-4">
             <div
               className={cn(
-                'mt-1 flex h-8 w-8 items-center justify-center rounded-full',
-                accent
-                  ? 'bg-green-500/10'
-                  : 'bg-red-500/10'
+                'mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full',
+                accent ? 'bg-background/15' : 'bg-danger-soft'
               )}
             >
               {accent ? (
-                <Check className="h-4 w-4 text-green-400" />
+                <Check className="size-3.5 text-background" />
               ) : (
-                <X className="h-4 w-4 text-red-400" />
+                <X className="size-3.5 text-danger" />
               )}
             </div>
 
             <span
               className={cn(
                 'leading-7',
-                accent ? 'text-foreground' : 'text-zinc-800'
+                accent ? 'text-background' : 'text-muted'
               )}
             >
               {item}
@@ -97,30 +94,20 @@ export function Privacy() {
       
 
       <div className="container-wrapper relative">
-        {/* Heading */}
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex rounded-full border border-accent/20 bg-accent/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-            PRIVACY BY DESIGN
-          </span>
-
-          <h2 className="mt-6 text-4xl font-semibold tracking-tight md:text-5xl">
-            Not a Privacy Policy.
-            <span className="gradient-text"> A Technical Guarantee.</span>
-          </h2>
-
-          <p className="mt-6 text-lg text-muted">
-            Traditional PDF tools ask you to trust them.
-            <br />
-            We simply ensure your files never leave your device.
-          </p>
-        </div>
+        <SectionIntro
+          index="04"
+          eyebrow="Privacy by design"
+          title="Not a privacy policy."
+          emphasis="A technical guarantee."
+          description="Traditional PDF tools ask you to trust them. We simply ensure your files never leave your device."
+        />
 
         {/* Comparison */}
-        <div className="relative mt-20 grid gap-8 lg:grid-cols-2">
+        <div className="relative mt-16 grid gap-6 lg:grid-cols-2">
           {/* VS Badge */}
-          <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 lg:flex">
-            <div className="rounded-full border border-border bg-background px-5 py-3 font-semibold shadow-xl">
-              VS
+          <div className="absolute top-1/2 left-1/2 z-10 hidden -translate-x-1/2 -translate-y-1/2 lg:flex">
+            <div className="flex size-12 items-center justify-center rounded-full border border-border bg-background font-display text-lg italic elevate-md">
+              vs
             </div>
           </div>
 

@@ -39,13 +39,13 @@ const ICON_SIZE_CLASSES: Record<FeatureButtonSize, string> = {
 };
 
 const VARIANT_CLASSES: Record<FeatureButtonVariant, string> = {
-  default: "bg-[var(--accent)] text-white hover:brightness-95",
+  default: "bg-primary text-primary-foreground hover:opacity-90",
   secondary:
-    "bg-[var(--surface-2)] text-[var(--foreground)] hover:brightness-95",
+    "bg-surface-2 text-foreground hover:opacity-90",
   outline:
-    "bg-transparent border border-[var(--border)] text-[var(--foreground)] hover:bg-[var(--surface-2)]",
-  ghost: "bg-transparent text-[var(--foreground)] hover:bg-[var(--surface-2)]",
-  danger: "bg-red-600 text-white hover:bg-red-700",
+    "bg-transparent border border-border text-foreground hover:bg-surface-2",
+  ghost: "bg-transparent text-foreground hover:bg-surface-2",
+  danger: "bg-danger text-primary-foreground hover:bg-danger/90",
 };
 
 export function FeatureButton({

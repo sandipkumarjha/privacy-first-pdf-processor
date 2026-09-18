@@ -3,23 +3,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/cn";
 
-import {
-  LayoutDashboard,
-  Merge,
-  Split,
-  Zap,
-  RotateCw,
-  Scissors,
-  Wand2,
-  Shield,
-  
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
+import { ShieldCheck, PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import { navigationItems } from "./nav-items";
 
 import { Button } from "@/components/ui/button";
+import { DURATION, EASE_SOFT } from "@/components/ui/motion";
 import {
   Tooltip,
   TooltipContent,
@@ -27,48 +18,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-const navigationItems = [
-  {
-    title: "Dashboard",
-    href: "/dashboard",
-    icon: LayoutDashboard,
-  },
-  {
-    title: "Merge PDF",
-    href: "/merge",
-    icon: Merge,
-  },
-  {
-    title: "Split PDF",
-    href: "/split",
-    icon: Split,
-  },
-  {
-    title: "Compress PDF",
-    href: "/compress",
-    icon: Zap,
-  },
-  {
-    title: "Rotate PDF",
-    href: "/rotate",
-    icon: RotateCw,
-  },
-  {
-    title: "Extract Pages",
-    href: "/extract",
-    icon: Scissors,
-  },
-  {
-    title: "Watermark",
-    href: "/watermark",
-    icon: Wand2,
-  },
-  {
-    title: "OCR",
-    href: "/ocr",
-    icon: Shield,
-  },
-];
 
 export function Sidebar() {
   const pathname = usePathname();
@@ -78,112 +27,107 @@ export function Sidebar() {
     <TooltipProvider delayDuration={100}>
       <aside
         className={cn(
-          "relative flex h-screen flex-col border-r border-white/10 bg-[#FFDDB0]  transition-all duration-300",
-          collapsed ? "w-[78px]" : "w-[280px]"
+          "relative hidden h-screen shrink-0 flex-col border-r border-border bg-surface/60 md:flex",
+          "transition-[width] duration-300 ease-out",
+          collapsed ? "w-[76px]" : "w-[264px]"
         )}
       >
-        {/* Top Glow */}
-        
-
-        {/* Logo */}
-        <div className="relative flex h-20 items-center border-b border-white px-5">
-          <Link href="/dashboard" className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 shadow-lg shadow-indigo-500/20">
-              <Shield className="h-5 w-5 text-black" />
-            </div>
+        {/* Brand */}
+        <div className="flex h-16 items-center border-b border-border px-4">
+          <Link
+            href="/dashboard"
+            className="flex min-w-0 items-center gap-3 rounded-lg"
+          >
+            <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-foreground text-background">
+              <ShieldCheck className="size-[18px]" />
+            </span>
 
             {!collapsed && (
-              <div>
-                <h2 className="font-semibold text-black tracking-tight">
-                  PDFVault
-                </h2>
-                <p className="text-xs text-zinc-800">
-                  Privacy First
-                </p>
-              </div>
+              <span className="min-w-0">
+                <span className="block truncate font-mono text-[15px] tracking-tight text-foreground">
+                  privacy<span className="text-muted-foreground">/</span>pdf
+                </span>
+              </span>
             )}
           </Link>
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 space-y-2 overflow-y-auto px-3 py-6">
+        <nav className="flex-1 space-y-1 overflow-y-auto p-3">
           {navigationItems.map((item) => {
             const Icon = item.icon;
-
             const active =
-              pathname === item.href ||
-              pathname.startsWith(item.href + "/");
+              pathname === item.href || pathname.startsWith(item.href + "/");
 
-            const button = (
+            const link = (
               <Link
-                key={item.href}
                 href={item.href}
+                aria-current={active ? "page" : undefined}
                 className={cn(
-                  "group relative flex h-12 items-center rounded-xl transition-all duration-300",
-
+                  "group relative flex h-11 items-center gap-3 rounded-lg px-3",
+                  "text-sm transition-colors duration-150",
+                  collapsed && "justify-center px-0",
                   active
-                    ? "bg-gradient-to-r from-indigo-500/20 to-indigo-500/5 text-black shadow-lg shadow-indigo-500/10"
-                    : "text-zinc-800 hover:bg-white/5 hover:text-black hover:translate-x-1"
+                    ? "bg-surface-2 font-semibold text-foreground"
+                    : "text-muted hover:bg-surface-2 hover:text-foreground"
                 )}
               >
+                {/* Active marker: a 3px bar, not a gradient wash. */}
                 {active && (
-                  <div className="absolute left-0 h-7 w-1 rounded-r-full bg-indigo-500" />
+                  <motion.span
+                    layoutId="sidebar-active"
+                    transition={{ duration: DURATION.fast, ease: EASE_SOFT }}
+                    className="absolute inset-y-2 left-0 w-[3px] rounded-full bg-foreground"
+                  />
                 )}
 
-                <div
-                  className={cn(
-                    "flex w-full items-center",
-                    collapsed ? "justify-center" : "px-4"
-                  )}
-                >
-                  <Icon
-                    className={cn(
-                      "h-5 w-5 transition-colors",
-                      active
-                        ? "text-indigo-400"
-                        : "text-zimc-800 group-hover:text-indigo-300"
-                    )}
-                  />
+                <Icon className="size-[18px] shrink-0" />
 
-                  {!collapsed && (
-                    <span className="ml-3 text-sm font-medium">
-                      {item.title}
-                    </span>
-                  )}
-                </div>
+                {!collapsed && <span className="truncate">{item.title}</span>}
               </Link>
             );
 
-            if (!collapsed) return button;
+            if (!collapsed) return <div key={item.href}>{link}</div>;
 
             return (
               <Tooltip key={item.href}>
-                <TooltipTrigger asChild>{button}</TooltipTrigger>
-                <TooltipContent side="right">
-                  {item.title}
-                </TooltipContent>
+                <TooltipTrigger asChild>{link}</TooltipTrigger>
+                <TooltipContent side="right">{item.title}</TooltipContent>
               </Tooltip>
             );
           })}
         </nav>
 
-        {/* Bottom */}
-        <div className="border-t border-white/5 p-3">
-          
+        {/* Footer */}
+        <div className="space-y-3 border-t border-border p-3">
+          <AnimatePresence initial={false}>
+            {!collapsed && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: DURATION.fast, ease: EASE_SOFT }}
+                className="overflow-hidden"
+              >
+                <div className="rounded-lg border border-border bg-surface-2 p-3">
+                  <p className="text-xs leading-5 text-muted">
+                    Every operation runs in this browser tab. Nothing is
+                    uploaded.
+                  </p>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           <Button
             variant="ghost"
-            onClick={() => setCollapsed(!collapsed)}
-            className="mt-3 h-11 w-full rounded-xl border-2 border-indigo-400  text-zinc-800 transition-all hover:bg-white/5 hover:text-black"
+            size={collapsed ? "icon" : "default"}
+            onClick={() => setCollapsed((v) => !v)}
+            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+            className={cn("w-full", !collapsed && "justify-start")}
           >
-            {collapsed ? (
-              <ChevronRight className="h-5 w-5" />
-            ) : (
-              <>
-                <ChevronLeft className="mr-2 h-5 w-5" />
-                Collapse
-              </>
-            )}
+            {collapsed ? <PanelLeftOpen /> : <PanelLeftClose />}
+            {!collapsed && "Collapse"}
           </Button>
         </div>
       </aside>

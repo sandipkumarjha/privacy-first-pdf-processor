@@ -1,8 +1,10 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ShieldCheck } from 'lucide-react'
+
 import { Accordion } from '@/components/ui/accordion'
+import { DURATION, EASE_OUT } from '@/components/ui/motion'
+import { SectionIntro } from './section-intro'
 
 const faqs = [
   {
@@ -16,9 +18,9 @@ const faqs = [
       'Only the first time to load the application. Once cached, you can continue processing PDFs completely offline—even on a plane or without Wi-Fi.',
   },
   {
-    question: 'Whats the maximum file size?',
+    question: "What's the maximum file size?",
     answer:
-      'There are no artificial limits. Processing depends on your devices available memory rather than our servers.',
+      "There are no artificial limits. Processing depends on your device's available memory rather than our servers.",
   },
   {
     question: 'Is the processing engine open source?',
@@ -43,35 +45,20 @@ export function FAQ() {
 
       <div className="container-wrapper relative">
 
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: .5 }}
-          className="mx-auto max-w-3xl text-center"
-        >
-          <div className="inline-flex items-center gap-2 rounded-full border-2 border-[#ffddb0] bg-white px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-accent">
-            <ShieldCheck className="h-4 w-4" />
-            Frequently Asked Questions
-          </div>
-
-          <h2 className="mt-6 text-4xl font-semibold tracking-tight md:text-5xl">
-            Questions?
-            <span className="gradient-text"> We've answered them.</span>
-          </h2>
-
-          <p className="mt-6 text-lg text-zinc-800">
-            Everything you need to know about privacy,
-            offline processing, and how the application works.
-          </p>
-        </motion.div>
+        <SectionIntro
+          index="05"
+          eyebrow="Questions"
+          title="Questions?"
+          emphasis="We've answered them."
+          description="Everything you need to know about privacy, offline processing, and how the application works."
+        />
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: .6 }}
-          className="mx-auto mt-20 max-w-4xl rounded-3xl border-4 border-[#ffddb0] bg-surface/70 p-3 backdrop-blur-xl"
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: DURATION.slow, ease: EASE_OUT }}
+          className="mx-auto mt-14 max-w-3xl"
         >
           <Accordion items={faqs} />
         </motion.div>

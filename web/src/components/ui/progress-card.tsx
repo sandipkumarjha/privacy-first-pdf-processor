@@ -31,24 +31,24 @@ export function ProgressCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
       className={cn(
-        "rounded-2xl border bg-[var(--surface)] border-[var(--border)] p-6 shadow-sm",
+        "rounded-2xl border bg-surface border-border p-6 shadow-sm",
         className
       )}
     >
       <div className="flex items-start justify-between gap-3">
-        <h3 className="flex items-center gap-2 text-lg font-semibold text-[var(--foreground)]">
+        <h3 className="flex items-center gap-2 text-lg font-semibold text-foreground">
           {status === "success" && (
-            <CheckCircle2 className="h-5 w-5 shrink-0 text-green-600" aria-hidden="true" />
+            <CheckCircle2 className="h-5 w-5 shrink-0 text-success" aria-hidden="true" />
           )}
           {status === "error" && (
-            <AlertCircle className="h-5 w-5 shrink-0 text-red-600" aria-hidden="true" />
+            <AlertCircle className="h-5 w-5 shrink-0 text-danger" aria-hidden="true" />
           )}
           {title}
         </h3>
       </div>
 
       {description && (
-        <p className="mt-1 text-sm text-[var(--muted-foreground)]">
+        <p className="mt-1 text-sm text-muted-foreground">
           {description}
         </p>
       )}
@@ -59,13 +59,13 @@ export function ProgressCard({
         aria-valuemax={100}
         aria-valuenow={indeterminate ? undefined : displayProgress}
         className={cn(
-          "relative mt-4 h-[10px] w-full overflow-hidden rounded-full bg-[var(--surface-2)]",
+          "relative mt-4 h-[10px] w-full overflow-hidden rounded-full bg-surface-2",
           status === "loading" && "animate-pulse"
         )}
       >
         {indeterminate ? (
           <motion.div
-            className="absolute inset-y-0 w-1/3 rounded-full bg-[var(--accent)]"
+            className="absolute inset-y-0 w-1/3 rounded-full bg-accent"
             animate={{ x: ["-100%", "300%"] }}
             transition={{
               duration: 1.2,
@@ -75,7 +75,7 @@ export function ProgressCard({
           />
         ) : (
           <motion.div
-            className="h-full rounded-full bg-[var(--accent)]"
+            className="h-full rounded-full bg-accent"
             animate={{ width: `${displayProgress}%` }}
             transition={{ duration: 0.3, ease: "easeOut" }}
           />
@@ -83,7 +83,7 @@ export function ProgressCard({
       </div>
 
       {!indeterminate && (
-        <div className="mt-2 text-right text-sm font-semibold text-[var(--foreground)]">
+        <div className="mt-2 text-right text-sm font-semibold text-foreground">
           {displayProgress}%
         </div>
       )}

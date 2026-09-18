@@ -27,8 +27,8 @@ export function OcrDownload({
   const downloadDisabled = disabled || !isCompleted;
 
   return (
-    <div className="flex flex-col gap-5 rounded-2xl border border-[var(--secondary)] bg-white p-6 shadow-sm">
-      <p className="text-sm font-medium text-[var(--foreground)]">
+    <div className="flex flex-col gap-5 rounded-2xl border border-border bg-surface p-6 shadow-sm">
+      <p className="text-sm font-medium text-foreground">
         {selectedPages} of {totalPages} pages selected
       </p>
 
@@ -48,9 +48,9 @@ export function OcrDownload({
             whileTap={downloadDisabled ? undefined : { scale: 0.98 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
             className={cn(
-              "inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--primary)] px-5 py-3 text-sm font-semibold text-[var(--foreground)] shadow-sm transition-colors sm:w-auto",
-              "hover:brightness-95",
-              "disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:brightness-100"
+              "inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-sm transition-colors sm:w-auto",
+              "hover:opacity-90",
+              "disabled:cursor-not-allowed disabled:opacity-60 "
             )}
           >
             <Check className="h-4 w-4" aria-hidden="true" />
@@ -72,9 +72,9 @@ export function OcrDownload({
             whileTap={runDisabled ? undefined : { scale: 0.98 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
             className={cn(
-              "inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--primary)] px-5 py-3 text-sm font-semibold text-[var(--foreground)] shadow-sm transition-colors sm:w-auto",
-              "hover:brightness-95",
-              "disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:brightness-100"
+              "inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-sm transition-colors sm:w-auto",
+              "hover:opacity-90",
+              "disabled:cursor-not-allowed disabled:opacity-60 "
             )}
           >
             {isProcessing ? (

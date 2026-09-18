@@ -105,7 +105,7 @@ export function CompressDownload({
               transition={{ duration: 0.25, ease: "easeOut" }}
               className="flex flex-col items-center gap-3"
             >
-              <Loader2 className="h-8 w-8 animate-spin text-orange-500 dark:text-orange-400" />
+              <Loader2 className="h-8 w-8 animate-spin text-foreground" />
               <p className="text-sm font-medium text-foreground">
                 Compressing your PDF...
               </p>
@@ -119,7 +119,7 @@ export function CompressDownload({
               transition={{ duration: 0.25, ease: "easeOut" }}
               className="flex flex-col items-center gap-3"
             >
-              <CheckCircle2 className="h-8 w-8 text-green-600 dark:text-green-500" />
+              <CheckCircle2 className="h-8 w-8 text-success" />
               <p className="text-sm font-medium text-foreground">
                 Compression completed successfully
               </p>
@@ -180,8 +180,8 @@ export function CompressDownload({
                 whileTap={{ scale: 0.98 }}
                 onClick={onDownload}
                 className={cn(
-                  "inline-flex w-full items-center justify-center gap-2 rounded-md bg-orange-500 px-5 py-2.5 text-sm font-medium text-white transition-colors sm:w-auto",
-                  "hover:bg-orange-600 dark:bg-orange-500 dark:hover:bg-orange-400"
+                  "inline-flex w-full items-center justify-center gap-2 rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors sm:w-auto",
+                  "hover:bg-primary/90"
                 )}
               >
                 <Download className="h-4 w-4" />
@@ -210,8 +210,8 @@ export function CompressDownload({
               onClick={onCompress}
               disabled={disabled || isCompressing}
               className={cn(
-                "inline-flex w-full items-center justify-center gap-2 rounded-md bg-orange-500 px-5 py-2.5 text-sm font-medium text-white transition-colors sm:w-auto",
-                "hover:bg-orange-600 dark:bg-orange-500 dark:hover:bg-orange-400",
+                "inline-flex w-full items-center justify-center gap-2 rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors sm:w-auto",
+                "hover:bg-primary/90",
                 "disabled:pointer-events-none disabled:opacity-50"
               )}
             >

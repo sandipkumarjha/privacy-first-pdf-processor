@@ -14,12 +14,12 @@ export default function SplitPageSelector({
   totalPages,
 }: SplitPageSelectorProps) {
   return (
-    <div className="flex flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-900">
+    <div className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-5">
       <div className="flex flex-col gap-1">
-        <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-50">
+        <h3 className="text-sm font-semibold text-foreground">
           Select Pages
         </h3>
-        <p className="text-xs text-zinc-400">
+        <p className="text-xs text-muted-foreground">
           Examples: 1,3,5 &nbsp;·&nbsp; 2-10 &nbsp;·&nbsp; 1,4-8,11
         </p>
       </div>
@@ -32,8 +32,8 @@ export default function SplitPageSelector({
         className="font-mono text-sm"
       />
 
-      <p className="text-xs text-zinc-400">
-        Total Pages: <span className="font-medium text-zinc-600 dark:text-zinc-300">{totalPages}</span>
+      <p className="text-xs text-muted-foreground">
+        Total Pages: <span className="font-medium text-muted">{totalPages}</span>
       </p>
     </div>
   );

@@ -30,10 +30,10 @@ export function ExtractDownload({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
-      className="flex flex-col gap-5 rounded-2xl border border-[var(--secondary)] bg-white p-6 shadow-sm"
+      className="flex flex-col gap-5 rounded-2xl border border-border bg-surface p-6 shadow-sm"
     >
       <div className="flex items-center justify-between gap-3">
-        <h2 className="text-xl font-bold text-[var(--foreground)]">
+        <h2 className="text-xl font-bold text-foreground">
           Ready to Extract
         </h2>
 
@@ -51,20 +51,20 @@ export function ExtractDownload({
       </div>
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        <div className="rounded-xl border border-[var(--secondary)] bg-[var(--background)] p-4">
-          <p className="text-2xl font-bold tracking-tight text-[var(--foreground)]">
+        <div className="rounded-xl border border-border bg-background p-4">
+          <p className="text-2xl font-bold tracking-tight text-foreground">
             {totalPages}
           </p>
-          <p className="text-sm text-[var(--muted-foreground)]">
+          <p className="text-sm text-muted-foreground">
             Total Pages
           </p>
         </div>
 
-        <div className="rounded-xl border border-[var(--secondary)] bg-[var(--accent)]/20 p-4">
-          <p className="text-2xl font-bold tracking-tight text-[var(--foreground)]">
+        <div className="rounded-xl border border-border bg-accent-soft p-4">
+          <p className="text-2xl font-bold tracking-tight text-foreground">
             {selectedPages}
           </p>
-          <p className="text-sm text-[var(--muted-foreground)]">
+          <p className="text-sm text-muted-foreground">
             Selected Pages
           </p>
         </div>
@@ -79,8 +79,8 @@ export function ExtractDownload({
           whileTap={{ scale: 0.98 }}
           transition={{ duration: 0.15, ease: "easeOut" }}
           className={cn(
-            "inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--primary)] px-5 py-3 text-sm font-semibold text-[var(--foreground)] shadow-sm transition-colors sm:w-auto",
-            "hover:brightness-95"
+            "inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-sm transition-colors sm:w-auto",
+            "hover:opacity-90"
           )}
         >
           <Download className="h-4 w-4" aria-hidden="true" />
@@ -97,9 +97,9 @@ export function ExtractDownload({
           whileTap={actionDisabled ? undefined : { scale: 0.98 }}
           transition={{ duration: 0.15, ease: "easeOut" }}
           className={cn(
-            "inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--primary)] px-5 py-3 text-sm font-semibold text-[var(--foreground)] shadow-sm transition-colors sm:w-auto",
-            "hover:brightness-95",
-            "disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:brightness-100"
+            "inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-sm transition-colors sm:w-auto",
+            "hover:opacity-90",
+            "disabled:cursor-not-allowed disabled:opacity-60 "
           )}
         >
           {isProcessing ? (

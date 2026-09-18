@@ -69,19 +69,19 @@ function ExtractPageCard({ page, selected, onClick }: ExtractPageCardProps) {
       onClick={onClick}
       onKeyDown={handleKeyDown}
       className={cn(
-        "relative flex cursor-pointer flex-col gap-3 rounded-2xl border-2 bg-white p-3",
+        "relative flex cursor-pointer flex-col gap-3 rounded-2xl border-2 bg-surface p-3",
         "shadow-sm transition-all hover:shadow-md",
         selected
-          ? "border-[var(--primary)] bg-[var(--accent)]/20"
-          : "border-[var(--secondary)]"
+          ? "border-foreground bg-accent-soft"
+          : "border-border"
       )}
     >
       <span
         className={cn(
           "absolute right-2 top-2 z-10 flex h-5 w-5 items-center justify-center rounded-full transition-colors",
           selected
-            ? "bg-[var(--primary)] text-white"
-            : "border-2 border-[var(--secondary)] bg-white"
+            ? "bg-primary text-primary-foreground"
+            : "border-2 border-border bg-surface"
         )}
         aria-hidden="true"
       >32
@@ -89,7 +89,7 @@ function ExtractPageCard({ page, selected, onClick }: ExtractPageCardProps) {
         {selected && <Check className="h-3.5 w-3.5" />}
       </span>
 
-      <div className="relative aspect-[210/297] w-full overflow-hidden rounded-lg border border-[var(--secondary)]/60 bg-white">
+      <div className="relative aspect-[210/297] w-full overflow-hidden rounded-lg border border-border bg-surface">
         <img
           src={page.thumbnail}
           alt={`Page ${page.pageNumber}`}
@@ -97,7 +97,7 @@ function ExtractPageCard({ page, selected, onClick }: ExtractPageCardProps) {
         />
       </div>
 
-      <p className="text-center text-sm font-medium text-[var(--foreground)]">
+      <p className="text-center text-sm font-medium text-foreground">
         Page {page.pageNumber}
       </p>
     </motion.div>

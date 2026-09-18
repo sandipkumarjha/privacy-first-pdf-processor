@@ -2,14 +2,16 @@
 
 import { motion } from "framer-motion";
 import {
+  Clock,
   FileText,
   Merge,
+  RotateCw,
   Split,
   Zap,
-  RotateCw,
-  Clock,
-  ArrowRight,
 } from "lucide-react";
+
+import { IconTile } from "@/components/ui/icon-tile";
+import { DURATION, EASE_OUT, stagger } from "@/components/ui/motion";
 
 const activities = [
   {
@@ -17,121 +19,103 @@ const activities = [
     action: "Merged 4 PDFs",
     file: "Project_Documentation.pdf",
     time: "2 minutes ago",
-    color: "from-blue-500 to-cyan-500",
   },
   {
     icon: Zap,
     action: "Compressed PDF",
     file: "Invoice_2026.pdf",
     time: "15 minutes ago",
-    color: "from-amber-500 to-orange-500",
   },
   {
     icon: Split,
-    action: "Split Document",
+    action: "Split document",
     file: "Research_Paper.pdf",
     time: "1 hour ago",
-    color: "from-violet-500 to-fuchsia-500",
   },
   {
     icon: RotateCw,
-    action: "Rotated Pages",
+    action: "Rotated pages",
     file: "Presentation.pdf",
     time: "Yesterday",
-    color: "from-emerald-500 to-green-500",
   },
 ];
 
 export function RecentActivity() {
   return (
     <motion.section
-      initial={{ opacity: 0, y: 25 }}
+      initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
-      className="relative overflow-hidden rounded-3xl border-4 border-[#3874FF] bg-gradient-to-br from-[#1591DC] via-[#99C2FF] to-[#1591DC] p-8 lg:p-12"
-      
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: DURATION.base, ease: EASE_OUT }}
+      className="flex flex-col overflow-hidden rounded-2xl border border-border bg-surface elevate-sm"
     >
-      {/* Header */}
-
-      <div className="flex items-center justify-between border-b border-zinc-800 px-6 py-5">
+      <header className="flex items-center justify-between gap-3 border-b border-border px-6 py-5">
         <div>
-          <h2 className="text-xl font-semibold text-black">
-            Recent Activity
+          <h2 className="text-lg font-semibold">
+            Recent activity
           </h2>
-
-          <p className="mt-1 text-sm text-zinc-800">
+          <p className="mt-0.5 text-sm text-muted">
             Your latest PDF operations
           </p>
         </div>
 
-        <Clock className="h-5 w-5 text-zinc-800" />
-      </div>
+        <Clock className="size-4 shrink-0 text-muted-foreground" />
+      </header>
 
-      {/* Timeline */}
+      <div className="relative flex-1 px-6 py-5">
+        {/* Timeline rail, aligned to the centre of the 36px icon tiles. */}
+        <div
+          aria-hidden="true"
+          className="absolute top-8 bottom-8 left-[42px] w-px bg-border"
+        />
 
-      <div className="relative px-6 py-4">
-
-        {/* Vertical Line */}
-
-        <div className="absolute left-[42px] top-6 bottom-6 w-px bg-zinc-700" />
-
-        <div className="space-y-5">
+        <ol className="space-y-3">
           {activities.map((activity, index) => {
             const Icon = activity.icon;
 
             return (
-              <motion.div
+              <motion.li
                 key={activity.file}
-                initial={{ opacity: 0, x: -15 }}
+                initial={{ opacity: 0, x: -8 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{
-                  delay: index * 0.08,
+                  duration: DURATION.base,
+                  ease: EASE_OUT,
+                  delay: stagger(index),
                 }}
-                className="group relative flex gap-4"
+                className="flex gap-4"
               >
-                {/* Icon */}
+                <IconTile
+                  icon={Icon}
+                  tone="neutral"
+                  size="sm"
+                  className="relative z-10 bg-surface"
+                />
 
-                <div
-                  className={`relative z-10 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${activity.color}`}
-                >
-                  <Icon className="h-5 w-5 text-white" />
-                </div>
-
-                {/* Content */}
-
-                <div className="flex-1 rounded-2xl border-2 border-blue-600 bg-white/[0.03] p-4 transition-all duration-300 hover:border-indigo-500/30 hover:bg-white/[0.05]">
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-medium text-black">
+                <div className="min-w-0 flex-1 rounded-xl border border-border bg-surface-2 p-3.5 transition-colors hover:border-border-strong">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <h3 className="truncate text-sm font-medium">
                       {activity.action}
                     </h3>
 
-                    <span className="text-xs text-zinc-800">
+                    <span className="shrink-0 text-xs text-muted-foreground">
                       {activity.time}
                     </span>
                   </div>
 
-                  <div className="mt-2 flex items-center gap-2 text-sm text-zinc-800">
-                    <FileText className="h-4 w-4" />
-                    {activity.file}
-                  </div>
+                  <p className="mt-1.5 flex items-center gap-1.5 truncate text-sm text-muted">
+                    <FileText className="size-3.5 shrink-0" />
+                    <span className="truncate font-mono text-xs">
+                      {activity.file}
+                    </span>
+                  </p>
                 </div>
-              </motion.div>
+              </motion.li>
             );
           })}
-        </div>
+        </ol>
 
-        {/* Footer */}
-
-        <motion.button
-          whileHover={{ x: 4 }}
-          className="mt-8 flex items-center gap-2 text-sm font-medium text-zinc-800 transition-colors hover:text-indigo-300"
-        >
-          View Full History
-
-          <ArrowRight className="h-4 w-4" />
-        </motion.button>
       </div>
     </motion.section>
   );

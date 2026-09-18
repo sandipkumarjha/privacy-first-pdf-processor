@@ -1,18 +1,15 @@
-interface MergeHeaderProps {
-    className?: string;
-  }
-  
-  export function MergeHeader({ className }: MergeHeaderProps) {
-    return (
-      <div className={className}>
-        <h1 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
-          Merge PDF
-        </h1>
-        <p className="mt-1 text-sm text-muted-foreground sm:text-base">
-          Combine multiple PDF files into one document.
-        </p>
-      </div>
-    );
-  }
-  
-  export default MergeHeader;
+import { Merge } from "lucide-react";
+import { PageHeader } from "@/components/ui/page-header";
+
+export function MergeHeader({ className }: { className?: string }) {
+  return (
+    <PageHeader
+      icon={Merge}
+      title="Merge PDFs"
+      description="Combine multiple PDF files into one document, in the order you choose."
+      className={className}
+    />
+  );
+}
+
+export default MergeHeader;

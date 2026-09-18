@@ -34,17 +34,17 @@ export function EmptyState({
           initial={{ scale: 0.9 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.35, ease: "easeOut" }}
-          className="flex h-20 w-20 items-center justify-center rounded-full bg-[var(--accent-soft)]"
+          className="flex h-20 w-20 items-center justify-center rounded-full bg-accent-soft"
         >
-          <Icon className="h-10 w-10 text-[var(--accent)]" aria-hidden="true" />
+          <Icon className="h-10 w-10 text-foreground" aria-hidden="true" />
         </motion.span>
       )}
 
-      <h3 className="text-2xl font-bold tracking-tight text-[var(--foreground)]">
+      <h3 className="text-2xl font-bold tracking-tight text-foreground">
         {title}
       </h3>
 
-      <p className="max-w-md text-sm leading-6 text-[var(--muted-foreground)]">
+      <p className="max-w-md text-sm leading-6 text-muted-foreground">
         {description}
       </p>
 

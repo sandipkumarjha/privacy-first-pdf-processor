@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronDown } from 'lucide-react'
+import { Plus } from 'lucide-react'
 import { cn } from '@/lib/cn'
 
 interface AccordionItemProps {
@@ -19,14 +19,14 @@ function AccordionItem({
   onToggle,
 }: AccordionItemProps) {
   return (
-    <div className="border-b border-border/60 last:border-none">
+    <div className="border-b border-border last:border-none">
       <button
         type="button"
         onClick={onToggle}
         aria-expanded={isOpen}
-        className="group flex w-full items-center justify-between rounded-2xl px-5 py-6 text-left transition-all duration-300 hover:bg-accent/5"
+        className="group flex w-full items-center justify-between px-6 py-5 text-left transition-colors duration-200 hover:bg-surface-2"
       >
-        <span className="pr-6 text-base font-medium leading-7 transition-colors duration-300 group-hover:text-accent">
+        <span className="pr-6 text-base leading-7 font-semibold">
           {question}
         </span>
 
@@ -36,15 +36,14 @@ function AccordionItem({
             duration: 0.25,
             ease: 'easeInOut',
           }}
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border bg-background transition-colors duration-300 group-hover:border-accent/30 group-hover:bg-accent/10"
+          className={cn(
+            'flex size-8 shrink-0 items-center justify-center rounded-full border transition-colors duration-200',
+            isOpen
+              ? 'border-foreground bg-foreground text-background'
+              : 'border-border-strong text-foreground group-hover:border-foreground'
+          )}
         >
-          <ChevronDown
-            strokeWidth={2.4}
-            className={cn(
-              'h-5 w-5 transition-colors duration-300',
-              isOpen ? 'text-accent' : 'text-muted'
-            )}
-          />
+          <Plus strokeWidth={2} className="size-4" />
         </motion.div>
       </button>
 
@@ -66,7 +65,7 @@ function AccordionItem({
             }}
             className="overflow-hidden"
           >
-            <p className="px-5 pb-6 pr-16 text-[15px] leading-7 text-muted">
+            <p className="px-6 pr-16 pb-6 text-[15px] leading-7 text-muted">
               {answer}
             </p>
           </motion.div>
@@ -87,7 +86,7 @@ export function Accordion({ items }: AccordionProps) {
   const [openIndex, setOpenIndex] = React.useState<number | null>(0)
 
   return (
-    <div className="rounded-3xl border border-border/60 bg-surface/40 backdrop-blur-xl">
+    <div className="overflow-hidden rounded-2xl border border-border bg-surface elevate-sm">
       {items.map((item, index) => (
         <AccordionItem
           key={item.question}

@@ -1,128 +1,85 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ShieldCheck } from "lucide-react";
+import { FileText, Gauge, ShieldCheck } from "lucide-react";
+
 import { PdfUpload } from "@/components/upload/pdf-upload";
+import { StatusBadge } from "@/components/ui/badge";
+import { IconTile } from "@/components/ui/icon-tile";
+import { DURATION, EASE_OUT, cardHover, stagger } from "@/components/ui/motion";
+
+const notes = [
+  {
+    icon: FileText,
+    title: "Supported formats",
+    description:
+      "PDF documents of any size your browser can comfortably process.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Privacy guaranteed",
+    description:
+      "Your files never leave your device. Everything happens in this tab.",
+  },
+  {
+    icon: Gauge,
+    title: "Lightning fast",
+    description:
+      "Powered by WebAssembly and Web Workers for instant processing.",
+  },
+];
 
 export function UploadCard() {
   return (
-    
-    <motion.section 
-      initial={{ opacity: 0, y: 25 }}
+    <motion.section
+      id="upload-zone"
+      initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#0F172A]/70 backdrop-blur-xl"
+      transition={{ duration: DURATION.base, ease: EASE_OUT }}
+      className="scroll-mt-24 rounded-2xl border border-border bg-surface p-6 elevate-sm sm:p-8"
     >
-      
-      {/* Background Glow */}
-      <div className="absolute inset-0">
-        <div className="absolute left-0 top-0 h-64 w-64 rounded-full bg-indigo-500/10 blur-[120px]" />
-        <div className="absolute bottom-0 right-0 h-64 w-64 rounded-full bg-cyan-500/10 blur-[120px]" />
-      </div>
-
-      <div className="relative z-10 p-8 bg-blue-400">
-        {/* Header */}
-        <div className="mb-8 flex flex-col  gap-4 md:flex-row md:items-center md:justify-between">
-          <div>
-            <h2 className="text-2xl font-bold text-black">
-              Upload your PDF
-            </h2>
-
-            <p className="mt-2 text-zinc-800">
-              Files stay on your device. Nothing is uploaded.
-            </p>
-          </div>
-
-          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-4 py-2">
-            <ShieldCheck className="h-4 w-4 text-emerald-400" />
-
-            <span className="text-sm font-medium text-emerald-300">
-              100% Local Processing
-            </span>
-          </div>
+      <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+        <div>
+          <h2 className="text-xl font-semibold">
+            Upload your PDF
+          </h2>
+          <p className="mt-1.5 text-sm text-muted">
+            Files stay on your device. Nothing is uploaded.
+          </p>
         </div>
 
-        {/* Upload Component */}
-  <PdfUpload />
-
-
-        {/* Bottom Info Cards */}
-        <div className="mt-8 grid gap-5 md:grid-cols-3">
-          <motion.div
-            whileHover={{ y: -6 }}
-            transition={{ duration: 0.25 }}
-            className="rounded-2xl border-2 border-blue-600  bg-white/5 p-5 backdrop-blur-sm"
-          >
-            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[#FFDDB0]">
-              <svg
-                className="h-6 w-6 text-zinc-800"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-              >
-                <path d="M7 2h8l5 5v15H7z" />
-              </svg>
-            </div>
-
-            <h4 className="font-semibold text-black">
-              Supported Formats
-            </h4>
-
-            <p className="mt-2 text-sm leading-6 text-zinc-800">
-              PDF documents of any size your browser can comfortably
-              process.
-            </p>
-          </motion.div>
-
-          <motion.div
-            whileHover={{ y: -6 }}
-            transition={{ duration: 0.25 }}
-            className="rounded-2xl border-2 border-blue-600 bg-white/5 p-5 backdrop-blur-sm"
-          >
-            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-green-300">
-              <ShieldCheck className="h-6 w-6 text-emerald-800" />
-            </div>
-
-            <h4 className="font-semibold text-black">
-              Privacy Guaranteed
-            </h4>
-
-            <p className="mt-2 text-sm leading-6 text-zinc-800">
-              Your files never leave your device. Everything happens
-              completely inside your browser.
-            </p>
-          </motion.div>
-
-          <motion.div
-            whileHover={{ y: -6 }}
-            transition={{ duration: 0.25 }}
-            className="rounded-2xl border-2 border-blue-600 bg-white/5 p-5 backdrop-blur-sm"
-          >
-            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[#FFDDB0]">
-              <svg
-                className="h-6 w-6 text-zinc-800"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-              >
-                <path d="M12 3v18M3 12h18" />
-              </svg>
-            </div>
-
-            <h4 className="font-semibold text-black;">
-              Lightning Fast
-            </h4>
-
-            <p className="mt-2 text-sm leading-6 text-zinc-800">
-              Powered by WebAssembly and Web Workers for instant PDF
-              processing.
-            </p>
-          </motion.div>
-        </div>
+        <StatusBadge tone="success">100% local processing</StatusBadge>
       </div>
-      
+
+      <PdfUpload />
+
+      <div className="mt-6 grid gap-4 md:grid-cols-3">
+        {notes.map((note, index) => (
+          <motion.div
+            key={note.title}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{
+              duration: DURATION.base,
+              ease: EASE_OUT,
+              delay: stagger(index),
+            }}
+            whileHover={cardHover}
+            className="rounded-xl border border-border bg-surface-2 p-5 transition-colors hover:border-border-strong"
+          >
+            <IconTile icon={note.icon} tone="neutral" size="sm" />
+
+            <h3 className="mt-4 text-sm font-semibold">
+              {note.title}
+            </h3>
+
+            <p className="mt-1.5 text-sm leading-6 text-muted">
+              {note.description}
+            </p>
+          </motion.div>
+        ))}
+      </div>
     </motion.section>
   );
 }

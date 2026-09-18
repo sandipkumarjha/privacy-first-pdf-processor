@@ -30,12 +30,11 @@ export default function ExtractPage() {
   const isLoading = status === "loading";
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col text-zinc-800 gap-8 px-5 py-10 md:px-8">
+    <div className="mx-auto flex w-full max-w-5xl flex-col gap-8">
       <PageHeader
         title="Extract PDF"
         description="Extract selected pages into a brand-new PDF. Everything happens locally in your browser."
         icon={Scissors}
-        badge="100% Local"
       />
 
       {!file ? (

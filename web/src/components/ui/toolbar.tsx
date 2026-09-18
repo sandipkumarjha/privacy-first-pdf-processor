@@ -22,7 +22,7 @@ export function Toolbar({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.25, ease: "easeOut" }}
       className={cn(
-        "flex flex-col items-stretch gap-3 rounded-2xl border bg-[var(--surface)] border-[var(--border)] p-4 shadow-sm",
+        "flex flex-col items-stretch gap-3 rounded-2xl border bg-surface border-border p-4 shadow-sm",
         "sm:flex-row sm:items-center sm:justify-between",
         sticky && "sticky bottom-6 z-30",
         className

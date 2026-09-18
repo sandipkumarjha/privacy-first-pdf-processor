@@ -50,7 +50,7 @@ function UploadProgressComponent({
       aria-live="polite"
     >
       <div className="flex items-center justify-between text-xs">
-        <span className="flex items-center gap-1.5 font-medium text-zinc-600 dark:text-zinc-300">
+        <span className="flex items-center gap-1.5 font-medium text-muted">
           <AnimatePresence mode="wait" initial={false}>
             {isProcessing && (
               <motion.span
@@ -63,7 +63,7 @@ function UploadProgressComponent({
                   opacity: { duration: 0.15 },
                 }}
               >
-                <Loader2 className="h-3.5 w-3.5 text-orange-500" aria-hidden="true" />
+                <Loader2 className="h-3.5 w-3.5 text-foreground" aria-hidden="true" />
               </motion.span>
             )}
             {isReady && (
@@ -73,21 +73,21 @@ function UploadProgressComponent({
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
               >
-                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" aria-hidden="true" />
+                <CheckCircle2 className="h-3.5 w-3.5 text-success" aria-hidden="true" />
               </motion.span>
             )}
           </AnimatePresence>
           {STATUS_LABELS[status]}
         </span>
         {isProcessing && (
-          <span className="tabular-nums text-zinc-400" aria-hidden="true">
+          <span className="tabular-nums text-muted-foreground" aria-hidden="true">
             {Math.round(progress)}%
           </span>
         )}
       </div>
 
       <div
-        className="h-1.5 w-full overflow-hidden rounded-full bg-zinc-100 dark:bg-zinc-800"
+        className="h-1.5 w-full overflow-hidden rounded-full bg-surface-2"
         role="progressbar"
         aria-valuenow={Math.round(progress)}
         aria-valuemin={0}
@@ -101,10 +101,10 @@ function UploadProgressComponent({
           transition={{ duration: 0.35, ease: "easeOut" }}
           className={`h-full rounded-full ${
             isError
-              ? "bg-red-400"
+              ? "bg-danger"
               : isReady
-                ? "bg-emerald-500"
-                : "bg-gradient-to-r from-orange-400 to-orange-600"
+                ? "bg-success"
+                : "bg-gradient-to-r from-primary to-primary"
           }`}
         />
       </div>

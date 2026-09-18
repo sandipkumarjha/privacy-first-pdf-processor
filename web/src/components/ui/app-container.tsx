@@ -2,20 +2,38 @@
 
 import { motion } from "framer-motion";
 import { cn } from "@/lib/cn";
+import { riseIn } from "./motion";
+
+type ContainerWidth = "narrow" | "default" | "wide";
 
 interface AppContainerProps {
   children: React.ReactNode;
   className?: string;
+  width?: ContainerWidth;
 }
 
-export function AppContainer({ children, className }: AppContainerProps) {
+const WIDTH: Record<ContainerWidth, string> = {
+  narrow: "max-w-3xl",
+  default: "max-w-5xl",
+  wide: "max-w-7xl",
+};
+
+/**
+ * Horizontal padding only — the app shell owns the page gutter, so
+ * containers nested inside it must not add their own or the content
+ * ends up double-inset.
+ */
+export function AppContainer({
+  children,
+  className,
+  width = "default",
+}: AppContainerProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, ease: "easeOut" }}
+      {...riseIn}
       className={cn(
-        "mx-auto flex w-full max-w-5xl flex-col gap-8 px-5 py-12 md:px-8",
+        "mx-auto flex w-full flex-col gap-8",
+        WIDTH[width],
         className
       )}
     >

@@ -17,7 +17,7 @@ export default function SplitToolbar({
   onClear,
 }: SplitToolbarProps) {
   return (
-    <div className="flex flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900 sm:flex-row sm:items-center sm:justify-between">
+    <div className="flex flex-col gap-3 rounded-2xl border border-border bg-surface p-4 sm:flex-row sm:items-center sm:justify-between">
       <div className="flex items-center gap-2">
         <Button
           type="button"
@@ -35,16 +35,16 @@ export default function SplitToolbar({
           variant="ghost"
           size="sm"
           onClick={onClear}
-          className="gap-1.5 text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200"
+          className="gap-1.5 text-muted-foreground hover:text-muted"
         >
           <Square className="h-3.5 w-3.5" aria-hidden="true" />
           Clear Selection
         </Button>
       </div>
 
-      <p className="text-sm text-zinc-500 dark:text-zinc-400">
+      <p className="text-sm text-muted-foreground">
         Selected:{" "}
-        <span className="font-semibold text-zinc-900 dark:text-zinc-50">
+        <span className="font-semibold text-foreground">
           {selected} / {total}
         </span>{" "}
         Pages

@@ -12,6 +12,7 @@ import {
   OcrProgress,
   OcrDownload,
 } from "@/components/OCR";
+import { PageHeader } from "@/components/ui/page-header";
 
 function formatFileSize(bytes: number): string {
   if (bytes <= 0) return "0 Bytes";
@@ -53,33 +54,12 @@ export default function OcrPage() {
   ).length;
 
   return (
-    <div className="flex w-full flex-col gap-6 p-6 md:p-8">
-      {/* Header */}
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--primary)]/10">
-            <ScanText
-              className="h-6 w-6 text-[var(--primary)]"
-              aria-hidden="true"
-            />
-          </div>
-
-          <div>
-            <h1 className="text-3xl font-semibold tracking-tight text-[var(--foreground)]">
-              OCR
-            </h1>
-
-            <p className="text-sm text-[var(--muted-foreground)]">
-              Extract text from scanned PDFs while keeping your files
-              private.
-            </p>
-          </div>
-        </div>
-
-        <p className="text-sm text-[var(--muted-foreground)]">
-          All processing happens locally on your device.
-        </p>
-      </div>
+    <div className="mx-auto flex w-full max-w-5xl flex-col gap-8">
+      <PageHeader
+        icon={ScanText}
+        title="OCR"
+        description="Extract text from scanned PDFs. Recognition runs on your device, so the scan is never uploaded."
+      />
 
       {/* Upload */}
       <OcrUploadArea
@@ -156,7 +136,7 @@ export default function OcrPage() {
         <button
           type="button"
           onClick={reset}
-          className="self-start rounded-xl border border-[var(--secondary)] bg-white px-4 py-2.5 text-sm font-medium text-[var(--foreground)] shadow-sm transition-colors hover:bg-[var(--background)]"
+          className="self-start rounded-xl border border-border bg-surface px-4 py-2.5 text-sm font-medium text-foreground shadow-sm transition-colors hover:bg-background"
         >
           Start Over
         </button>

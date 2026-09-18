@@ -1,121 +1,107 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  Files,
-  Clock3,
-  ShieldCheck,
-  TrendingUp,
-} from "lucide-react";
+import { Clock3, Files, ShieldCheck, TrendingUp } from "lucide-react";
+
+import { Badge } from "@/components/ui/badge";
+import { IconTile } from "@/components/ui/icon-tile";
+import { AppCard } from "@/components/ui/card";
+import { DURATION, EASE_OUT, stagger } from "@/components/ui/motion";
 
 const stats = [
   {
-    title: "Files Processed",
+    title: "Files processed",
     value: "1,247",
     change: "+18%",
+    changeTone: "success" as const,
     subtitle: "Compared to last month",
     icon: Files,
-    gradient: "from-blue-500 to-cyan-500",
+    progress: 0.82,
   },
   {
-    title: "Average Speed",
+    title: "Average speed",
     value: "0.8s",
     change: "Fast",
+    changeTone: "accent" as const,
     subtitle: "Per PDF operation",
     icon: Clock3,
-    gradient: "from-violet-500 to-indigo-500",
+    progress: 0.9,
   },
   {
-    title: "Privacy Score",
+    title: "Privacy score",
     value: "100%",
     change: "Secure",
-    subtitle: "Local Processing",
+    changeTone: "success" as const,
+    subtitle: "Local processing",
     icon: ShieldCheck,
-    gradient: "from-emerald-500 to-teal-500",
+    progress: 1,
   },
   {
     title: "Performance",
     value: "99.8%",
     change: "+4%",
-    subtitle: "Engine Efficiency",
+    changeTone: "success" as const,
+    subtitle: "Engine efficiency",
     icon: TrendingUp,
-    gradient: "from-orange-500 to-pink-500",
+    progress: 0.96,
   },
 ];
 
 export function DashboardStats() {
   return (
-    <section className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-      {stats.map((stat, index) => {
-        const Icon = stat.icon;
-
-        return (
+    <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      {stats.map((stat, index) => (
+        <AppCard
+          key={stat.title}
+          animate={false}
+          hover
+          padding="compact"
+          className="p-5"
+        >
           <motion.div
-            key={stat.title}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-60px" }}
             transition={{
-              duration: 0.5,
-              delay: index * 0.12,
+              duration: DURATION.base,
+              ease: EASE_OUT,
+              delay: stagger(index),
             }}
-            whileHover={{
-              y: -8,
-            }}
-            className="relative overflow-hidden rounded-3xl border-4 border-[#3874FF] bg-gradient-to-br from-[#1591DC] via-[#99C2FF] to-[#1591DC] p-8 lg:p-12"
           >
-            {/* Glow */}
-            <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-[#1591DC] blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+            <div className="flex items-start justify-between">
+              <IconTile icon={stat.icon} tone="neutral" size="sm" />
 
-            <div className="relative z-10">
-              {/* Icon */}
+              <Badge tone={stat.changeTone} size="sm">
+                {stat.change}
+              </Badge>
+            </div>
 
-              <div
-                className={`inline-flex rounded-2xl bg-gradient-to-br ${stat.gradient} p-3 shadow-lg`}
-              >
-                <Icon className="h-6 w-6 text-black" />
-              </div>
+            <p className="mt-4 text-sm text-muted">{stat.title}</p>
 
-              {/* Title */}
+            <p className="mt-1 font-display text-4xl font-normal tracking-tight tabular-nums">
+              {stat.value}
+            </p>
 
-              <p className="mt-5 text-sm text-zinc-800">
-                {stat.title}
-              </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              {stat.subtitle}
+            </p>
 
-              {/* Value */}
-
-              <div className="mt-2 flex items-end gap-3">
-                <h2 className="text-4xl font-bold text-black">
-                  {stat.value}
-                </h2>
-
-                <span className="rounded-full bg-emerald-500/10 px-2 py-1 text-xs font-semibold text-emerald-400">
-                  {stat.change}
-                </span>
-              </div>
-
-              <p className="mt-3 text-sm text-zinc-800">
-                {stat.subtitle}
-              </p>
-
-              {/* Progress */}
-
-              <div className="mt-6 h-2 overflow-hidden rounded-full bg-slate-800">
-                <motion.div
-                  initial={{ width: 0 }}
-                  whileInView={{ width: "85%" }}
-                  viewport={{ once: true }}
-                  transition={{
-                    duration: 1.2,
-                    delay: index * 0.2,
-                  }}
-                  className={`h-full rounded-full bg-gradient-to-r ${stat.gradient}`}
-                />
-              </div>
+            <div className="mt-4 h-1 overflow-hidden rounded-full bg-surface-3">
+              <motion.div
+                initial={{ width: 0 }}
+                whileInView={{ width: `${stat.progress * 100}%` }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.9,
+                  ease: EASE_OUT,
+                  delay: 0.15 + stagger(index),
+                }}
+                className="h-full rounded-full bg-foreground"
+              />
             </div>
           </motion.div>
-        );
-      })}
+        </AppCard>
+      ))}
     </section>
   );
 }
