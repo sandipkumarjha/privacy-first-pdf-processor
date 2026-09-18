@@ -30,7 +30,7 @@ export function ResultCard({
       transition={{ duration: 0.35, ease: "easeOut" }}
       role="status"
       className={cn(
-        "flex flex-col items-center gap-4 rounded-3xl border bg-[var(--surface)] border-[var(--border)] p-8 text-center shadow-sm sm:p-10",
+        "flex flex-col items-center gap-4 rounded-3xl border bg-surface border-border p-8 text-center shadow-sm sm:p-10",
         className
       )}
     >
@@ -41,25 +41,25 @@ export function ResultCard({
         className={cn(
           "flex h-20 w-20 items-center justify-center rounded-full",
           success
-            ? "bg-green-100 dark:bg-green-900/20"
-            : "bg-red-100 dark:bg-red-900/20"
+            ? "bg-success-soft"
+            : "bg-danger-soft"
         )}
       >
         <ResultIcon
           className={cn(
             "h-12 w-12",
-            success ? "text-green-600" : "text-red-600"
+            success ? "text-success" : "text-danger"
           )}
           aria-hidden="true"
         />
       </motion.span>
 
-      <h2 className="text-2xl font-bold text-[var(--foreground)]">
+      <h2 className="text-2xl font-bold text-foreground">
         {title}
       </h2>
 
       {description && (
-        <p className="max-w-lg text-sm text-[var(--muted-foreground)]">
+        <p className="max-w-lg text-sm text-muted-foreground">
           {description}
         </p>
       )}

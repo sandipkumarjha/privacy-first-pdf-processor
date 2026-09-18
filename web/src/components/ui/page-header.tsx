@@ -1,58 +1,64 @@
 "use client";
 
 import { motion } from "framer-motion";
-import type { LucideIcon } from "lucide-react";
+import { ShieldCheck, type LucideIcon } from "lucide-react";
+
 import { cn } from "@/lib/cn";
+import { riseIn } from "./motion";
 
 interface PageHeaderProps {
   title: string;
   description: string;
   icon?: LucideIcon;
+  /** Short mono label above the title. Defaults to "Runs locally". */
   badge?: string;
   className?: string;
   children?: React.ReactNode;
 }
 
+/**
+ * The header for every tool page: mono eyebrow, serif title, one line of
+ * description. Left-aligned so it shares an edge with the content below.
+ */
 export function PageHeader({
   title,
   description,
   icon: Icon,
-  badge,
+  badge = "Runs locally",
   className,
   children,
 }: PageHeaderProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, ease: "easeOut" }}
+    <motion.header
+      {...riseIn}
       className={cn(
-        "mx-auto flex max-w-2xl flex-col items-center gap-3 text-center",
+        "flex flex-col gap-5 border-b border-border pb-8 sm:flex-row sm:items-end sm:justify-between",
         className
       )}
     >
-      {badge && (
-        <span className="inline-flex items-center rounded-full bg-[var(--accent-soft)] px-3 py-1 text-xs font-medium text-[var(--accent-foreground)]">
-          {badge}
-        </span>
-      )}
+      <div className="flex items-start gap-4">
+        {Icon && (
+          <span className="mt-1 hidden size-12 shrink-0 items-center justify-center rounded-xl border border-border bg-surface elevate-sm sm:flex">
+            <Icon className="size-5 text-foreground" strokeWidth={1.75} aria-hidden="true" />
+          </span>
+        )}
 
-      {Icon && (
-        <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--accent-soft)]">
-          <Icon className="h-7 w-7 text-zinc-900" aria-hidden="true" />
-        </span>
-      )}
+        <div className="max-w-2xl">
+          <p className="inline-flex items-center gap-1.5 font-mono text-[0.6875rem] tracking-widest text-muted-foreground uppercase">
+            <ShieldCheck className="size-3.5" aria-hidden="true" />
+            {badge}
+          </p>
 
-      <h1 className="text-4xl font-bold tracking-tight text-[var(--foreground)]">
-        {title}
-      </h1>
+          <h1 className="mt-2 font-display text-4xl leading-[1.05] sm:text-5xl">
+            {title}
+          </h1>
 
-      <p className="max-w-xl text-base text-[var(--muted-foreground)]">
-        {description}
-      </p>
+          <p className="mt-3 text-base leading-7 text-muted">{description}</p>
+        </div>
+      </div>
 
-      {children}
-    </motion.div>
+      {children && <div className="shrink-0">{children}</div>}
+    </motion.header>
   );
 }
 

@@ -1,18 +1,45 @@
 import * as React from "react"
+import type { LucideIcon } from "lucide-react"
 
 import { cn } from "@/lib/cn"
 
-function Input({ className, type, ...props }: React.ComponentProps<"input">) {
-  return (
+interface InputProps extends React.ComponentProps<"input"> {
+  /** Renders a leading icon inside the field and pads the text for it. */
+  icon?: LucideIcon
+}
+
+function Input({ className, type, icon: Icon, ...props }: InputProps) {
+  const field = (
     <input
       type={type}
       data-slot="input"
       className={cn(
-        "h-8 w-full min-w-0 rounded-lg border border-input bg-transparent px-2.5 py-1 text-base transition-colors outline-none file:inline-flex file:h-6 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:disabled:bg-input/80 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40",
+        // Matched to Button's default height so they line up in toolbars.
+        "h-10 w-full min-w-0 rounded-lg border border-border bg-surface px-3 py-2 text-sm",
+        "shadow-[var(--shadow-xs)] transition-[border-color,box-shadow] outline-none",
+        "placeholder:text-muted-foreground",
+        "hover:border-border-strong",
+        "focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/25",
+        "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
+        "aria-invalid:border-destructive aria-invalid:ring-2 aria-invalid:ring-destructive/25",
+        "file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground",
+        Icon && "pl-10",
         className
       )}
       {...props}
     />
+  )
+
+  if (!Icon) return field
+
+  return (
+    <div className="relative w-full">
+      <Icon
+        aria-hidden="true"
+        className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-muted-foreground"
+      />
+      {field}
+    </div>
   )
 }
 

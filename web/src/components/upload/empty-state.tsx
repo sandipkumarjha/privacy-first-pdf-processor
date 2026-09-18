@@ -28,10 +28,10 @@ function EmptyStateComponent({
   return (
     <div className={`flex flex-col items-center gap-4 ${className}`}>
       <div className="flex flex-col items-center gap-1.5">
-        <p className="text-base font-semibold text-zinc-900 dark:text-zinc-50">
+        <p className="text-base font-semibold text-foreground">
           {isDragging ? "Drop your PDF here" : "Drag & drop a PDF here"}
         </p>
-        <p className="text-sm text-zinc-400">
+        <p className="text-sm text-muted-foreground">
           or click to browse from your device
         </p>
       </div>
@@ -48,10 +48,10 @@ function EmptyStateComponent({
       </div>
 
       <div className="flex flex-col items-center gap-1 pt-1">
-        <p className="text-xs text-zinc-400">
+        <p className="text-xs text-muted-foreground">
           PDF only · Up to {formatFileSize(maxFileSizeBytes)}
         </p>
-        <p className="flex items-center gap-1.5 text-xs font-medium text-emerald-600 dark:text-emerald-400">
+        <p className="flex items-center gap-1.5 text-xs font-medium text-success">
           <ShieldCheck className="h-3.5 w-3.5" aria-hidden="true" />
           100% private — files never leave your device
         </p>

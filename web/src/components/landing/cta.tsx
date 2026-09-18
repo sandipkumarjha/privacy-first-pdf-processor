@@ -1,86 +1,73 @@
 'use client'
 
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight, ShieldCheck } from 'lucide-react'
+
 import { Button } from '@/components/ui/button'
-import Link from 'next/link'
+import { DURATION, EASE_OUT } from '@/components/ui/motion'
+
+const trustPoints = ['No sign up', 'No upload', 'Works offline', 'Open source']
 
 export function CTA() {
   return (
-    <section className="relative overflow-hidden border-b border-border py-24 lg:py-32">
-
-      {/* Background Glow */}
-      
-
+    <section className="relative overflow-hidden py-24 lg:py-32">
       <div className="container-wrapper relative">
-
         <motion.div
-          initial={{ opacity: 0, y: 25 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: .6 }}
-          className="mx-auto max-w-4xl rounded-[32px] border-4 border-[#ffddb0] bg-surface/60 p-12 text-center backdrop-blur-xl md:p-16"
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: DURATION.slow, ease: EASE_OUT }}
+          className="relative mx-auto max-w-5xl overflow-hidden rounded-3xl bg-foreground p-10 text-center text-background elevate-xl md:p-20"
         >
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 opacity-[0.07] [background-image:linear-gradient(to_right,var(--background)_1px,transparent_1px),linear-gradient(to_bottom,var(--background)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_70%_70%_at_50%_0%,black,transparent)]"
+          />
 
-          {/* Badge */}
+          <div className="relative">
+<p className="inline-flex items-center gap-2 font-mono text-xs tracking-widest text-background/60 uppercase">
+              <ShieldCheck className="size-4" />
+              100% local processing
+            </p>
 
-          <div className="inline-flex items-center gap-2 rounded-full border-2 border-[#ffddb0]  px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-            <ShieldCheck className="h-4 w-4 text-2xl " />
-            100% Local Processing
+            <h2 className="mt-6 font-display text-4xl leading-[1.05] font-normal sm:text-5xl md:text-6xl">
+              Process your first PDF{' '}
+              <span className="text-emphasis">
+                in under 10 seconds.
+              </span>
+            </h2>
+
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-background/70">
+              Merge, split, compress, rotate, watermark and edit PDFs directly
+              inside your browser. No uploads. No accounts. No waiting.
+            </p>
+
+            <div className="mt-10 flex justify-center">
+              <Button
+                size="lg"
+                asChild
+                className="bg-background text-foreground shadow-none hover:bg-background/90 hover:shadow-none"
+              >
+                <Link href="/dashboard" className="group">
+                  Start processing
+                  <ArrowRight className="transition-transform duration-200 group-hover:translate-x-0.5" />
+                </Link>
+              </Button>
+            </div>
+
+            <ul className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-background/60">
+              {trustPoints.map((point) => (
+                <li key={point} className="flex items-center gap-1.5">
+                  <span aria-hidden="true" className="text-background">
+                    ✓
+                  </span>
+                  {point}
+                </li>
+              ))}
+            </ul>
           </div>
-
-          {/* Heading */}
-
-          <h2 className="mt-8 text-4xl font-semibold tracking-tight md:text-6xl">
-            Process your first PDF
-            <span className="gradient-text"> in under 10 seconds.</span>
-          </h2>
-
-          {/* Description */}
-
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-zinc-800">
-            Merge, split, compress, rotate, watermark and edit PDFs directly
-            inside your browser.
-            <br />
-            No uploads. No accounts. No waiting.
-          </p>
-
-          {/* Buttons */}
-
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-
-            <Link href ="/dashboard">
-            <Button
-              size="lg"
-              className="group h-12 rounded-xl bg-indigo-600 px-8 text-base font-semibold text-white transition-all duration-300 hover:scale-105 hover:bg-indigo-500 hover:shadow-[0_15px_50px_rgba(99,102,241,.35)]"
-            >
-              Start Processing
-
-              <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-
-            </Button>
-            </Link>
-
-             
-
-          </div>
-
-          {/* Bottom Trust Text */}
-
-          <div className="mt-10 flex flex-wrap text-zinc-800 items-center justify-center gap-6 text-sm ">
-
-            <span>✓ No Sign Up</span>
-
-            <span>✓ No Upload</span>
-
-            <span>✓ Works Offline</span>
-
-            <span>✓ Open Source</span>
-
-          </div>
-
         </motion.div>
-
       </div>
     </section>
   )

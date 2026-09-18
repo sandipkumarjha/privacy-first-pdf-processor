@@ -42,9 +42,9 @@ export function RotatePageCard({ page, selected, onClick }: RotatePageCardProps)
       onClick={onClick}
       onKeyDown={handleKeyDown}
       className={cn(
-        "relative flex cursor-pointer flex-col gap-3 rounded-2xl border bg-white p-3 shadow-sm transition-shadow hover:shadow-md",
-        "border-[var(--secondary)]",
-        selected && "border-[var(--primary)] bg-[var(--primary)]/10"
+        "relative flex cursor-pointer flex-col gap-3 rounded-2xl border bg-surface p-3 shadow-sm transition-shadow hover:shadow-md",
+        "border-border",
+        selected && "border-foreground bg-accent-soft"
       )}
     >
       {selected && (
@@ -52,14 +52,14 @@ export function RotatePageCard({ page, selected, onClick }: RotatePageCardProps)
           initial={{ opacity: 0, scale: 0.6 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ type: "spring", stiffness: 400, damping: 20 }}
-          className="absolute right-2 top-2 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--primary)] text-white"
+          className="absolute right-2 top-2 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground"
           aria-hidden="true"
         >
           <Check className="h-3.5 w-3.5" />
         </motion.span>
       )}
 
-      <div className="relative aspect-[210/297] w-full overflow-hidden rounded-lg border border-[var(--secondary)]/60 bg-white">
+      <div className="relative aspect-[210/297] w-full overflow-hidden rounded-lg border border-border bg-surface">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={page.thumbnail}
@@ -70,11 +70,11 @@ export function RotatePageCard({ page, selected, onClick }: RotatePageCardProps)
       </div>
 
       <div className="flex items-center justify-between">
-        <span className="text-sm font-medium text-[var(--foreground)]">
+        <span className="text-sm font-medium text-foreground">
           Page {page.pageNumber}
         </span>
 
-        <span className="inline-flex items-center rounded-full bg-[var(--accent)] px-2.5 py-0.5 text-xs font-medium text-[var(--foreground)]">
+        <span className="inline-flex items-center rounded-full bg-accent px-2.5 py-0.5 text-xs font-medium text-foreground">
           {page.rotation}&deg;
         </span>
       </div>

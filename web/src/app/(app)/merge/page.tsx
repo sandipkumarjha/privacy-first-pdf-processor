@@ -46,17 +46,15 @@ export default function MergePage() {
   };
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-8 sm:px-6">
+    <div className="mx-auto flex w-full max-w-3xl flex-col gap-6">
       <MergeHeader />
 
       {files.length === 0 ? (
-        <div className="relative overflow-hidden rounded-3xl border-4 border-[#3874FF] bg-gradient-to-br from-[#1591DC] via-[#99C2FF] to-[#1591DC] p-8 lg:p-12">
         <MergeUploadArea
         onFilesSelect={addFiles}
         isLoading={isLoading} 
-        className="text-black"
+        
       />
-      </div>
       ) : (
         <>
           <MergeToolbar

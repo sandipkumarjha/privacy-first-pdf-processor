@@ -64,24 +64,24 @@ export function FileCard({
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       className={cn(
-        "relative flex flex-col gap-4 rounded-2xl border bg-[var(--surface)] p-4 shadow-sm transition-all sm:flex-row sm:items-center",
-        "border-[var(--border)]",
+        "relative flex flex-col gap-4 rounded-2xl border bg-surface p-4 shadow-sm transition-all sm:flex-row sm:items-center",
+        "border-border",
         isInteractive && "cursor-pointer hover:shadow-md",
-        selected && "border-[var(--accent)] bg-[var(--accent-soft)]/30",
+        selected && "border-foreground bg-accent-soft/30",
         disabled && "cursor-not-allowed opacity-50",
         className
       )}
     >
       {selected && (
         <span
-          className="absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--accent)] text-white"
+          className="absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground"
           aria-hidden="true"
         >
           <Check className="h-3.5 w-3.5" />
         </span>
       )}
 
-      <div className="flex h-[72px] w-[72px] shrink-0 items-center justify-center overflow-hidden rounded-xl bg-[var(--surface-2)]">
+      <div className="flex h-[72px] w-[72px] shrink-0 items-center justify-center overflow-hidden rounded-xl bg-surface-2">
         {thumbnail ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -91,17 +91,17 @@ export function FileCard({
             aria-hidden="true"
           />
         ) : (
-          <Icon className="h-7 w-7 text-[var(--muted-foreground)]" aria-hidden="true" />
+          <Icon className="h-7 w-7 text-muted-foreground" aria-hidden="true" />
         )}
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col gap-1">
-        <p className="truncate text-base font-semibold text-[var(--foreground)]">
+        <p className="truncate text-base font-semibold text-foreground">
           {fileName}
         </p>
 
         {(fileSize || typeof pageCount === "number") && (
-          <p className="text-sm text-[var(--muted-foreground)]">
+          <p className="text-sm text-muted-foreground">
             {fileSize}
             {fileSize && typeof pageCount === "number" && " • "}
             {typeof pageCount === "number" &&

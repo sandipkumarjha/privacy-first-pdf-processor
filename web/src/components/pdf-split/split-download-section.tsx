@@ -17,10 +17,10 @@ export default function SplitDownloadSection({
   onSplit,
 }: SplitDownloadSectionProps) {
   return (
-    <div className="flex flex-col items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+    <div className="flex flex-col items-center gap-4 rounded-2xl border border-border bg-surface p-6">
       <div className="flex flex-col items-center gap-1 text-center">
-        <p className="text-sm text-zinc-400">Selected Pages</p>
-        <p className="text-2xl font-bold tabular-nums text-zinc-900 dark:text-zinc-50">
+        <p className="text-sm text-muted-foreground">Selected Pages</p>
+        <p className="text-2xl font-bold tabular-nums text-foreground">
           {selectedCount}
         </p>
       </div>
@@ -30,7 +30,7 @@ export default function SplitDownloadSection({
         size="lg"
         disabled={disabled || loading}
         onClick={onSplit}
-        className="w-full gap-2 bg-orange-600 text-white hover:bg-orange-700 disabled:opacity-50 sm:w-auto sm:px-10"
+        className="w-full gap-2 bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50 sm:w-auto sm:px-10"
       >
         {loading ? (
           <>
@@ -45,7 +45,7 @@ export default function SplitDownloadSection({
         )}
       </Button>
 
-      <p className="flex items-center gap-1.5 text-xs font-medium text-emerald-600 dark:text-emerald-400">
+      <p className="flex items-center gap-1.5 text-xs font-medium text-success">
         <ShieldCheck className="h-3.5 w-3.5" aria-hidden="true" />
         Processing happens locally. Your file never leaves your device.
       </p>

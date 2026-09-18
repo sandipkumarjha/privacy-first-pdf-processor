@@ -3,27 +3,36 @@
 import * as React from 'react'
 import Link from 'next/link'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { ArrowRight, Menu, X } from 'lucide-react'
+
+import { cn } from '@/lib/cn'
 import { Button } from '@/components/ui/button'
 import { ThemeToggle } from '@/components/theme-toggle'
 
+// Absolute hash links so they also work from /docs, /terms, etc.
 const links = [
-  { href: '#features', label: 'Features' },
-  { href: '#how-it-works', label: 'How it works' },
-  { href: '#privacy', label: 'Privacy' },
-  { href: '#faq', label: 'FAQ' },
+  { href: '/#tools', label: 'Tools' },
+  { href: '/#features', label: 'Features' },
+  { href: '/#how-it-works', label: 'How it works' },
+  { href: '/#privacy', label: 'Privacy' },
+  { href: '/docs', label: 'Docs' },
 ]
 
-function Logo() {
+export function Logo({ className }: { className?: string }) {
   return (
-    <Link href="/" className="flex items-center gap-2 shrink-0">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <rect x="3" y="2" width="14" height="20" rx="2" stroke="hsl(var(--foreground))" strokeWidth="1.6" />
-        <path d="M3 8H17" stroke="hsl(var(--foreground))" strokeWidth="1.6" />
-        <path d="M21 5L13 21" stroke="hsl(var(--accent))" strokeWidth="1.8" strokeLinecap="round" />
-      </svg>
-      <span className="font-mono text-[15px] tracking-tight text-foreground">
-        privacy<span className="text-muted">/</span>pdf
+    <Link
+      href="/"
+      className={cn('flex shrink-0 items-center gap-2.5 text-foreground', className)}
+    >
+      <span className="flex size-8 items-center justify-center rounded-lg bg-foreground text-background">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="4" y="2" width="14" height="20" rx="2" stroke="currentColor" strokeWidth="2" />
+          <path d="M4 9H18" stroke="currentColor" strokeWidth="2" />
+          <path d="M22 5L14 21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+        </svg>
+      </span>
+      <span className="font-mono text-[15px] tracking-tight">
+        privacy<span className="text-muted-foreground">/</span>pdf
       </span>
     </Link>
   )
@@ -31,40 +40,56 @@ function Logo() {
 
 export function Navbar() {
   const [open, setOpen] = React.useState(false)
+  const [scrolled, setScrolled] = React.useState(false)
+
+  React.useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
-      <div className="container flex h-16 items-center justify-between">
+    <header
+      className={cn(
+        'sticky top-0 z-50 border-b transition-[background-color,border-color,box-shadow] duration-200',
+        scrolled || open
+          ? 'border-border bg-background/80 shadow-[var(--shadow-xs)] backdrop-blur-xl'
+          : 'border-transparent bg-transparent'
+      )}
+    >
+      <div className="container-wrapper flex h-16 items-center justify-between">
         <Logo />
 
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden items-center gap-1 md:flex" aria-label="Main">
           {links.map((l) => (
-            <a
+            <Link
               key={l.href}
               href={l.href}
-              className="text-sm text-muted transition-color  hover:underline "
+              className="rounded-md px-3 py-2 text-sm text-muted transition-colors hover:bg-surface-2 hover:text-foreground"
             >
               {l.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden items-center gap-2 md:flex">
           <ThemeToggle />
-          <Button variant="ghost" size="sm">
-            Sign in
-          </Button>
-          <Button variant="default" size="sm">
-            Open the app
+          <Button size="sm" asChild>
+            <Link href="/dashboard" className="group">
+              Open the app
+              <ArrowRight className="transition-transform duration-200 group-hover:translate-x-0.5" />
+            </Link>
           </Button>
         </div>
 
         <button
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-border md:hidden"
+          className="flex size-10 items-center justify-center rounded-lg border border-border bg-surface text-foreground transition-colors hover:bg-surface-2 md:hidden"
           aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
         >
-          {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          {open ? <X className="size-4" /> : <Menu className="size-4" />}
         </button>
       </div>
 
@@ -75,26 +100,24 @@ export function Navbar() {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="overflow-hidden border-b border-border md:hidden"
+            className="overflow-hidden border-t border-border md:hidden"
+            aria-label="Mobile"
           >
-            <div className="container flex flex-col gap-1 py-4">
+            <div className="container-wrapper flex flex-col gap-1 py-4">
               {links.map((l) => (
-                <a
+                <Link
                   key={l.href}
                   href={l.href}
                   onClick={() => setOpen(false)}
-                  className="rounded-md px-2 py-2.5 text-sm text-muted hover:bg-surface hover:text-foreground"
+                  className="rounded-md px-3 py-2.5 text-sm text-muted hover:bg-surface-2 hover:text-foreground"
                 >
                   {l.label}
-                </a>
+                </Link>
               ))}
-              <div className="mt-3 flex items-center gap-3 px-2">
+              <div className="mt-3 flex items-center gap-3">
                 <ThemeToggle />
-                <Button variant="outline" size="sm" className="flex-1">
-                  Sign in
-                </Button>
-                <Button variant="default" size="sm" className="flex-1">
-                  Open the app
+                <Button className="flex-1" asChild>
+                  <Link href="/dashboard">Open the app</Link>
                 </Button>
               </div>
             </div>

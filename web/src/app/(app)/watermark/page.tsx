@@ -31,12 +31,11 @@ export default function WatermarkPage() {
   const isLoading = status === "loading";
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-5 py-10 md:px-8">
+    <div className="mx-auto flex w-full max-w-5xl flex-col gap-8">
       <PageHeader
         title="Watermark PDF"
         description="Add custom text watermarks directly in your browser. Everything stays private and never leaves your device."
         icon={Stamp}
-        badge="100% Local"
       />
 
       {!file ? (

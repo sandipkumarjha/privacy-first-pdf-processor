@@ -1,18 +1,19 @@
-
 "use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  Bell,
-  LogOut,
-  User,
-  Shield,
-  Settings,
-  ChevronDown,
+  BookOpen,
+  ChevronRight,
+  FileText,
+  Home,
+  LifeBuoy,
+  ShieldCheck,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-
+import { StatusBadge } from "@/components/ui/badge";
+import { ThemeToggle } from "@/components/theme-toggle";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,141 +23,88 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { MobileNav } from "./mobile-nav";
+import { pageTitles } from "./nav-items";
 
-const pageTitle: Record<string, string> = {
-  "/dashboard": "Dashboard",
-  "/merge": "Merge PDFs",
-  "/split": "Split PDF",
-  "/compress": "Compress PDF",
-  "/rotate": "Rotate PDF",
-  "/extract": "Extract Pages",
-  "/watermark": "Watermark",
-  "/ocr": "OCR",
-  "/settings": "Settings",
-};
+// Every item resolves to a real route. The previous menu listed
+// Profile / Settings / Logout for an account system that doesn't exist.
+const helpLinks = [
+  { href: "/docs", label: "Documentation", icon: BookOpen },
+  { href: "/privacy-policy", label: "Privacy policy", icon: ShieldCheck },
+  { href: "/terms", label: "Terms of service", icon: FileText },
+];
 
 export function Header() {
   const pathname = usePathname();
-
-  const title = pageTitle[pathname] ?? "Dashboard";
+  const title = pageTitles[pathname] ?? "Dashboard";
+  const isDashboard = pathname === "/dashboard";
 
   return (
-    <header className="flex min-h-[84px] w-full items-center justify-between gap-3 border-b border-blue-200 bg-[#FFDDB0] px-4 py-3 sm:px-6 lg:px-8">
-      {/* Left */}
-      <div className="min-w-0 flex-1">
-        <div className="flex min-w-0 items-center gap-2 sm:gap-3">
-          <h1 className="truncate text-2xl font-semibold text-black sm:text-3xl lg:text-4xl">
-            {title}
-          </h1>
+    <header className="sticky top-0 z-40 flex h-16 shrink-0 items-center justify-between gap-3 border-b border-border bg-background/80 px-4 backdrop-blur-xl sm:px-6 lg:px-10">
+      <div className="flex min-w-0 flex-1 items-center gap-3">
+        <MobileNav />
 
-          {/* Privacy Badge */}
-          <div className="hidden shrink-0 items-center gap-2 rounded-full border-2 border-blue-600 bg-indigo-500/10 px-3 py-1 md:flex">
-            <Shield className="h-3.5 w-3.5 text-indigo-400" />
+        {/* Breadcrumb rather than a second <h1>: each page owns its title. */}
+        <nav aria-label="Breadcrumb" className="min-w-0">
+          <ol className="flex min-w-0 items-center gap-1.5 text-sm">
+            <li className="hidden sm:block">
+              <Link
+                href="/dashboard"
+                className="text-muted-foreground transition-colors hover:text-foreground"
+              >
+                privacy/pdf
+              </Link>
+            </li>
+            {!isDashboard && (
+              <li aria-hidden="true" className="hidden text-muted-foreground sm:block">
+                <ChevronRight className="size-3.5" />
+              </li>
+            )}
+            <li
+              aria-current="page"
+              className={isDashboard ? "hidden" : "truncate font-medium text-foreground"}
+            >
+              {title}
+            </li>
+          </ol>
+        </nav>
 
-            <span className="text-xs font-medium text-zinc-700">
-              Privacy First
-            </span>
-          </div>
-        </div>
-
-        {/* Subtitle */}
-        <p className="mt-1 hidden truncate text-sm text-zinc-800 sm:block">
-          All processing happens locally on your device.
-        </p>
+        <StatusBadge tone="success" size="sm" className="hidden md:inline-flex">
+          Local only
+        </StatusBadge>
       </div>
 
-      {/* Right */}
-      <div className="flex shrink-0 items-center gap-2 sm:gap-3 md:gap-4">
-        {/* Notification */}
-        <Button
-          variant="ghost"
-          size="icon"
-          aria-label="Notifications"
-          className="relative h-10 w-10 rounded-xl border-2 border-blue-600 bg-white/[0.02] hover:bg-white/5 sm:h-11 sm:w-11"
-        >
-          <Bell className="h-5 w-5 text-zinc-800" />
+      <div className="flex shrink-0 items-center gap-1">
+        <ThemeToggle />
 
-          <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-indigo-500" />
-        </Button>
-
-        {/* User */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              aria-label="Open user menu"
-              className="h-10 rounded-xl border border-blue-600 px-1.5 hover:bg-[#FFDDB0] sm:h-12 sm:px-2"
-            >
-              <Avatar className="h-8 w-8 sm:h-9 sm:w-9">
-                <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-cyan-500 font-semibold text-white">
-                  JD
-                </AvatarFallback>
-              </Avatar>
-
-              {/* User details - hidden on mobile */}
-              <div className="ml-3 hidden text-left lg:block">
-                <p className="text-sm font-medium text-black">
-                  John Doe
-                </p>
-
-                <p className="text-xs text-zinc-800">
-                  Free Plan
-                </p>
-              </div>
-
-              {/* Chevron */}
-              <ChevronDown className="ml-2 hidden h-4 w-4 text-slate-800 sm:block lg:ml-3" />
+            <Button variant="ghost" size="icon" aria-label="Help and resources">
+              <LifeBuoy />
             </Button>
           </DropdownMenuTrigger>
 
-          <DropdownMenuContent
-            align="end"
-            sideOffset={8}
-            className="z-50 w-[calc(100vw-2rem)] max-w-64 rounded-xl border-2 border-blue-400 bg-[#FFDDB0] text-black shadow-lg shadow-indigo-500/20 sm:w-64"
-          >
-            <DropdownMenuLabel>
-              <div className="flex items-center gap-3">
-                <Avatar className="h-10 w-10 shrink-0">
-                  <AvatarFallback className="bg-gradient-to-br from-indigo-500 to-cyan-500 text-white">
-                    JD
-                  </AvatarFallback>
-                </Avatar>
-
-                <div className="min-w-0">
-                  <p className="truncate font-medium">
-                    John Doe
-                  </p>
-
-                  <p className="truncate text-xs text-zinc-700">
-                    john@example.com
-                  </p>
-                </div>
-              </div>
+          <DropdownMenuContent align="end" sideOffset={8} className="w-56">
+            <DropdownMenuLabel className="font-mono text-[0.6875rem] font-normal tracking-widest text-muted-foreground uppercase">
+              Resources
             </DropdownMenuLabel>
 
-            <DropdownMenuSeparator />
-
-            <DropdownMenuItem>
-              <User className="mr-3 h-4 w-4" />
-              Profile
-            </DropdownMenuItem>
-
-            <DropdownMenuItem>
-              <Settings className="mr-3 h-4 w-4" />
-              Settings
-            </DropdownMenuItem>
-
-            <DropdownMenuItem>
-              <Shield className="mr-3 h-4 w-4" />
-              Privacy
-            </DropdownMenuItem>
+            {helpLinks.map(({ href, label, icon: Icon }) => (
+              <DropdownMenuItem key={href} asChild>
+                <Link href={href}>
+                  <Icon className="mr-2.5 size-4" />
+                  {label}
+                </Link>
+              </DropdownMenuItem>
+            ))}
 
             <DropdownMenuSeparator />
 
-            <DropdownMenuItem className="text-red-400 focus:text-red-400">
-              <LogOut className="mr-3 h-4 w-4" />
-              Logout
+            <DropdownMenuItem asChild>
+              <Link href="/">
+                <Home className="mr-2.5 size-4" />
+                Back to home
+              </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

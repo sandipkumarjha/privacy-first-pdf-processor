@@ -56,11 +56,11 @@ function OcrPageCard({ page, disabled, onToggle }: OcrPageCardProps) {
       aria-pressed={page.selected}
       aria-label={label}
       className={cn(
-        "relative flex flex-col gap-3 rounded-xl border-2 bg-white p-3 text-left",
+        "relative flex flex-col gap-3 rounded-xl border-2 bg-surface p-3 text-left",
         "shadow-sm transition-all",
         page.selected
-          ? "border-[var(--primary)] bg-[var(--accent)]/20"
-          : "border-[var(--secondary)]",
+          ? "border-foreground bg-accent-soft"
+          : "border-border",
         disabled
           ? "cursor-not-allowed opacity-60"
           : "cursor-pointer hover:shadow-md"
@@ -68,14 +68,14 @@ function OcrPageCard({ page, disabled, onToggle }: OcrPageCardProps) {
     >
       {page.selected && (
         <span
-          className="absolute right-2 top-2 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--primary)] text-white"
+          className="absolute right-2 top-2 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground"
           aria-hidden="true"
         >
           <Check className="h-3.5 w-3.5" />
         </span>
       )}
 
-      <div className="relative aspect-[210/297] w-full overflow-hidden rounded-lg border border-[var(--secondary)]/60 bg-white">
+      <div className="relative aspect-[210/297] w-full overflow-hidden rounded-lg border border-border bg-surface">
         <img
           src={page.thumbnail}
           alt={`Page ${page.pageNumber}`}
@@ -84,7 +84,7 @@ function OcrPageCard({ page, disabled, onToggle }: OcrPageCardProps) {
         />
       </div>
 
-      <p className="text-center text-sm font-medium text-[var(--foreground)]">
+      <p className="text-center text-sm font-medium text-foreground">
         Page {page.pageNumber}
       </p>
     </motion.button>
@@ -98,7 +98,7 @@ export function OcrPageGrid({
 }: OcrPageGridProps) {
   if (pages.length === 0) {
     return (
-      <p className="py-10 text-center text-sm text-[var(--muted-foreground)]">
+      <p className="py-10 text-center text-sm text-muted-foreground">
         No pages available.
       </p>
     );

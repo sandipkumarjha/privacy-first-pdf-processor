@@ -20,22 +20,21 @@ interface UploadButtonProps {
 const ACCEPTED_INPUT_TYPES = "application/pdf,.pdf";
 
 const VARIANT_CLASSES: Record<UploadButtonVariant, string> = {
-  primary:cn(
-    "bg-[var(--accent)] text-[var(--accent-foreground)]",
-    "shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_20px_-8px_rgba(0,0,0,0.15)]",
-    "hover:shadow-[0_2px_4px_rgba(0,0,0,0.06),0_14px_28px_-10px_rgba(0,0,0,0.22)]"
+  primary: cn(
+    "bg-primary text-primary-foreground",
+    "shadow-[inset_0_1px_0_rgb(255_255_255/0.14),var(--shadow-sm)]",
+    "hover:bg-[color-mix(in_oklch,var(--primary),var(--background)_14%)]"
   ),
-    
 
   secondary:
   cn(
-    "bg-[var(--surface)] text-[var(--foreground)] border border-[var(--border)]",
-    "hover:bg-[var(--surface-2)]"
+    "bg-surface text-foreground border border-border",
+    "hover:bg-surface-2"
   ),
   ghost:
   cn(
-    "bg-transparent text-[var(--foreground)]",
-    "hover:bg-[var(--accent-soft)]/40"
+    "bg-transparent text-foreground",
+    "hover:bg-accent-soft/40"
   ),
 };
 
@@ -88,21 +87,22 @@ function UploadButtonComponent({
         type="button"
         onClick={handleClick}
         disabled={disabled}
-        whileHover={disabled ? undefined : { scale: 1.02 }}
-        whileTap={disabled ? undefined : { scale: 0.97 }}
+                whileTap={disabled ? undefined : { scale: 0.98 }}
         transition={{ duration: 0.15 }}
         aria-label={label ?? defaultLabel}
         className={`
           inline-flex items-center justify-center gap-2
-          rounded-xl
-          px-5
-          py-3
+          rounded-lg
+          h-10
+          px-4
           text-sm
           font-medium
           transition-all
           outline-none
           focus-visible:ring-2
+          focus-visible:ring-ring/60
           focus-visible:ring-offset-2
+          focus-visible:ring-offset-background
           disabled:cursor-not-allowed
           disabled:opacity-50
           ${VARIANT_CLASSES[variant]}

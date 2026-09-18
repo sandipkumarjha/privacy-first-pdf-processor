@@ -66,11 +66,11 @@ export function PageThumbnail({
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       className={cn(
-        "relative flex flex-col gap-2 rounded-xl border bg-[var(--surface)] p-2 shadow-sm transition-all",
-        "border-[var(--border)]",
+        "relative flex flex-col gap-2 rounded-xl border bg-surface p-2 shadow-sm transition-all",
+        "border-border",
         isInteractive && "cursor-pointer hover:shadow-md",
         selected &&
-          "border-[var(--accent)] shadow-[0_0_0_3px_color-mix(in_srgb,var(--accent)_35%,transparent)]",
+          "border-foreground shadow-[0_0_0_3px_color-mix(in_srgb,var(--accent)_35%,transparent)]",
         disabled && "cursor-not-allowed opacity-50",
         className
       )}
@@ -80,7 +80,7 @@ export function PageThumbnail({
           initial={{ opacity: 0, scale: 0.6 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ type: "spring", stiffness: 400, damping: 20 }}
-          className="absolute right-2 top-2 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--accent)] text-white"
+          className="absolute right-2 top-2 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground"
           aria-hidden="true"
         >
           <Check className="h-3.5 w-3.5" />
@@ -89,14 +89,14 @@ export function PageThumbnail({
 
       {showCheckbox && !selected && (
         <span
-          className="absolute right-2 top-2 z-10 h-5 w-5 rounded-full border-2 border-[var(--border-strong)] bg-[var(--surface)]"
+          className="absolute right-2 top-2 z-10 h-5 w-5 rounded-full border-2 border-[var(--border-strong)] bg-surface"
           aria-hidden="true"
         />
       )}
 
-      <div className="relative aspect-[210/297] w-full overflow-hidden rounded-lg bg-[var(--surface-2)]">
+      <div className="relative aspect-[210/297] w-full overflow-hidden rounded-lg bg-surface-2">
         {loading ? (
-          <div className="h-full w-full animate-pulse bg-[var(--surface-2)]" />
+          <div className="h-full w-full animate-pulse bg-surface-2" />
         ) : (
           <motion.img
             src={thumbnail}
@@ -109,7 +109,7 @@ export function PageThumbnail({
       </div>
 
       {showPageNumber && (
-        <p className="text-center text-sm font-medium text-[var(--foreground)]">
+        <p className="text-center text-sm font-medium text-foreground">
           {pageNumber}
         </p>
       )}

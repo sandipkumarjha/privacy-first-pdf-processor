@@ -32,25 +32,25 @@ export function OcrProgress({
           transition={{ duration: 0.25, ease: "easeOut" }}
           role="status"
           aria-live="polite"
-          className="flex w-full flex-col gap-4 rounded-2xl border border-[var(--secondary)] bg-white p-4 shadow-sm sm:p-6"
+          className="flex w-full flex-col gap-4 rounded-2xl border border-border bg-surface p-4 shadow-sm sm:p-6"
         >
           <div className="flex items-center gap-3">
             <span
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--accent)]/40"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent-soft"
               aria-hidden="true"
             >
               {isCompleted ? (
-                <Check className="h-5 w-5 text-[var(--foreground)]" />
+                <Check className="h-5 w-5 text-foreground" />
               ) : (
-                <Loader2 className="h-5 w-5 animate-spin text-[var(--foreground)]" />
+                <Loader2 className="h-5 w-5 animate-spin text-foreground" />
               )}
             </span>
 
             <div className="min-w-0 flex-1">
-              <p className="text-sm font-semibold text-[var(--foreground)]">
+              <p className="text-sm font-semibold text-foreground">
                 Processing PDF
               </p>
-              <p className="truncate text-sm text-[var(--muted-foreground)]">
+              <p className="truncate text-sm text-muted-foreground">
                 {isCompleted ? "OCR completed" : currentStep}
               </p>
             </div>
@@ -62,17 +62,17 @@ export function OcrProgress({
               aria-valuemin={0}
               aria-valuemax={100}
               aria-valuenow={clampedPercentage}
-              className="h-2 w-full overflow-hidden rounded-full bg-[var(--background)]"
+              className="h-2 w-full overflow-hidden rounded-full bg-background"
             >
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${clampedPercentage}%` }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
-                className="h-full rounded-full bg-[var(--primary)]"
+                className="h-full rounded-full bg-primary"
               />
             </div>
 
-            <div className="flex items-center justify-between text-xs text-[var(--muted-foreground)]">
+            <div className="flex items-center justify-between text-xs text-muted-foreground">
               <span>
                 Page {currentPage} of {totalPages}
               </span>

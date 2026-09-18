@@ -34,7 +34,7 @@ export function OcrLanguageSelector({
       <label
         htmlFor="ocr-language"
         className={cn(
-          "text-sm font-medium text-[var(--foreground)]",
+          "text-sm font-medium text-foreground",
           disabled && "opacity-60"
         )}
       >
@@ -48,8 +48,8 @@ export function OcrLanguageSelector({
         disabled={disabled}
         aria-label="OCR Language"
         className={cn(
-          "w-full rounded-xl border border-[var(--secondary)] bg-white px-3 py-2 text-sm text-[var(--foreground)] shadow-sm outline-none transition-colors",
-          "focus:border-[var(--primary)]",
+          "w-full rounded-xl border border-border bg-surface px-3 py-2 text-sm text-foreground shadow-sm outline-none transition-colors",
+          "focus:border-foreground",
           "disabled:cursor-not-allowed disabled:opacity-60"
         )}
       >

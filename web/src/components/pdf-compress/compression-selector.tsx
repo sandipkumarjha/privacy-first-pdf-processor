@@ -79,12 +79,12 @@ export function CompressionSelector({
               className={cn(
                 "relative flex flex-col items-start gap-2 rounded-lg border-2 bg-background p-4 text-left transition-colors",
                 isSelected
-                  ? "border-orange-500 bg-orange-500/10 dark:border-orange-400 dark:bg-orange-400/10"
-                  : "border-border hover:border-orange-500/40 hover:bg-muted/40"
+                  ? "border-foreground bg-accent-soft"
+                  : "border-border hover:border-foreground/50 hover:bg-muted/40"
               )}
             >
               {isSelected && (
-                <span className="absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full bg-orange-500 text-white dark:bg-orange-400">
+                <span className="absolute right-3 top-3 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground">
                   <Check className="h-3.5 w-3.5" />
                 </span>
               )}
@@ -93,7 +93,7 @@ export function CompressionSelector({
                 className={cn(
                   "h-6 w-6",
                   isSelected
-                    ? "text-orange-600 dark:text-orange-400"
+                    ? "text-foreground"
                     : "text-muted-foreground"
                 )}
               />
@@ -111,7 +111,7 @@ export function CompressionSelector({
                 className={cn(
                   "text-xs font-medium",
                   isSelected
-                    ? "text-orange-600 dark:text-orange-400"
+                    ? "text-foreground"
                     : "text-muted-foreground"
                 )}
               >

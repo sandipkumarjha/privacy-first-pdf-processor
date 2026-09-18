@@ -1,27 +1,25 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
-  Search,
   Merge,
-  Split,
   RotateCw,
+  ScanText,
   Scissors,
-  Shield,
+  Search,
+  Split,
   Wand2,
   Zap,
 } from "lucide-react";
 
+import { cn } from "@/lib/cn";
+import { Input } from "@/components/ui/input";
+import { SectionHeading } from "@/components/ui/section-heading";
+import { DURATION, EASE_OUT, stagger } from "@/components/ui/motion";
 import { ToolCard } from "./ToolCard";
 
-const categories = [
-  "All",
-  "Edit",
-  "Convert",
-  "Security",
-  "AI",
-];
+const categories = ["All", "Edit", "Convert", "Security", "AI"];
 
 const tools = [
   {
@@ -29,7 +27,6 @@ const tools = [
     description: "Combine multiple PDF files into one document.",
     href: "/merge",
     icon: Merge,
-    gradient: "from-blue-500 to-cyan-500",
     badge: "Popular",
     category: "Edit",
   },
@@ -38,7 +35,6 @@ const tools = [
     description: "Extract selected pages from any PDF.",
     href: "/split",
     icon: Split,
-    gradient: "from-purple-500 to-pink-500",
     badge: "Fast",
     category: "Edit",
   },
@@ -47,7 +43,6 @@ const tools = [
     description: "Reduce file size while maintaining quality.",
     href: "/compress",
     icon: Zap,
-    gradient: "from-amber-500 to-orange-500",
     badge: "New",
     category: "Convert",
   },
@@ -56,23 +51,20 @@ const tools = [
     description: "Rotate pages with a single click.",
     href: "/rotate",
     icon: RotateCw,
-    gradient: "from-green-500 to-emerald-500",
     category: "Edit",
   },
   {
     title: "Extract Pages",
-    description: "Extract pages into a new PDF.",
+    description: "Pull selected pages out into a new PDF.",
     href: "/extract",
     icon: Scissors,
-    gradient: "from-rose-500 to-red-500",
     category: "Convert",
   },
   {
     title: "Watermark",
-    description: "Protect your PDFs with text or image watermark.",
+    description: "Protect your PDFs with a text or image watermark.",
     href: "/watermark",
     icon: Wand2,
-    gradient: "from-indigo-500 to-violet-500",
     badge: "Popular",
     category: "Security",
   },
@@ -80,8 +72,7 @@ const tools = [
     title: "OCR",
     description: "Extract text from scanned PDF documents.",
     href: "/ocr",
-    icon: Shield,
-    gradient: "from-cyan-500 to-blue-500",
+    icon: ScanText,
     badge: "AI",
     category: "AI",
   },
@@ -92,149 +83,97 @@ export function ToolsGrid() {
   const [search, setSearch] = useState("");
 
   const filteredTools = useMemo(() => {
+    const query = search.trim().toLowerCase();
+
     return tools.filter((tool) => {
       const categoryMatch =
-        selectedCategory === "All" ||
-        tool.category === selectedCategory;
+        selectedCategory === "All" || tool.category === selectedCategory;
 
       const searchMatch =
-        tool.title.toLowerCase().includes(search.toLowerCase()) ||
-        tool.description.toLowerCase().includes(search.toLowerCase());
+        !query ||
+        tool.title.toLowerCase().includes(query) ||
+        tool.description.toLowerCase().includes(query);
 
       return categoryMatch && searchMatch;
     });
   }, [selectedCategory, search]);
 
   return (
-    <section className="space-y-8">
+    <section className="space-y-6">
+      <SectionHeading
+        title="PDF tools"
+        description="Everything runs locally inside your browser."
+        actions={
+          <div className="w-full lg:w-72">
+            <Input
+              icon={Search}
+              type="search"
+              placeholder="Search tools…"
+              aria-label="Search tools"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+        }
+      />
 
-      {/* Header */}
+      {/* Category filter */}
+      <div className="flex flex-wrap gap-2" role="tablist" aria-label="Tool categories">
+        {categories.map((category) => {
+          const active = selectedCategory === category;
 
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-
-        <div>
-          <h2 className="text-3xl font-bold text-black">
-            PDF Tools
-          </h2>
-
-          <p className="mt-2 text-zinc-800">
-            Everything runs locally inside your browser.
-          </p>
-        </div>
-
-        {/* Search */}
-
-        <div className="relative w-full lg:w-96">
-          <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-zinc-700" />
-
-          <input
-            type="text"
-            placeholder="Search tools..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="
-            h-12
-            w-full
-            rounded-xl
-            border
-            border-white/10
-            bg-[#5e82cf]
-            pl-12
-            pr-4
-            text-black
-            outline-none
-            transition
-            focus:border-indigo-500
-            "
-          />
-        </div>
-
+          return (
+            <button
+              key={category}
+              role="tab"
+              aria-selected={active}
+              onClick={() => setSelectedCategory(category)}
+              className={cn(
+                "rounded-full border px-4 py-1.5 text-sm transition-colors duration-150",
+                active
+                  ? "border-foreground bg-foreground font-medium text-background"
+                  : "border-border bg-surface text-muted hover:border-border-strong hover:text-foreground"
+              )}
+            >
+              {category}
+            </button>
+          );
+        })}
       </div>
 
-      {/* Categories */}
-
-      <div className="flex flex-wrap gap-3">
-
-        {categories.map((category) => (
-
-          <button
-            key={category}
-            onClick={() => setSelectedCategory(category)}
-            className={`rounded-full px-5 py-2 text-sm font-medium transition-all duration-300
-
-            ${
-              selectedCategory === category
-                ? "bg-blue-500 text-black shadow-lg"
-                : "border border-white/10 bg-[#6db3ed] text-zinc-800 hover:border-indigo-500 hover:text-black"
-            }
-            `}
-          >
-            {category}
-          </button>
-
-        ))}
-
-      </div>
-
-      {/* Grid */}
-
-      <motion.div
-        layout
-        className="grid gap-6 md:grid-cols-2 xl:grid-cols-3"
-      >
+      <motion.div layout className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         <AnimatePresence mode="popLayout">
-
           {filteredTools.map((tool, index) => (
-
             <motion.div
               layout
               key={tool.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{
-                opacity: 0,
-                scale: 0.9,
-              }}
+              exit={{ opacity: 0, scale: 0.97 }}
               transition={{
-                delay: index * 0.06,
-                duration: 0.4,
+                duration: DURATION.base,
+                ease: EASE_OUT,
+                delay: stagger(index, 0.04),
               }}
             >
               <ToolCard {...tool} />
             </motion.div>
-
           ))}
-
         </AnimatePresence>
       </motion.div>
 
-      {/* Empty State */}
-
       {filteredTools.length === 0 && (
-
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="
-          rounded-3xl
-          border
-          border-dashed
-          border-white/10
-          py-20
-          text-center
-          "
+          className="rounded-2xl border border-dashed border-border-strong bg-surface-2/50 py-16 text-center"
         >
-          <h3 className="text-xl font-semibold text-black">
-            No tools found
-          </h3>
-
-          <p className="mt-2 text-zinc-800">
+          <h3 className="text-lg font-semibold">No tools found</h3>
+          <p className="mt-1.5 text-sm text-muted">
             Try another keyword or category.
           </p>
         </motion.div>
-
       )}
-
     </section>
   );
 }

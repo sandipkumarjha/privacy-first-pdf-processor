@@ -2,6 +2,9 @@
 
 import { motion } from 'framer-motion'
 import { Cpu, ShieldOff, Gauge, WifiOff, KeyRound, ScanEye } from 'lucide-react'
+import { IconTile } from '@/components/ui/icon-tile'
+import { DURATION, EASE_OUT, stagger } from '@/components/ui/motion'
+import { SectionIntro } from './section-intro'
 
 const features = [
   {
@@ -32,7 +35,7 @@ const features = [
     icon: KeyRound,
     title: 'No account needed',
     description:
-      'Every tool works without signing up. Accounts only exist to save your preferences.',
+      'Every tool works without signing up. There is nothing to register for and no profile to build.',
   },
   {
     icon: ScanEye,
@@ -45,60 +48,45 @@ const features = [
 export function Features() {
   return (
     <section
-  id="features"
-  className="relative overflow-hidden border-b border-border py-24 lg:py-32"
->
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-  <div className="absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 rounded-full blur-[120px]" />
-</div>
+      id="features"
+      className="relative overflow-hidden border-b border-border py-24 lg:py-32"
+    >
       <div className="container-wrapper">
-  <div className="max-w-3xl text-center mx-auto">
-    <p className="font-mono text-xl uppercase tracking-[0.25em] text-accent font-bold ">
-      WHY IT'S DIFFERENT
-    </p>
+        <SectionIntro
+          index="02"
+          eyebrow="Why it's different"
+          title="Everything happens"
+          emphasis="on your device."
+          description="Privacy isn't a feature — it's the foundation. Every PDF operation runs locally inside your browser."
+        />
 
-    <h2 className="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">
-      Everything happens
-      <span className="gradient-text"> on your device</span>
-    </h2>
-
-    <p className="mt-6 text-lg text-muted">
-      Privacy isn't a feature—it's the foundation. Every PDF operation runs
-      locally inside your browser.
-    </p>
-  </div>
-
-  
-
-        <div className="mt-12 grid gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+        {/* One bordered sheet divided by hairlines, rather than six
+            floating cards: calmer, and it reads as a spec sheet. */}
+        <div className="mt-16 grid gap-px overflow-hidden rounded-2xl border border-border bg-border elevate-sm sm:grid-cols-2 lg:grid-cols-3">
           {features.map((f, i) => (
             <motion.div
-            key={f.title}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{
-              duration: 0.5,
-              delay: i * 0.08,
-            }}
-            whileHover={{
-              y: -8,
-              scale: 1.04,
-            }}
-            className="group rounded-3xl border border-border bg-surface/70 p-8 backdrop-blur-xl transition-all duration-300 hover:border-accent/40 hover:shadow-[0_30px_80px_rgba(99,102,241,0.18)]"
-          >
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/10 border-4 border-accent/20 transition-colors group-hover:bg-accent group-hover:text-blue-400">
-              <f.icon className="h-7 w-7 text-accent group-hover:text-white" />
-            </div>
-          
-            <h3 className="mt-6 text-xl font-semibold">
-              {f.title}
-            </h3>
-          
-            <p className="mt-3 leading-7 text-muted">
-              {f.description}
-            </p>
-          </motion.div>
+              key={f.title}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{
+                duration: DURATION.slow,
+                ease: EASE_OUT,
+                delay: stagger(i),
+              }}
+              className="group bg-surface p-8 transition-colors duration-200 hover:bg-surface-2"
+            >
+              <div className="flex items-center justify-between">
+                <IconTile icon={f.icon} tone="neutral" />
+                <span className="font-mono text-xs text-muted-foreground">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+              </div>
+
+              <h3 className="mt-6 text-lg font-semibold">{f.title}</h3>
+
+              <p className="mt-2.5 leading-7 text-muted">{f.description}</p>
+            </motion.div>
           ))}
         </div>
       </div>

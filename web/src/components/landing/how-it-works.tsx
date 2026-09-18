@@ -3,6 +3,10 @@
 import { motion } from 'framer-motion'
 import { FileText, Cpu, Download } from 'lucide-react'
 
+import { IconTile } from '@/components/ui/icon-tile'
+import { DURATION, EASE_OUT, cardHover, stagger } from '@/components/ui/motion'
+import { SectionIntro } from './section-intro'
+
 const steps = [
   {
     number: '01',
@@ -36,34 +40,22 @@ export function HowItWorks() {
       
 
       <div className="container-wrapper relative">
-        {/* Heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: .6 }}
-          className="mx-auto max-w-3xl text-center"
-        >
-          <span className="inline-flex rounded-full border-2 border-[#ffddb0] bg-white px-4 py-1 text-xl font-bold uppercase tracking-[0.2em] text-accent">
-            HOW IT WORKS
-          </span>
-
-          <h2 className="mt-6 text-xl font-bold tracking-tight md:text-5xl">
-            Three simple steps.
-            <span className="gradient-text"> Zero servers.</span>
-          </h2>
-
-          <p className="mt-6 text-lg text-muted text-zinc-700">
-            Every operation happens locally inside your browser. Your files never
-            leave your device—not even for a second.
-          </p>
-        </motion.div>
+        <SectionIntro
+          index="03"
+          eyebrow="How it works"
+          title="Three simple steps."
+          emphasis="Zero servers."
+          description="Every operation happens locally inside your browser. Your files never leave your device — not even for a second."
+        />
 
         {/* Timeline */}
-        <div className="relative mt-24">
+        <div className="relative mt-20">
 
           {/* Desktop Connection Line */}
-          <div className="absolute left-[16%] right-[16%] top-12 hidden h-0.5 bg-linear-to-r from-indigo-500/40 via-cyan-400/70 to-indigo-500/40 lg:block" />
+          <div
+            aria-hidden="true"
+            className="absolute top-[52px] right-[16%] left-[16%] hidden h-px bg-gradient-to-r from-transparent via-border-strong to-transparent lg:block"
+          />
 
           <div className="grid gap-12 lg:grid-cols-3">
 
@@ -73,54 +65,50 @@ export function HowItWorks() {
               return (
                 <motion.div
                   key={step.number}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: true, margin: '-80px' }}
                   transition={{
-                    duration: .5,
-                    delay: index * .15,
+                    duration: DURATION.base,
+                    ease: EASE_OUT,
+                    delay: stagger(index, 0.1),
                   }}
-                  whileHover={{
-                    y: -10,
-                    scale: 1.04,
-                  }}
+                  whileHover={cardHover}
                   className="group relative"
                 >
                   {/* Desktop Dot */}
-                  <div className="absolute left-1/2 top-10 hidden h-4 w-4 -translate-x-1/2 rounded-full bg-accent shadow-[0_0_20px_rgba(99,102,241,.8)] lg:block" />
+                  <div
+                    aria-hidden="true"
+                    className="absolute top-[46px] left-1/2 hidden size-3 -translate-x-1/2 rounded-full border-2 border-background bg-accent-strong lg:block"
+                  />
 
                   {/* Mobile Vertical Line */}
                   {index !== steps.length - 1 && (
-                    <div className="absolute left-6 top-24 h-24 w-[2px] bg-gradient-to-b from-indigo-500/50 to-cyan-400/50 lg:hidden" />
+                    <div
+                      aria-hidden="true"
+                      className="absolute top-24 left-7 h-16 w-px bg-border-strong lg:hidden"
+                    />
                   )}
 
                   {/* Card */}
-                  <div className="rounded-3xl border-4 border-border bg-surface/70 p-8 backdrop-blur-xl transition-all duration-300 hover:border-accent/40 ">
-
-                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-accent/20 bg-accent/10 transition-all duration-300 group-hover:bg-accent">
-
-                      <Icon
-                        className="h-7 w-7 text-accent group-hover:text-white"
-                        strokeWidth={1.8}
-                      />
-                    </div>
+                  <div className="h-full rounded-2xl border border-border bg-surface/80 p-7 backdrop-blur-xl elevate-sm transition-[border-color,box-shadow] duration-200 hover:border-border-strong hover:elevate-md">
+                    <IconTile icon={Icon} tone="neutral" size="lg" />
 
                     <div className="mt-6 flex items-center gap-3">
-                      <span className="font-mono text-xl text-accent">
+                      <span className="font-display text-3xl leading-none">
                         {step.number}
                       </span>
 
                       <div className="h-px flex-1 bg-border" />
                     </div>
 
-                    <h3 className="mt-5 text-2xl font-semibold">
+                    <h3 className="mt-5 text-xl font-semibold">
                       {step.title}
                     </h3>
 
-                    <p className="mt-4 leading-7 text-muted">
+                    <p className="mt-3 leading-7 text-muted">
                       {step.description}
                     </p>
-
                   </div>
                 </motion.div>
               )

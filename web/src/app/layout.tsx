@@ -1,31 +1,35 @@
 import type { Metadata } from 'next'
-import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google'
+import { Instrument_Serif, Inter, JetBrains_Mono } from 'next/font/google'
 import { themeInitScript } from '@/lib/theme-script'
 import './globals.css'
 import { PageLoaderProvider } from "@/components/providers/page-loader-provider";
 
-const display = Space_Grotesk({
+const display = Instrument_Serif({
   subsets: ['latin'],
-  variable: '--font-display',
-  weight: ['500', '700'],
+  variable: '--font-display-var',
+  weight: '400',
+  style: ['normal', 'italic'],
   display: 'swap',
 })
 
 const sans = Inter({
   subsets: ['latin'],
-  variable: '--font-sans',
+  variable: '--font-sans-var',
   display: 'swap',
 })
 
 const mono = JetBrains_Mono({
   subsets: ['latin'],
-  variable: '--font-mono',
+  variable: '--font-mono-var',
   weight: ['400', '500'],
   display: 'swap',
 })
 
 export const metadata: Metadata = {
-  title: 'privacy/pdf — Your PDFs never leave your device',
+  title: {
+    default: 'privacy/pdf — Your PDFs never leave your device',
+    template: '%s · privacy/pdf',
+  },
   description:
     'Merge, split, compress, and edit PDFs entirely inside your browser. No upload, no cloud processing, nothing to breach.',
   metadataBase: new URL('https://privacy-pdf.app'),
@@ -51,7 +55,9 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
-      <body>  <PageLoaderProvider>{children}</PageLoaderProvider></body>
+      <body>
+        <PageLoaderProvider>{children}</PageLoaderProvider>
+      </body>
     </html>
   )
 }

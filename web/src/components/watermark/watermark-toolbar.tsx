@@ -36,10 +36,10 @@ const POSITION_OPTIONS: { value: WatermarkPosition; label: string }[] = [
   { value: "bottom-right", label: "Bottom Right" },
 ];
 
-const fieldLabelClasses = "text-sm font-medium text-[var(--foreground)]";
-const fieldValueClasses = "text-xs font-medium text-[var(--muted-foreground)]";
+const fieldLabelClasses = "text-sm font-medium text-foreground";
+const fieldValueClasses = "text-xs font-medium text-muted-foreground";
 const inputClasses =
-  "w-full rounded-xl border border-[var(--secondary)] bg-white px-3 py-2 text-sm text-[var(--foreground)] shadow-sm outline-none transition-colors focus:border-[var(--primary)]";
+  "w-full rounded-xl border border-border bg-surface px-3 py-2 text-sm text-foreground shadow-sm outline-none transition-colors focus:border-foreground";
 
 export function WatermarkToolbar({
   settings,
@@ -76,14 +76,14 @@ export function WatermarkToolbar({
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: "easeOut" }}
-      className="flex flex-col gap-5 rounded-2xl border border-[var(--secondary)] bg-white p-4 shadow-sm sm:p-6"
+      className="flex flex-col gap-5 rounded-2xl border border-border bg-surface p-4 shadow-sm sm:p-6"
     >
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--accent)]/40">
-            <Type className="h-4 w-4 text-[var(--foreground)]" aria-hidden="true" />
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent-soft">
+            <Type className="h-4 w-4 text-foreground" aria-hidden="true" />
           </span>
-          <p className="text-sm font-semibold text-[var(--foreground)]">
+          <p className="text-sm font-semibold text-foreground">
             Watermark Settings
           </p>
         </div>
@@ -97,8 +97,8 @@ export function WatermarkToolbar({
           whileTap={isProcessing ? undefined : { scale: 0.98 }}
           transition={{ duration: 0.15, ease: "easeOut" }}
           className={cn(
-            "inline-flex items-center justify-center gap-2 rounded-xl bg-transparent px-4 py-2.5 text-sm font-medium text-[var(--foreground)] transition-colors",
-            "hover:bg-[var(--accent)]/30",
+            "inline-flex items-center justify-center gap-2 rounded-xl bg-transparent px-4 py-2.5 text-sm font-medium text-foreground transition-colors",
+            "hover:bg-surface-2",
             "disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:bg-transparent"
           )}
         >
@@ -194,7 +194,7 @@ export function WatermarkToolbar({
             value={settings.color}
             onChange={handleColorChange}
             disabled={isProcessing}
-            className="h-10 w-full cursor-pointer rounded-xl border border-[var(--secondary)] bg-white p-1 shadow-sm disabled:cursor-not-allowed disabled:opacity-60"
+            className="h-10 w-full cursor-pointer rounded-xl border border-border bg-surface p-1 shadow-sm disabled:cursor-not-allowed disabled:opacity-60"
           />
         </div>
 

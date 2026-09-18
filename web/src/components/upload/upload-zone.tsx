@@ -1,10 +1,9 @@
-// components/pdf-upload/upload-zone.tsx
-
 "use client";
 
 import { memo, useCallback, useRef } from "react";
 import { motion } from "framer-motion";
 import { UploadCloud } from "lucide-react";
+import { cn } from "@/lib/cn";
 
 
 interface UploadZoneProps {
@@ -95,26 +94,17 @@ function UploadZoneComponent({
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      animate={{
-        scale: isDragging ? 1.01 : 1,
-        borderColor: isDragging
-          ? "var(--upload-zone-active-border, #f97316)"
-          : "var(--upload-zone-border, #d4d4d8)",
-      }}
-      transition={{ duration: 0.18, ease: "easeOut" }}
-      className={`
-        relative flex w-full flex-col items-center justify-center
-        rounded-2xl border-2 border-dashed
-        
-        bg-white/50 dark:bg-zinc-900/40
-        px-6 py-12 sm:py-16
-        text-center cursor-pointer
-        outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2
-        transition-colors
-        ${disabled ? "cursor-not-allowed opacity-50" : "hover:border-orange-400"}
-        ${isDragging ? "bg-orange-50/60 dark:bg-orange-950/20" : ""}
-        ${className}
-      `}
+className={cn(
+        "group relative flex w-full cursor-pointer flex-col items-center justify-center overflow-hidden",
+        "rounded-2xl border border-dashed border-border-strong bg-surface px-6 py-12 text-center sm:py-16",
+        "transition-[border-color,background-color,box-shadow] duration-200 outline-none",
+        "focus-visible:ring-2 focus-visible:ring-ring/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+        disabled
+          ? "cursor-not-allowed opacity-50"
+          : "hover:border-foreground/50 hover:bg-surface-2/60",
+        isDragging && "border-solid border-foreground bg-accent-soft elevate-md",
+        className
+      )}
     >
       <input
         ref={inputRef}
@@ -136,10 +126,10 @@ function UploadZoneComponent({
   
 
         <span
-          className="flex h-14 w-14 items-center justify-center rounded-full bg-orange-100 dark:bg-orange-500/10"
+          className="flex size-14 items-center justify-center rounded-2xl border border-border bg-surface elevate-sm"
           aria-hidden="true"
         >
-          <UploadCloud className="h-6 w-6 text-orange-600 dark:text-orange-400" />
+          <UploadCloud className="size-6 text-foreground" strokeWidth={1.75} />
         </span>
 
         {children}

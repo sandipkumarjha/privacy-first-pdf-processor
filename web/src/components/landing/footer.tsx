@@ -1,146 +1,114 @@
-'use client'
-
 import Link from 'next/link'
-import { motion } from 'framer-motion'
-import { FaGithub, FaXTwitter } from 'react-icons/fa6'
+import { FaGithub } from 'react-icons/fa6'
+import { ShieldCheck, WifiOff, Lock } from 'lucide-react'
 
+import { navigationItems } from '@/components/layout/nav-items'
+import { Logo } from './navbar'
+
+const REPO_URL = 'https://github.com/sandipkumarjha/privacy-first-pdf-processor'
+
+// Every href here resolves to a real route or section.
 const columns = [
+  {
+    heading: 'Tools',
+    links: navigationItems
+      .filter((item) => item.href !== '/dashboard')
+      .map((item) => ({ label: item.title, href: item.href })),
+  },
   {
     heading: 'Product',
     links: [
-      { label: 'Features', href: '#features' },
-      { label: 'How it Works', href: '#how-it-works' },
-      { label: 'Pricing', href: '/pricing' },
+      { label: 'Dashboard', href: '/dashboard' },
+      { label: 'Features', href: '/#features' },
+      { label: 'How it works', href: '/#how-it-works' },
+      { label: 'FAQ', href: '/#faq' },
     ],
   },
   {
     heading: 'Resources',
     links: [
       { label: 'Documentation', href: '/docs' },
-      { label: 'FAQ', href: '#faq' },
-      { label: 'Changelog', href: '/changelog' },
-    ],
-  },
-  {
-    heading: 'Legal',
-    links: [
       { label: 'Privacy Policy', href: '/privacy-policy' },
       { label: 'Terms of Service', href: '/terms' },
     ],
   },
 ]
 
+const promises = [
+  { icon: ShieldCheck, label: '100% local processing' },
+  { icon: WifiOff, label: 'Works offline' },
+  { icon: Lock, label: 'Privacy by design' },
+]
+
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-border ml-10">
-
-      {/* Background Glow */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/2 bottom-0 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-indigo-500/10 blur-[120px]" />
-      </div>
-
-      <div className="container-wrapper relative py-20">
-
-        <div className="grid gap-16 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
-
+    <footer className="relative overflow-hidden bg-surface-2/60">
+      <div className="container-wrapper relative py-16 lg:py-20">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-[1.6fr_1fr_1fr_1fr]">
           {/* Brand */}
+          <div className="col-span-2 md:col-span-1">
+            <Logo />
 
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: .5 }}
-          >
-            <Link href="/" className="inline-block">
-              <h3 className="text-2xl font-bold tracking-tight">
-                privacy
-                <span className="text-indigo-500">.</span>
-                pdf
-              </h3>
-            </Link>
-
-            <p className="mt-5 max-w-sm leading-7 text-muted">
+            <p className="mt-5 max-w-xs text-sm leading-6 text-muted">
               A privacy-first PDF toolkit that processes documents entirely
               inside your browser. No uploads, no accounts, no compromises.
             </p>
 
-            <div className="mt-8 flex gap-4">
-
-              <a
-                href="#"
-                aria-label="GitHub"
-                className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-surface transition-all duration-300 hover:-translate-y-1 hover:border-indigo-500/40 hover:bg-indigo-500/10 hover:text-indigo-400"
-              >
-                <FaGithub size={18} />
-              </a>
-
-              <a
-                href="#"
-                aria-label="X"
-                className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-surface transition-all duration-300 hover:-translate-y-1 hover:border-indigo-500/40 hover:bg-indigo-500/10 hover:text-indigo-400"
-              >
-                <FaXTwitter size={18} />
-              </a>
-
-            </div>
-          </motion.div>
-
-          {/* Navigation */}
-
-          {columns.map((column, index) => (
-            <motion.div
-              key={column.heading}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: .5,
-                delay: index * .08,
-              }}
+            <a
+              href={REPO_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-6 inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-3.5 py-2 text-sm text-muted transition-colors hover:border-border-strong hover:text-foreground"
             >
-              <h4 className="mb-5 text-sm font-semibold uppercase tracking-widest text-foreground">
-                {column.heading}
-              </h4>
+              <FaGithub size={16} />
+              View source
+            </a>
+          </div>
 
-              <ul className="space-y-4">
+          {/* Link columns */}
+          {columns.map((column) => (
+            <nav key={column.heading} aria-label={column.heading}>
+              <h3 className="font-mono text-xs font-medium tracking-widest text-muted-foreground uppercase">
+                {column.heading}
+              </h3>
+
+              <ul className="mt-5 space-y-3">
                 {column.links.map((link) => (
-                  <li key={link.label}>
+                  <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-muted transition-all duration-300 hover:translate-x-1 hover:text-accent"
+                      className="text-sm text-muted transition-colors hover:text-foreground"
                     >
                       {link.label}
                     </Link>
                   </li>
                 ))}
               </ul>
-            </motion.div>
+            </nav>
           ))}
-
         </div>
 
-        {/* Bottom */}
+        <div className="mt-14 flex flex-col items-start justify-between gap-5 border-t border-border pt-8 text-sm text-muted-foreground md:flex-row md:items-center">
+          <p>© {new Date().getFullYear()} privacy/pdf. All rights reserved.</p>
 
-        <div className="mt-16 flex flex-col items-center justify-between gap-6 border-t border-border pt-8 text-sm text-muted md:flex-row">
-
-          <div>
-            © {new Date().getFullYear()} Privacy PDF. All rights reserved.
-          </div>
-
-          <div className="flex flex-wrap items-center gap-6">
-
-            <span>🔒 100% Local Processing</span>
-
-            <span>⚡ Works Offline</span>
-
-            <span>🛡️ Privacy by Design</span>
-
-          </div>
-
+          <ul className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            {promises.map(({ icon: Icon, label }) => (
+              <li key={label} className="inline-flex items-center gap-1.5">
+                <Icon className="size-3.5" aria-hidden="true" />
+                {label}
+              </li>
+            ))}
+          </ul>
         </div>
 
+        {/* Oversized wordmark — pure decoration */}
+        <p
+          aria-hidden="true"
+          className="pointer-events-none mt-12 -mb-8 text-center font-display text-[clamp(4rem,17vw,15rem)] leading-none whitespace-nowrap text-foreground/[0.06] select-none lg:-mb-14"
+        >
+          privacy/pdf
+        </p>
       </div>
-
     </footer>
   )
 }
